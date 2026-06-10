@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Animed｜GLOBAL HEALTH BRIDGE</title>
+<meta name="description" content="海外でも、日本語で医療につながる。渡航前に薬と書類を整え、現地で迷わない。Animedは渡航前チェック・薬・英文書類・オンライン相談・現地連携・緊急対応を一つにするアプリです。">
+<meta name="theme-color" content="#fbf2ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 190'%3E%3Cpath d='M116 138 A24 24 0 0 1 164 138 Z' fill='%23c0392b'/%3E%3Cpath d='M44 162 Q140 15 236 162' fill='none' stroke='%234a3b34' stroke-width='15' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fffdfb; --bone:#fbf2ec; --bone2:#f6e9e1; --line:#ecdfd6; --line2:#e3d3c8;
+  --ink:#2e1f18; --stone:#4a3b34; --muted:#8a756b; --rose:#b08a7c;
+  --coral:#e94436; --deep:#c0392b; --coral-soft:#fff1ed;
+  --ok:#4a7c59; --ok-soft:#eef4ef; --warn:#c8853a; --warn-soft:#fbf1e4; --emg:#c0392b; --emg-soft:#fdecea;
+  --sans:'Inter','Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --serif:'Fraunces','Noto Serif JP',Georgia,serif;
+  --jpserif:'Noto Serif JP',serif;
+  --r:18px; --r-lg:24px; --shadow:0 14px 40px rgba(74,59,52,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:#efe4db;
+  background-image:radial-gradient(circle at 20% -5%, #fff6f1 0%, transparent 45%),radial-gradient(circle at 90% 8%, #f7eadf 0%, transparent 40%);
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit}
+.app{
+  max-width:440px; margin:0 auto; min-height:100dvh; position:relative;
+  background:var(--bone); display:flex; flex-direction:column;
+  box-shadow:0 0 0 1px var(--line), 0 30px 90px rgba(74,59,52,.18);
+}
+/* ---------- header ---------- */
+.topbar{
+  position:sticky; top:0; z-index:30; background:rgba(251,242,236,.92);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top) + 12px) 18px 12px; display:flex; align-items:center; gap:11px;
+}
+.topbar .mk{width:30px;height:24px;flex:none}
+.topbar .wm{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.2px;color:var(--ink);line-height:1}
+.topbar .tag{font-size:9.5px;letter-spacing:2.5px;color:var(--rose);font-weight:600;margin-top:2px}
+.topbar .brand{display:flex;flex-direction:column;justify-content:center}
+.topbar .spacer{flex:1}
+.iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;color:var(--stone);cursor:pointer}
+.iconbtn:active{transform:scale(.96)}
+/* ---------- main / screens ---------- */
+main{flex:1; padding:20px 18px 116px; overflow-x:hidden}
+.screen{display:none; animation:rise .32s ease}
+.screen.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen,.app *{animation:none!important}}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin:0 0 6px}
+h1.title{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.12;letter-spacing:-.01em;margin:0 0 6px;color:var(--ink)}
+.sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+h2.sec{font-family:var(--serif);font-weight:500;font-size:19px;margin:26px 0 12px;color:var(--ink)}
+/* ---------- home hero ---------- */
+.hero{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--paper);border:1px solid var(--line);padding:22px 20px;margin-bottom:18px}
+.hero .sphere{position:absolute;right:-60px;top:-40px;width:230px;height:230px;opacity:.9;pointer-events:none}
+.hero .hi{font-size:13px;color:var(--muted);margin:0}
+.hero .line{font-family:var(--jpserif);font-weight:600;font-size:22px;line-height:1.45;margin:6px 0 0;color:var(--ink);max-width:230px}
+.hero .accent{color:var(--deep)}
+/* ---------- trip status card ---------- */
+.tripcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;margin-bottom:16px}
+.tripcard .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tripcard .dest{font-family:var(--serif);font-weight:600;font-size:21px;color:var(--ink)}
+.tripcard .meta{font-size:13px;color:var(--muted);margin-top:2px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line2)}
+.chip.ok{background:var(--ok-soft);color:var(--ok);border-color:#cfe0d4}
+.chip.warn{background:var(--warn-soft);color:var(--warn);border-color:#eeddc2}
+.chip.emg{background:var(--emg-soft);color:var(--emg);border-color:#f2cfca}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.empty{background:var(--paper);border:1px dashed var(--line2);border-radius:var(--r-lg);padding:26px 20px;text-align:center;margin-bottom:16px}
+.empty .em-ill{width:52px;height:52px;margin:0 auto 10px;display:block}
+.empty p{margin:0 0 14px;color:var(--muted);font-size:14px}
+/* ---------- quick actions ---------- */
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.qa{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;color:var(--ink)}
+.qa:active{transform:scale(.985)}
+.qa .ic{width:40px;height:40px;flex:none;border-radius:11px;background:var(--bone2);display:grid;place-items:center;color:var(--stone)}
+.qa b{display:block;font-size:14px;font-weight:600;line-height:1.2}
+.qa small{color:var(--muted);font-size:11px}
+.qa.full{grid-column:1/-1}
+.qa.emg{background:var(--emg-soft);border-color:#f2cfca}
+.qa.emg .ic{background:#f8d5cf;color:var(--deep)}
+.qa.emg b{color:var(--deep)}
+/* ---------- forms ---------- */
+.field{margin-bottom:15px}
+.field > label{display:block;font-size:13px;font-weight:600;color:var(--stone);margin-bottom:6px}
+.field .hint{font-size:11.5px;color:var(--muted);font-weight:400}
+input[type=text],input[type=date],select,textarea{
+  width:100%;padding:13px 14px;border:1px solid var(--line2);border-radius:13px;background:var(--paper);
+  font-family:inherit;font-size:15px;color:var(--ink);
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--coral);outline-offset:1px;border-color:var(--coral)}
+textarea{resize:vertical;min-height:70px;line-height:1.6}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.opt{cursor:pointer}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid var(--line2);border-radius:999px;background:var(--paper);font-size:13px;font-weight:500;color:var(--stone)}
+.opt input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
+.opt.tone input:checked + span{background:var(--coral-soft);border-color:var(--coral);color:var(--deep)}
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:14px;font-size:15.5px;font-weight:600;border:1px solid transparent;cursor:pointer}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.coral{background:var(--coral);color:#fff;box-shadow:0 12px 26px rgba(233,68,54,.24)}
+.btn.ghost{background:var(--paper);border-color:var(--line2);color:var(--ink)}
+.btn.danger{background:var(--emg);color:#fff;box-shadow:0 12px 30px rgba(192,57,43,.3)}
+.btn-row{display:flex;gap:10px;margin-top:6px}
+.backlink{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px}
+/* ---------- list items ---------- */
+.li{display:flex;align-items:flex-start;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;margin-bottom:10px}
+.li .ic{width:38px;height:38px;flex:none;border-radius:11px;background:var(--bone2);display:grid;place-items:center;color:var(--stone)}
+.li .body{flex:1;min-width:0}
+.li .body b{font-size:14.5px;font-weight:600}
+.li .body p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.li .lvl{font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.lvl.ok{background:var(--ok-soft);color:var(--ok)}
+.lvl.warn{background:var(--warn-soft);color:var(--warn)}
+.lvl.emg{background:var(--emg-soft);color:var(--emg)}
+.addbar{display:flex;gap:8px;margin:6px 0 18px}
+.addbar input{flex:1}
+.addbar button{flex:none;width:50px;border-radius:13px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:22px;cursor:pointer}
+/* ---------- doc rows ---------- */
+.docrow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.docrow:last-child{border-bottom:0}
+.docrow .ic{color:var(--stone)}
+.docrow .nm{flex:1;font-size:14px;font-weight:500}
+.statebtn{font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);background:var(--paper);color:var(--muted);cursor:pointer}
+.statebtn[data-s="prep"]{background:var(--warn-soft);color:var(--warn);border-color:#eeddc2}
+.statebtn[data-s="done"]{background:var(--ok-soft);color:var(--ok);border-color:#cfe0d4}
+/* ---------- schedule ---------- */
+.slot{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:9px}
+.slot .when{font-size:14px;font-weight:600}
+.slot .who{font-size:12px;color:var(--muted)}
+.slot button{flex:none;font-size:13px;font-weight:600;padding:9px 15px;border-radius:11px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+/* ---------- emergency ---------- */
+.emg-hero{background:var(--emg-soft);border:1px solid #f2cfca;border-radius:var(--r-lg);padding:20px;margin-bottom:16px}
+.emg-hero .num{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--deep);line-height:1}
+.emg-hero .lbl{font-size:13px;color:var(--stone);font-weight:500}
+.gps{font-size:12.5px;color:var(--muted);margin-top:8px}
+/* ---------- note / disclaimer ---------- */
+.note{background:var(--coral-soft);border:1px solid #f6d6cf;border-radius:16px;padding:14px 16px;font-size:12.5px;color:#8a3a2f;margin-top:16px}
+.note b{color:var(--deep)}
+.callout{background:var(--bone2);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:13px;color:var(--stone);margin-top:14px}
+.callout b{color:var(--ink)}
+/* ---------- online call ---------- */
+.callstage{background:#3a2a24;border-radius:var(--r-lg);min-height:320px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+.ctimer{position:absolute;top:14px;left:16px;color:#f3e7df;font-size:12px;font-weight:600;background:rgba(0,0,0,.28);padding:4px 11px;border-radius:999px}
+.avatars{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+.av{display:flex;flex-direction:column;align-items:center;gap:8px}
+.av span{width:66px;height:66px;border-radius:50%;background:#5a4640;color:#fff;display:grid;place-items:center;font-size:26px;font-family:var(--serif)}
+.av.speaking span{box-shadow:0 0 0 3px var(--coral)}
+.av small{color:#e9d9cf;font-size:11px}
+.callctrls{display:flex;gap:9px;justify-content:center;margin-top:14px}
+.cbtn{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--paper);border:1px solid var(--line2);border-radius:14px;padding:11px 13px;font-size:10.5px;font-weight:600;color:var(--stone);cursor:pointer;flex:1}
+.cbtn.off{background:var(--bone2);color:var(--muted)}
+.cbtn.end{background:var(--emg);border-color:var(--emg);color:#fff}
+.cbtn svg{width:22px;height:22px}
+.tripcard ul{line-height:1.7}
+/* ---------- bottom nav ---------- */
+.tabbar{
+  position:sticky;bottom:0;z-index:30;max-width:440px;margin:0 auto;
+  background:rgba(255,253,251,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  padding:8px 6px calc(env(safe-area-inset-bottom) + 8px);
+}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;cursor:pointer;color:var(--muted);font-size:10.5px;font-weight:600;padding:5px 0}
+.tab svg{width:23px;height:23px}
+.tab.active{color:var(--deep)}
+.tab.active .nimbus{stroke:var(--deep)}
+/* toast */
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.3s;z-index:60;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.fade-foot{text-align:center;font-size:10.5px;color:var(--rose);letter-spacing:1.5px;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar">
+    <svg class="mk" viewBox="0 0 280 190" aria-hidden="true">
+      <path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/>
+      <line x1="120" y1="98" x2="120" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
+      <line x1="130" y1="98" x2="130" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
+      <line x1="140" y1="98" x2="140" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
+      <line x1="150" y1="98" x2="150" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
+      <line x1="160" y1="98" x2="160" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
+      <path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/>
+    </svg>
+    <div class="brand">
+      <span class="wm">Animed</span>
+      <span class="tag">GLOBAL HEALTH BRIDGE</span>
+    </div>
+    <span class="spacer"></span>
+    <button class="iconbtn" id="resetBtn" aria-label="データをリセット" title="データをリセット">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- ===================== HOME ===================== -->
+    <section class="screen active" data-screen="home">
+      <div class="hero">
+        <svg class="sphere" viewBox="0 0 230 230" aria-hidden="true">
+          <g fill="none" stroke="#e94436">
+            <circle cx="115" cy="115" r="92" stroke-opacity=".14"/>
+            <circle cx="115" cy="115" r="66" stroke-opacity=".11"/>
+            <ellipse cx="115" cy="115" rx="92" ry="34" stroke-opacity=".10"/>
+            <ellipse cx="115" cy="115" rx="34" ry="92" stroke-opacity=".10"/>
+          </g>
+          <g stroke="#e94436" stroke-opacity=".2" stroke-width=".9">
+            <line x1="60" y1="58" x2="150" y2="40"/><line x1="150" y1="40" x2="190" y2="120"/>
+            <line x1="190" y1="120" x2="120" y2="190"/><line x1="120" y1="190" x2="48" y2="135"/><line x1="48" y1="135" x2="60" y2="58"/>
+          </g>
+          <circle cx="60" cy="58" r="3.5" fill="#e94436"/><circle cx="150" cy="40" r="3" fill="#fff" stroke="#e94436" stroke-width="1.4"/>
+          <circle cx="190" cy="120" r="3" fill="#3a2a24"/><circle cx="120" cy="190" r="3.5" fill="#e94436"/><circle cx="48" cy="135" r="3" fill="#3a2a24"/>
+        </svg>
+        <p class="hi" id="greet">こんにちは</p>
+        <p class="line">海外でも、<br><span class="accent">日本語で医療につながる。</span></p>
+      </div>
+
+      <div id="homeTrip"></div>
+
+      <h2 class="sec">できること</h2>
+      <div class="quick">
+        <button class="qa" onclick="go('schedule')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a3.5 3.5 0 0 1-3.5 3.5h-7L4 19V7a3 3 0 0 1 3-3h8.5A3.5 3.5 0 0 1 19 7.5z"/><path d="M11.5 8.5l1 2 1.8.3-1.3 1.3.3 1.9-1.8-1-1.8 1 .3-1.9-1.3-1.3 1.8-.3z" stroke="#e94436"/></svg></span>
+          <span><b>医師・薬剤師に相談</b><small>オンラインで確認</small></span>
+        </button>
+        <button class="qa" onclick="go('meds')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/><circle cx="18.5" cy="6.5" r="2.5"/></svg></span>
+          <span><b>薬を確認</b><small>持込・同等薬</small></span>
+        </button>
+        <button class="qa" onclick="go('docs')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h4" stroke="#e94436"/></svg></span>
+          <span><b>書類を準備</b><small>英文診断書ほか</small></span>
+        </button>
+        <button class="qa" onclick="go('trip')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/><path d="M15.5 10l-1 1.2-1.3-.4" stroke="#e94436"/></svg></span>
+          <span><b>渡航を登録</b><small>国・期間・目的</small></span>
+        </button>
+        <button class="qa full emg" onclick="go('emergency')">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></span>
+          <span><b>緊急サポート</b><small>現在地・現地救急・日本語サポートへ</small></span>
+        </button>
+      </div>
+
+      <div id="homeAppt"></div>
+      <div id="homeSummary"></div>
+      <p class="fade-foot">ANIMA · 命を、世界へつなぐ</p>
+    </section>
+
+    <!-- ===================== TRIP ===================== -->
+    <section class="screen" data-screen="trip">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">STEP 1</p>
+      <h1 class="title">渡航を登録</h1>
+      <p class="sub">国と期間を入れると、必要な相談・薬・書類をAnimedが整理します。</p>
+
+      <div class="field">
+        <label for="f-country">渡航先（国）</label>
+        <select id="f-country"></select>
+      </div>
+      <div class="field">
+        <label for="f-city">都市 <span class="hint">任意</span></label>
+        <input type="text" id="f-city" placeholder="例：ドバイ">
+      </div>
+      <div class="two">
+        <div class="field"><label for="f-start">出発日</label><input type="date" id="f-start"></div>
+        <div class="field"><label for="f-end">帰国日</label><input type="date" id="f-end"></div>
+      </div>
+      <div class="field">
+        <label>目的</label>
+        <div class="seg" id="f-purpose"></div>
+      </div>
+      <div class="field">
+        <label>海外旅行保険</label>
+        <div class="seg">
+          <label class="opt"><input type="radio" name="ins" value="加入あり" checked><span>加入あり</span></label>
+          <label class="opt"><input type="radio" name="ins" value="会社・学校が加入"><span>会社・学校が加入</span></label>
+          <label class="opt"><input type="radio" name="ins" value="未加入・未確認"><span>未加入・未確認</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-comp">同行者 <span class="hint">任意</span></label>
+        <input type="text" id="f-city2" style="display:none">
+        <input type="text" id="f-comp" placeholder="例：会社の同僚2名 / 引率教員">
+      </div>
+      <button class="btn primary" onclick="saveTrip()">登録して次へ（問診）</button>
+    </section>
+
+    <!-- ===================== HEALTH ===================== -->
+    <section class="screen" data-screen="health">
+      <button class="backlink" onclick="go('trip')">‹ 渡航登録</button>
+      <p class="eyebrow">STEP 2</p>
+      <h1 class="title">問診</h1>
+      <p class="sub">あてはまるものを選んでください。医師・薬剤師の確認や書類の要否を判定します。</p>
+
+      <div class="field">
+        <label>持病・通院中の状態 <span class="hint">複数選択可</span></label>
+        <div class="seg" id="f-cond"></div>
+      </div>
+      <div class="field">
+        <label for="f-allergy">アレルギー <span class="hint">任意</span></label>
+        <input type="text" id="f-allergy" placeholder="例：ペニシリン、そば、ラテックス">
+      </div>
+      <div class="field">
+        <label>該当する場合</label>
+        <div class="seg">
+          <label class="opt tone"><input type="checkbox" id="f-preg"><span>妊娠中・妊娠の可能性</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>常用薬・持参したい薬 <span class="hint">薬の名前を入力して＋</span></label>
+        <div class="addbar">
+          <input type="text" id="f-medname" placeholder="例：マイスリー、ロキソニン、インスリン" onkeydown="if(event.key==='Enter')addMed()">
+          <button onclick="addMed()" aria-label="薬を追加">＋</button>
+        </div>
+        <div id="medList"></div>
+      </div>
+
+      <button class="btn primary" onclick="saveHealth()">判定する</button>
+      <div class="note"><b>大切なお願い：</b> 強い胸の痛み、意識がもうろうとする、呼吸が苦しい、手足のまひ、大量の出血、重いアレルギー症状があるときは、アプリの相談を待たず現地の救急に連絡してください。</div>
+    </section>
+
+    <!-- ===================== RESULT ===================== -->
+    <section class="screen" data-screen="result">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">判定結果</p>
+      <h1 class="title" id="res-dest">—</h1>
+      <p class="sub" id="res-lead">登録内容をもとに、渡航前に準備したいことを整理しました。</p>
+      <div class="chips" id="res-chips" style="margin-bottom:18px"></div>
+      <div id="res-items"></div>
+
+      <h2 class="sec">準備すると安心な書類</h2>
+      <div id="res-docs"></div>
+
+      <div class="btn-row">
+        <button class="btn coral" onclick="go('schedule')">相談を予約する</button>
+        <button class="btn ghost" onclick="go('docs')">書類を見る</button>
+      </div>
+      <div class="callout" id="res-countrynote"></div>
+      <div class="note"><b>注意：</b> この判定は支援範囲の目安です。医師の診断書や薬剤証明書は説明資料として有効ですが、持込や通関を保証するものではありません。最終確認は渡航国政府・大使館・税関・航空会社・現地医療機関の最新情報を優先してください。</div>
+    </section>
+
+    <!-- ===================== MEDS ===================== -->
+    <section class="screen" data-screen="meds">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">薬の確認</p>
+      <h1 class="title">薬の管理</h1>
+      <p class="sub">登録した薬の持込リスクと、現地で必要になりやすい対応をまとめます。</p>
+      <div class="addbar">
+        <input type="text" id="m-name" placeholder="薬の名前を追加" onkeydown="if(event.key==='Enter'){addMedFrom('m-name')}">
+        <button onclick="addMedFrom('m-name')" aria-label="薬を追加">＋</button>
+      </div>
+      <div id="medsAssess"></div>
+      <div class="callout"><b>同等薬の検索：</b> 現地で同じ薬が手に入らないときは、成分から現地の同等薬候補を薬剤師が確認します。相談予約からどうぞ。</div>
+    </section>
+
+    <!-- ===================== DOCS ===================== -->
+    <section class="screen" data-screen="docs">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">書類</p>
+      <h1 class="title">渡航書類</h1>
+      <p class="sub">医師・薬剤師の確認後に発行できます。状態をタップして進捗を管理できます。</p>
+      <div class="tripcard" style="padding:6px 16px"><div id="docList"></div></div>
+      <div class="callout">英文診断書・薬剤証明書・処方内容証明・紹介状は、相談で確認が済むと「準備完了」になります。学校・企業・保険会社向けのサマリも同じ場所から受け取れます。</div>
+    </section>
+
+    <!-- ===================== SCHEDULE (availability matching) ===================== -->
+    <section class="screen" data-screen="schedule">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">相談予約</p>
+      <h1 class="title">日程を合わせる</h1>
+      <p class="sub">医師・薬剤師・通訳の空き状況とあなたの希望を照合します。全員が空いている枠で確定すると、オンライン通話のリンクが発行されます。</p>
+      <div class="seg" style="margin-bottom:12px">
+        <label class="opt"><input type="radio" name="prov" value="doctor" checked onchange="renderSlots()"><span>医師</span></label>
+        <label class="opt"><input type="radio" name="prov" value="pharmacist" onchange="renderSlots()"><span>薬剤師</span></label>
+        <label class="opt"><input type="radio" name="prov" value="team" onchange="renderSlots()"><span>医師＋薬剤師</span></label>
+      </div>
+      <label class="opt tone" style="display:inline-block;margin-bottom:16px"><input type="checkbox" id="needInterp" onchange="renderSlots()"><span>通訳に同席してほしい</span></label>
+      <div id="slotList"></div>
+      <div class="callout">○＝空き　△＝調整可　×＝不可。あなたはいつでも参加できる前提で照合します。</div>
+    </section>
+
+    <!-- ===================== ONLINE CALL ===================== -->
+    <section class="screen" data-screen="call">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <div id="callPre">
+        <p class="eyebrow">オンライン通話</p>
+        <h1 class="title">まもなく開始</h1>
+        <p class="sub" id="callWhen">—</p>
+        <div class="tripcard" style="padding:6px 16px"><div id="callParties"></div></div>
+        <button class="btn coral" onclick="enterCall()">通話に参加する</button>
+        <div class="callout">通話の記録・要約は同意した場合のみ保存されます。終了後に相談サマリと書類の状態が更新されます。</div>
+      </div>
+      <div id="callLive" style="display:none">
+        <div class="callstage" id="callStage"></div>
+        <div class="callctrls">
+          <button class="cbtn" id="cMic" onclick="tgl('mic',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3"/></svg><small>マイク</small></button>
+          <button class="cbtn" id="cCam" onclick="tgl('cam',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg><small>カメラ</small></button>
+          <button class="cbtn off" id="cInt" onclick="tgl('int',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7M7 5c0 5-3 8-4 9M5 9c0 2 3 4 5 4"/><path d="M13 19l4-9 4 9M14.5 16h5"/></svg><small>通訳</small></button>
+          <button class="cbtn end" onclick="endCall()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c5-4 13-4 18 0l-2.5 3-3.5-1v-2c-2-.7-4-.7-6 0v2L5.5 12z"/></svg><small>終了</small></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EMERGENCY ===================== -->
+    <section class="screen" data-screen="emergency">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow" style="color:var(--deep)">緊急サポート</p>
+      <h1 class="title">いま困っている</h1>
+      <p class="sub">重い症状のときは、まず現地の救急へ。Animedは現在地の共有と日本語サポートをつなぎます。</p>
+      <div class="emg-hero">
+        <div class="lbl" id="emg-country">渡航先の救急番号</div>
+        <div class="num" id="emg-number">—</div>
+        <div class="gps" id="emg-gps">現在地：未取得</div>
+      </div>
+      <button class="btn danger" onclick="getGPS()" style="margin-bottom:10px">現在地を取得して共有</button>
+      <button class="btn ghost" onclick="toast('日本語サポートにつないでいます…')" style="margin-bottom:10px">日本語サポートに相談</button>
+      <button class="btn ghost" onclick="toast('近くの医療機関を表示します（連携先データ）')">近くの病院・薬局を探す</button>
+      <div class="note"><b>救急を最優先に：</b> 強い胸の痛み、意識障害、呼吸困難、まひ、大量出血、重いアレルギー症状は、アプリの操作より先に現地の救急番号へ連絡してください。</div>
+    </section>
+  </main>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab active" data-tab="home" onclick="go('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/></svg>ホーム</button>
+    <button class="tab" data-tab="trip" onclick="go('trip')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle class="nimbus" cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/></svg>渡航</button>
+    <button class="tab" data-tab="health" onclick="go('health')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M3 13h3l2-4 3 7 2-5 1.5 2H21"/></svg>けんこう</button>
+    <button class="tab" data-tab="docs" onclick="go('docs')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>書類</button>
+    <button class="tab" data-tab="emergency" onclick="go('emergency')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>緊急</button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ---------------- data ---------------- */
+const COUNTRIES = {
+  "アラブ首長国連邦（UAE）":{emg:"999",strict:["psycho","adhd","narcotic"],note:"向精神薬・睡眠薬・一部の市販薬（コデイン等）も事前許可が必要な場合があります。MoHAPの渡航者向け申請を確認します。"},
+  "タイ":{emg:"1669",strict:["narcotic","adhd"],note:"医療用麻薬・向精神薬は事前許可と数量制限があります。"},
+  "シンガポール":{emg:"995",strict:["psycho","adhd","narcotic"],note:"HSAの事前承認が必要な成分が多く、コデイン含有薬なども対象になり得ます。"},
+  "アメリカ（米国）":{emg:"911",strict:["narcotic"],note:"英文処方と原本の薬容器が推奨です。CBP/FDAの個人輸入ルールを確認します。"},
+  "韓国":{emg:"119",strict:["narcotic","psycho"],note:"向精神薬は事前申告が必要な場合があります。"},
+  "フィリピン":{emg:"911",strict:["narcotic","psycho"],note:"FDAの許可が必要な薬剤があります。"},
+  "ベトナム":{emg:"115",strict:["narcotic","psycho"],note:"規制薬は英文書類と申告が必要です。"},
+  "中国":{emg:"120",strict:["narcotic","psycho"],note:"成分により持込制限があります。英文書類を準備します。"},
+  "オーストラリア":{emg:"000",strict:["narcotic"],note:"3か月分を超える薬は申告が必要です。"},
+  "イギリス":{emg:"999",strict:["narcotic"],note:"規制薬は医師の書類と申告が必要です。"},
+  "その他の国":{emg:"—",strict:[],note:"渡航国の大使館・税関で薬剤の扱いを個別に確認します。"}
+};
+const PURPOSES = ["出張","海外赴任","留学・ワーホリ","修学旅行・研修","旅行","海外ロケ・ライブ","スポーツ遠征"];
+const CONDITIONS = [
+  {k:"hypertension",label:"高血圧・脂質異常症",lvl:"warn",docs:["英文薬剤証明書"]},
+  {k:"diabetes_oral",label:"糖尿病（飲み薬）",lvl:"warn",docs:["英文薬剤証明書"]},
+  {k:"diabetes_insulin",label:"糖尿病（インスリン）",lvl:"emg",docs:["英文診断書","薬剤証明書"]},
+  {k:"asthma",label:"喘息・COPD",lvl:"warn",docs:["英文診断書"]},
+  {k:"mental",label:"不眠・不安・精神科通院",lvl:"emg",docs:["英文診断書","処方内容証明書"]},
+  {k:"serious",label:"がん治療中・心不全・透析",lvl:"emg",docs:["英文診療情報提供書"]},
+  {k:"none",label:"特になし",lvl:"ok",docs:[]}
+];
+const MED_RULES = [
+  {cat:"psycho",label:"睡眠薬・抗不安薬・精神科の薬",lvl:"emg",kw:["マイスリー","ハルシオン","レンドルミン","ベンゾ","デパス","リーゼ","ソラナックス","レクサプロ","睡眠","抗不安","抗うつ","精神","ジアゼパム","ロラゼパム","エチゾラム"],docs:["英文診断書","処方内容証明書"],act:"渡航国ルールの確認と事前申請が必要になりやすい薬です。"},
+  {cat:"adhd",label:"ADHD治療薬・中枢神経刺激薬",lvl:"emg",kw:["コンサータ","ストラテラ","ビバンセ","メチルフェニデート","ADHD","アトモキセチン"],docs:["英文診断書","事前許可書類"],act:"渡航国により規制が厳しく、持込不可や事前許可が必要な場合があります。"},
+  {cat:"narcotic",label:"医療用麻薬・規制鎮痛薬",lvl:"emg",kw:["オピオイド","モルヒネ","オキシコ","トラマ","フェンタニル","医療用麻薬","コデイン"],docs:["英文診断書","輸出入手続書類"],act:"国別の輸出入手続き・事前許可・税関確認が必要です。郵送は原則不可。"},
+  {cat:"injection",label:"インスリン・注射薬・要冷蔵",lvl:"warn",kw:["インスリン","注射","GLP","オゼンピック","ヒューマログ","ランタス","ペン"],docs:["英文診断書","薬剤証明書"],act:"保冷方法・針やデバイスの説明・航空会社への確認を準備します。"},
+  {cat:"chronic",label:"慢性疾患の薬",lvl:"warn",kw:["降圧","血圧","アムロジ","ノルバスク","コレステ","スタチン","リピトール","糖尿","メトホルミン","尿酸","フェブリク","アロプリ"],docs:["英文薬剤証明書"],act:"処方内容と滞在日数分の数量を説明できる書類を準備します。"},
+  {cat:"antibiotic",label:"抗菌薬・抗ウイルス薬",lvl:"warn",kw:["抗生","抗菌","セフ","クラビット","タミフル","ゾフルーザ"],docs:[],act:"予防や携行の妥当性は医師が判断します。自己判断での使用は避けます。"},
+  {cat:"otc",label:"市販薬・セルフケア",lvl:"ok",kw:["ロキソニン","カロナール","解熱","鎮痛","胃","整腸","ビオフェルミン","正露丸","酔い止め","湿布","アレグラ","アレジオン","花粉"],docs:[],act:"渡航用セルフケアセットに入れやすい薬です。成分と数量を記録します。"}
+];
+const DEFAULT_DOCS = [
+  {id:"diag",name:"英文診断書",s:"none"},
+  {id:"drug",name:"英文薬剤証明書",s:"none"},
+  {id:"presc",name:"処方内容証明書",s:"none"},
+  {id:"allergy",name:"アレルギーカード",s:"none"},
+  {id:"emg",name:"緊急時医療情報カード",s:"none"},
+  {id:"org",name:"学校・企業向けサマリ",s:"none"},
+  {id:"ins",name:"保険会社向けサマリ",s:"none"},
+  {id:"ref",name:"現地医療機関向け紹介状",s:"none"}
+];
+const POLL=[
+  {when:"明日 19:30", av:{医師:"○",薬剤師:"△",通訳:"○"}},
+  {when:"明日 21:00", av:{医師:"○",薬剤師:"○",通訳:"○"}},
+  {when:"水 10:00",  av:{医師:"△",薬剤師:"○",通訳:"○"}},
+  {when:"水 18:00",  av:{医師:"○",薬剤師:"○",通訳:"△"}},
+  {when:"木 12:30",  av:{医師:"×",薬剤師:"○",通訳:"○"}}
+];
+const PROV_LABEL={doctor:"医師（渡航前診察）",pharmacist:"薬剤師（薬の相談）",team:"医師＋薬剤師"};
+
+/* ---------------- state ---------------- */
+const KEY="animed_app_v1";
+let state = load();
+function load(){
+  try{const j=localStorage.getItem(KEY);if(j)return JSON.parse(j);}catch(e){}
+  return {profile:{name:""},trip:null,health:{conditions:[],allergy:"",preg:false,meds:[]},appts:[],docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)),assessed:false,summary:null};
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+/* ---------------- nav ---------------- */
+const TAB_OF={home:"home",trip:"trip",health:"health",result:"home",meds:"health",docs:"docs",schedule:"home",call:"home",emergency:"emergency"};
+function go(scr){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===scr));
+  const tab=TAB_OF[scr]||scr;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  window.scrollTo({top:0,behavior:'instant'});
+  if(scr==='home')renderHome();
+  if(scr==='health')renderMedList();
+  if(scr==='result')renderResult();
+  if(scr==='meds')renderMedsScreen();
+  if(scr==='docs')renderDocs();
+  if(scr==='schedule')renderSlots();
+  if(scr==='call')renderCall();
+  if(scr==='emergency')renderEmergency();
+}
+
+/* ---------------- init form options ---------------- */
+function initForm(){
+  const cs=document.getElementById('f-country');
+  cs.innerHTML=Object.keys(COUNTRIES).map(c=>`<option>${c}</option>`).join('');
+  document.getElementById('f-purpose').innerHTML=PURPOSES.map((p,i)=>
+    `<label class="opt"><input type="radio" name="purpose" value="${p}" ${i===0?'checked':''}><span>${p}</span></label>`).join('');
+  document.getElementById('f-cond').innerHTML=CONDITIONS.map(c=>
+    `<label class="opt tone"><input type="checkbox" name="cond" value="${c.k}"><span>${c.label}</span></label>`).join('');
+}
+
+/* ---------------- HOME render ---------------- */
+function renderHome(){
+  document.getElementById('greet').textContent = state.profile.name? `こんにちは、${state.profile.name}さん` : 'こんにちは';
+  const t=state.trip, box=document.getElementById('homeTrip');
+  if(!t){
+    box.innerHTML=`<div class="empty">
+      <svg class="em-ill" viewBox="0 0 280 190"><path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/><path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/></svg>
+      <p>まだ渡航の予定が登録されていません。<br>国と期間を入れると準備が始まります。</p>
+      <button class="btn coral" onclick="go('trip')">渡航を登録する</button></div>`;
+  }else{
+    const a=assess();
+    const chips=summaryChips(a);
+    box.innerHTML=`<div class="tripcard">
+      <div class="row"><div><div class="dest">${t.country}${t.city?'・'+t.city:''}</div>
+      <div class="meta">${t.start||'—'} 〜 ${t.end||'—'}・${t.purpose}</div></div>
+      <span class="chip ${a.top}">${a.topLabel}</span></div>
+      <div class="chips">${chips}</div>
+      <div class="btn-row"><button class="btn ghost" onclick="go('result')">判定結果を見る</button></div></div>`;
+  }
+  const ap=document.getElementById('homeAppt');
+  if(state.appts.length){
+    ap.innerHTML='<h2 class="sec">予約</h2>'+state.appts.map(a=>
+      `<div class="li"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+      <div class="body"><b>${a.when}</b><p>${a.who}・オンライン通話</p></div></div>`).join('');
+  }else ap.innerHTML='';
+  const sm=document.getElementById('homeSummary');
+  if(state.summary){
+    sm.innerHTML=`<h2 class="sec">相談サマリ</h2><div class="tripcard">
+      <div class="meta">${state.summary.date}・${state.summary.who}</div>
+      <ul style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--stone)">${state.summary.advice.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${state.summary.docsUpdated?`<div class="chips"><span class="chip ok">書類 ${state.summary.docsUpdated}件 準備完了</span></div>`:''}</div>`;
+  }else sm.innerHTML='';
+}
+function summaryChips(a){
+  const out=[];
+  if(a.counts.emg)out.push(`<span class="chip emg">要・個別確認 ${a.counts.emg}件</span>`);
+  if(a.counts.warn)out.push(`<span class="chip warn">確認・書類 ${a.counts.warn}件</span>`);
+  if(a.counts.ok)out.push(`<span class="chip ok">通常対応 ${a.counts.ok}件</span>`);
+  if(!out.length)out.push('<span class="chip ok">問診すると準備が分かります</span>');
+  return out.join('');
+}
+
+/* ---------------- TRIP save ---------------- */
+function saveTrip(){
+  const country=document.getElementById('f-country').value;
+  const purpose=(document.querySelector('input[name=purpose]:checked')||{}).value||PURPOSES[0];
+  const ins=(document.querySelector('input[name=ins]:checked')||{}).value||'';
+  state.trip={country,city:document.getElementById('f-city').value.trim(),
+    start:document.getElementById('f-start').value,end:document.getElementById('f-end').value,
+    purpose,insurance:ins,companions:document.getElementById('f-comp').value.trim()};
+  save(); toast('渡航を登録しました'); go('health');
+}
+
+/* ---------------- HEALTH ---------------- */
+function addMed(){addMedFrom('f-medname');}
+function addMedFrom(id){
+  const el=document.getElementById(id);const v=el.value.trim();if(!v)return;
+  if(!state.health.meds.includes(v))state.health.meds.push(v);
+  el.value='';save();renderMedList();if(document.querySelector('[data-screen=meds]').classList.contains('active'))renderMedsScreen();
+}
+function rmMed(i){state.health.meds.splice(i,1);save();renderMedList();renderMedsScreen();}
+function renderMedList(){
+  const box=document.getElementById('medList');if(!box)return;
+  box.innerHTML=state.health.meds.map((m,i)=>{
+    const r=classifyMed(m);
+    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span>
+    <div class="body"><b>${m}</b><p>${r.label}</p></div>
+    <button class="statebtn" onclick="rmMed(${i})">削除</button></div>`;}).join('');
+}
+function saveHealth(){
+  state.health.conditions=[...document.querySelectorAll('input[name=cond]:checked')].map(c=>c.value).filter(v=>v!=='none');
+  state.health.allergy=document.getElementById('f-allergy').value.trim();
+  state.health.preg=document.getElementById('f-preg').checked;
+  state.assessed=true;
+  // auto-flag relevant documents as recommended (prep)
+  const a=assess();a.docNeeds.forEach(id=>{const d=state.docs.find(x=>x.id===id);if(d&&d.s==='none')d.s='prep';});
+  if(state.health.allergy){const d=state.docs.find(x=>x.id==='allergy');if(d&&d.s==='none')d.s='prep';}
+  save(); toast('判定しました'); go('result');
+}
+
+/* ---------------- rule engine ---------------- */
+function classifyMed(name){
+  const n=name.toLowerCase();
+  for(const r of MED_RULES){ if(r.kw.some(k=>name.includes(k)||n.includes(k.toLowerCase()))) return r; }
+  return {cat:"unknown",label:"分類できない薬・確認が必要",lvl:"warn",docs:["英文薬剤証明書"],act:"薬剤師が成分を確認します。薬の名前や成分が分かるものをご用意ください。"};
+}
+function assess(){
+  const t=state.trip||{country:"その他の国"};
+  const cinfo=COUNTRIES[t.country]||COUNTRIES["その他の国"];
+  const items=[]; const docNeeds=new Set();
+  // medications
+  state.health.meds.forEach(m=>{
+    const r=classifyMed(m); let lvl=r.lvl; let note=r.act;
+    if(cinfo.strict.includes(r.cat)){
+      lvl='emg'; note='【'+t.country+'】要・事前確認。'+r.act;
+    }
+    (r.docs||[]).forEach(d=>docNeeds.add(docId(d)));
+    items.push({title:m,kind:'薬',sub:r.label,lvl,note});
+  });
+  // conditions
+  state.health.conditions.forEach(k=>{
+    const c=CONDITIONS.find(x=>x.k===k);if(!c)return;
+    (c.docs||[]).forEach(d=>docNeeds.add(docId(d)));
+    items.push({title:c.label,kind:'状態',sub:'通院・持病',lvl:c.lvl,
+      note:c.lvl==='emg'?'渡航可否や現地受入先を医師と確認します。':'常用薬の確認と英文書類を準備します。'});
+  });
+  if(state.health.preg)items.push({title:'妊娠中・妊娠の可能性',kind:'状態',sub:'',lvl:'warn',note:'渡航可否・薬剤・予防接種を医師と確認します。'});
+  const counts={ok:0,warn:0,emg:0};items.forEach(i=>counts[i.lvl]++);
+  if(!items.length){items.push({title:'特別な確認は不要',kind:'',sub:'',lvl:'ok',note:'基本的なセルフケアセットと、緊急時の連絡先を用意しておきましょう。'});counts.ok++;}
+  const top = counts.emg?'emg':(counts.warn?'warn':'ok');
+  const topLabel = top==='emg'?'要・個別確認':(top==='warn'?'確認・書類あり':'通常対応');
+  return {items,counts,top,topLabel,country:t.country,cinfo,docNeeds:[...docNeeds]};
+}
+function docId(name){const map={"英文診断書":"diag","英文薬剤証明書":"drug","処方内容証明書":"presc","事前許可書類":"presc","輸出入手続書類":"presc","英文診療情報提供書":"ref","アレルギーカード":"allergy"};return map[name]||"diag";}
+
+/* ---------------- RESULT ---------------- */
+function renderResult(){
+  if(!state.trip){go('trip');return;}
+  const a=assess();
+  document.getElementById('res-dest').textContent=a.country+(state.trip.city?'・'+state.trip.city:'');
+  document.getElementById('res-lead').textContent=`${state.trip.purpose}・${state.trip.start||'—'}〜${state.trip.end||'—'} の準備です。`;
+  document.getElementById('res-chips').innerHTML=summaryChips(a);
+  const order={emg:0,warn:1,ok:2};
+  document.getElementById('res-items').innerHTML=a.items.sort((x,y)=>order[x.lvl]-order[y.lvl]).map(i=>{
+    const lab=i.lvl==='emg'?'個別確認':(i.lvl==='warn'?'要確認':'通常対応');
+    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/></svg></span>
+    <div class="body"><b>${i.title}</b><p>${i.note}</p></div><span class="lvl ${i.lvl}">${lab}</span></div>`;}).join('');
+  const docs = a.docNeeds.length? a.docNeeds.map(id=>(state.docs.find(d=>d.id===id)||{}).name).filter(Boolean):['緊急時医療情報カード'];
+  document.getElementById('res-docs').innerHTML=[...new Set(docs)].map(n=>
+    `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span><div class="body"><b>${n}</b><p>相談で確認後に発行できます</p></div></div>`).join('');
+  document.getElementById('res-countrynote').innerHTML=`<b>${a.country}について：</b> ${a.cinfo.note}`;
+}
+
+/* ---------------- MEDS screen ---------------- */
+function renderMedsScreen(){
+  const box=document.getElementById('medsAssess');
+  if(!state.health.meds.length){box.innerHTML='<div class="empty"><p>まだ薬が登録されていません。<br>上の欄から薬の名前を追加してください。</p></div>';return;}
+  const cinfo=(COUNTRIES[(state.trip||{}).country]||COUNTRIES["その他の国"]);
+  box.innerHTML=state.health.meds.map((m,i)=>{
+    const r=classifyMed(m); let lvl=r.lvl; let note=r.act;
+    if(cinfo.strict.includes(r.cat)){lvl='emg';note='渡航国で要・事前確認。'+r.act;}
+    const lab=lvl==='emg'?'個別確認':(lvl==='warn'?'要確認':'通常');
+    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span>
+    <div class="body"><b>${m}</b><p>${r.label}<br>${note}</p></div><span class="lvl ${lvl}">${lab}</span></div>`;}).join('');
+}
+
+/* ---------------- DOCS ---------------- */
+const DOC_STATES=["none","prep","done"];const DOC_LABEL={none:"未準備",prep:"準備中",done:"準備完了"};
+function renderDocs(){
+  document.getElementById('docList').innerHTML=state.docs.map((d,i)=>
+    `<div class="docrow"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span>
+    <span class="nm">${d.name}</span>
+    <button class="statebtn" data-s="${d.s}" onclick="cycleDoc(${i})">${DOC_LABEL[d.s]}</button></div>`).join('');
+}
+function cycleDoc(i){const d=state.docs[i];d.s=DOC_STATES[(DOC_STATES.indexOf(d.s)+1)%3];save();renderDocs();}
+
+/* ---------------- SCHEDULE (availability matching, medadapt流用) ---------------- */
+function reqParties(scope){return scope==='doctor'?['医師']:scope==='pharmacist'?['薬剤師']:['医師','薬剤師'];}
+function renderSlots(){
+  const scope=(document.querySelector('input[name=prov]:checked')||{}).value||'doctor';
+  const interp=document.getElementById('needInterp').checked;
+  let parties=reqParties(scope); if(interp)parties=[...parties,'通訳'];
+  const colors={'○':'var(--ok)','△':'var(--warn)','×':'var(--emg)'};
+  document.getElementById('slotList').innerHTML=POLL.map((s,i)=>{
+    const blocked=parties.some(p=>s.av[p]==='×');
+    const best=parties.every(p=>s.av[p]==='○');
+    const dots=parties.map(p=>`<span style="color:${colors[s.av[p]]};font-weight:600">${p}\u2009${s.av[p]}</span>`).join('\u3000');
+    return `<div class="slot"><div><div class="when">${s.when}${best?' <span class="chip ok" style="margin-left:6px">全員空き</span>':''}</div>
+    <div class="who">${dots}</div></div>
+    <button onclick="confirmSlot(${i})" ${blocked?'disabled style="opacity:.35"':''}>${blocked?'不可':'確定'}</button></div>`;
+  }).join('');
+}
+function confirmSlot(i){
+  const scope=(document.querySelector('input[name=prov]:checked')||{}).value||'doctor';
+  const interp=document.getElementById('needInterp').checked;
+  const s=POLL[i];
+  const who=PROV_LABEL[scope]+(interp?'＋通訳':'');
+  const callUrl='animed.link/c/'+Math.random().toString(36).slice(2,8);
+  state.appts=[{when:s.when,who,status:'confirmed',callUrl,interp,scope}];
+  save(); toast('日程が確定しました。通話リンクを発行しました'); go('call');
+}
+
+/* ---------------- ONLINE CALL (medadapt流用) ---------------- */
+let callTimer=null,callSec=0,callState={mic:true,cam:true,int:false};
+function callParties(a){const p=['あなた'];if(!a)return p;if(a.scope!=='pharmacist')p.push('医師');if(a.scope!=='doctor')p.push('薬剤師');if(a.interp)p.push('通訳');return p;}
+function renderCall(){
+  const a=state.appts[0];
+  document.getElementById('callLive').style.display='none';
+  document.getElementById('callPre').style.display='block';
+  document.getElementById('callWhen').textContent=a?`${a.when}・${a.who}`:'確定した予約がありません。日程調整から予約してください。';
+  const av=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 12.5-4 14 0"/></svg>`;
+  document.getElementById('callParties').innerHTML=callParties(a).map(p=>
+    `<div class="docrow"><span class="ic">${av}</span><span class="nm">${p}</span><span class="statebtn" data-s="done">準備OK</span></div>`).join('');
+}
+function enterCall(){
+  const a=state.appts[0]; const parties=callParties(a);
+  document.getElementById('callPre').style.display='none';
+  document.getElementById('callLive').style.display='block';
+  document.getElementById('callStage').innerHTML=
+    `<div class="ctimer" id="ctimer">00:00</div><div class="avatars">${parties.map((p,idx)=>
+      `<div class="av ${idx===1?'speaking':''}"><span>${p[0]}</span><small>${p}</small></div>`).join('')}</div>`;
+  callSec=0; clearInterval(callTimer);
+  callTimer=setInterval(()=>{callSec++;const m=String(Math.floor(callSec/60)).padStart(2,'0');const s=String(callSec%60).padStart(2,'0');const t=document.getElementById('ctimer');if(t)t.textContent=`${m}:${s}`;},1000);
+}
+function tgl(k,btn){callState[k]=!callState[k];btn.classList.toggle('off',!callState[k]);}
+function endCall(){
+  clearInterval(callTimer);
+  let updated=0; state.docs.forEach(d=>{if(d.s==='prep'){d.s='done';updated++;}});
+  const a=state.appts[0]||{};
+  state.summary={date:new Date().toISOString().slice(0,10),who:a.who||'医師',
+    advice:["渡航前の体調・服薬内容を確認しました","必要な英文書類を準備完了にしました","現地で困ったら緊急タブから連絡できます"],
+    docsUpdated:updated};
+  state.appts=[]; save();
+  document.getElementById('callLive').style.display='none';
+  document.getElementById('callPre').style.display='block';
+  toast('相談が終了しました。サマリと書類を更新しました'); go('home');
+}
+
+/* ---------------- EMERGENCY ---------------- */
+function renderEmergency(){
+  const c=(state.trip||{}).country; const info=COUNTRIES[c];
+  document.getElementById('emg-country').textContent=c?`${c}の救急番号`:'渡航先の救急番号（渡航を登録すると表示）';
+  document.getElementById('emg-number').textContent=info?info.emg:'—';
+}
+function getGPS(){
+  const el=document.getElementById('emg-gps');
+  if(!navigator.geolocation){el.textContent='現在地：この端末では取得できません';return;}
+  el.textContent='現在地：取得中…';
+  navigator.geolocation.getCurrentPosition(
+    p=>{el.textContent=`現在地：緯度 ${p.coords.latitude.toFixed(4)}, 経度 ${p.coords.longitude.toFixed(4)}（共有準備完了）`;toast('現在地を取得しました');},
+    ()=>{el.textContent='現在地：取得できませんでした（位置情報の許可をご確認ください）';}
+  );
+}
+
+/* ---------------- misc ---------------- */
+let toastT;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(confirm('登録した内容をすべて消去して最初からやり直しますか？')){try{localStorage.removeItem(KEY);}catch(e){}state=load();go('home');toast('リセットしました');}
+});
+
+/* ---------------- boot ---------------- */
+initForm(); renderHome();
+</script>
+</body>
+</html>
