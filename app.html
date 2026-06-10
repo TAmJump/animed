@@ -3038,7 +3038,7 @@ function triage(i){
   else if(s.tri==='green'){actions=`<button class="btn coral" onclick="goConsult('pharmacist')" style="margin-bottom:10px">薬剤師に相談する</button>
     <button class="btn ghost" onclick="toast('近くの薬局を表示します（連携先データ）')">近くの薬局を探す</button>`;}
   else{actions=`<button class="btn coral" onclick="goConsult('doctor')">オンライン相談へ</button>`;}
-  const extra=(s.t==='気持ちがつらい')?`<div class="callout jp" style="margin-top:12px">つらい気持ちが続くときは、ひとりで抱えず信頼できる人や専門の窓口にもつながれます。日本語サポートにおつなぎできます。</div>`:'';
+  const extra=(s.t==='気持ちがつらい')?`<div class="callout jp" style="margin-top:12px">つらい気持ちが続くときは、ひとりで抱えず信頼できる人や専門の窓口にもつながれます。サポート窓口におつなぎできます。</div>`:'';
   document.getElementById('symStep').innerHTML=`<button class="backlink" onclick="initEmergency()">‹ 症状をえらび直す</button>
     <div class="triage ${s.tri}"><div class="lvl2">${tr.lvl}</div><h3 class="jp">${tr.t}</h3><p class="jp">「${s.t}」を選びました。${tr.d}</p></div>
     ${actions}<div id="gpsOut" class="callout" style="margin-top:12px">現在地：未取得</div>${extra}`;
