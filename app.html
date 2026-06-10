@@ -3,513 +3,332 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Animed｜GLOBAL HEALTH BRIDGE</title>
-<meta name="description" content="海外でも、日本語で医療につながる。渡航前に薬と書類を整え、現地で迷わない。Animedは渡航前チェック・薬・英文書類・オンライン相談・現地連携・緊急対応を一つにするアプリです。">
-<meta name="theme-color" content="#fbf2ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Animed｜アプリ</title>
+<meta name="description" content="渡航前チェックから医師・薬剤師相談、英文書類、医療パスポート、緊急サポートまで。日本の医療があなたの渡航を支えます。">
+<meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 190'%3E%3Cpath d='M116 138 A24 24 0 0 1 164 138 Z' fill='%23c0392b'/%3E%3Cpath d='M44 162 Q140 15 236 162' fill='none' stroke='%234a3b34' stroke-width='15' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#fffdfb; --bone:#fbf2ec; --bone2:#f6e9e1; --line:#ecdfd6; --line2:#e3d3c8;
-  --ink:#2e1f18; --stone:#4a3b34; --muted:#8a756b; --rose:#b08a7c;
-  --coral:#e94436; --deep:#c0392b; --coral-soft:#fff1ed;
-  --ok:#4a7c59; --ok-soft:#eef4ef; --warn:#c8853a; --warn-soft:#fbf1e4; --emg:#c0392b; --emg-soft:#fdecea;
+  --paper:#ffffff; --bg:#ffffff; --soft:#fbf7f4; --ink:#241712; --stone:#4a3b34; --muted:#8a756b; --rose:#b08a7c;
+  --coral:#e94436; --deep:#c0392b; --coral-soft:#fff5f2; --line:#efe6e0; --line2:#e7d9cf;
+  --A:#4a7c59; --A-s:#eef4ef; --B:#3f7c8c; --B-s:#eaf3f5; --C:#c8853a; --C-s:#fbf1e4; --D:#c0392b; --D-s:#fdecea;
   --sans:'Inter','Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --serif:'Fraunces','Noto Serif JP',Georgia,serif;
-  --jpserif:'Noto Serif JP',serif;
-  --r:18px; --r-lg:24px; --shadow:0 14px 40px rgba(74,59,52,.10);
+  --serif:'Fraunces',Georgia,serif; --jp:'Noto Serif JP',serif;
+  --r:16px; --r-lg:22px;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{
-  font-family:var(--sans); color:var(--ink); line-height:1.7;
-  background:#efe4db;
-  background-image:radial-gradient(circle at 20% -5%, #fff6f1 0%, transparent 45%),radial-gradient(circle at 90% 8%, #f7eadf 0%, transparent 40%);
-  -webkit-font-smoothing:antialiased;
-}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+.jp{word-break:auto-phrase;line-break:strict}
 button{font-family:inherit}
-.app{
-  max-width:440px; margin:0 auto; min-height:100dvh; position:relative;
-  background:var(--bone); display:flex; flex-direction:column;
-  box-shadow:0 0 0 1px var(--line), 0 30px 90px rgba(74,59,52,.18);
-}
-/* ---------- header ---------- */
-.topbar{
-  position:sticky; top:0; z-index:30; background:rgba(251,242,236,.92);
-  backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
-  padding:calc(env(safe-area-inset-top) + 12px) 18px 12px; display:flex; align-items:center; gap:11px;
-}
-.topbar .mk{width:30px;height:24px;flex:none}
-.topbar .wm{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.2px;color:var(--ink);line-height:1}
-.topbar .tag{font-size:9.5px;letter-spacing:2.5px;color:var(--rose);font-weight:600;margin-top:2px}
+.app{max-width:1080px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:var(--paper)}
+/* header */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top) + 12px) 20px 12px;display:flex;align-items:center;gap:11px}
+.topbar .mk{width:30px;height:23px;flex:none}
+.topbar .wm{font-family:var(--serif);font-weight:500;font-size:21px;color:var(--ink);line-height:1}
+.topbar .tg{font-size:8px;letter-spacing:2.4px;color:var(--rose);font-weight:600;margin-top:2px}
 .topbar .brand{display:flex;flex-direction:column;justify-content:center}
-.topbar .spacer{flex:1}
-.iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;color:var(--stone);cursor:pointer}
-.iconbtn:active{transform:scale(.96)}
-/* ---------- main / screens ---------- */
-main{flex:1; padding:20px 18px 116px; overflow-x:hidden}
-.screen{display:none; animation:rise .32s ease}
+.topbar .sp{flex:1}
+.topnav{display:none;gap:2px;align-items:center}
+.topnav button{background:none;border:0;font-size:13.5px;font-weight:600;color:var(--muted);padding:9px 13px;border-radius:10px;cursor:pointer}
+.topnav button:hover{background:var(--coral-soft);color:var(--deep)}
+.topnav button.active{color:var(--deep);background:var(--coral-soft)}
+.iconbtn{width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--stone);cursor:pointer}
+.statuspill{font-size:11px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line2);color:var(--stone);background:var(--soft);white-space:nowrap}
+main{flex:1;padding:22px 20px 120px;overflow-x:hidden}
+.screen{display:none;animation:rise .3s ease}
 .screen.active{display:block}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.screen,.app *{animation:none!important}}
-.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin:0 0 6px}
-h1.title{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.12;letter-spacing:-.01em;margin:0 0 6px;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}}
+.eyebrow{font-family:var(--serif);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600;margin:0 0 7px}
+h1.title{font-family:var(--jp);font-weight:600;font-size:27px;line-height:1.25;margin:0 0 6px;color:var(--ink)}
 .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
-h2.sec{font-family:var(--serif);font-weight:500;font-size:19px;margin:26px 0 12px;color:var(--ink)}
-/* ---------- home hero ---------- */
-.hero{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--paper);border:1px solid var(--line);padding:22px 20px;margin-bottom:18px}
-.hero .sphere{position:absolute;right:-60px;top:-40px;width:230px;height:230px;opacity:.9;pointer-events:none}
-.hero .hi{font-size:13px;color:var(--muted);margin:0}
-.hero .line{font-family:var(--jpserif);font-weight:600;font-size:22px;line-height:1.45;margin:6px 0 0;color:var(--ink);max-width:230px}
-.hero .accent{color:var(--deep)}
-/* ---------- trip status card ---------- */
-.tripcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;margin-bottom:16px}
-.tripcard .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.tripcard .dest{font-family:var(--serif);font-weight:600;font-size:21px;color:var(--ink)}
-.tripcard .meta{font-size:13px;color:var(--muted);margin-top:2px}
-.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line2)}
-.chip.ok{background:var(--ok-soft);color:var(--ok);border-color:#cfe0d4}
-.chip.warn{background:var(--warn-soft);color:var(--warn);border-color:#eeddc2}
-.chip.emg{background:var(--emg-soft);color:var(--emg);border-color:#f2cfca}
-.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
-.empty{background:var(--paper);border:1px dashed var(--line2);border-radius:var(--r-lg);padding:26px 20px;text-align:center;margin-bottom:16px}
-.empty .em-ill{width:52px;height:52px;margin:0 auto 10px;display:block}
-.empty p{margin:0 0 14px;color:var(--muted);font-size:14px}
-/* ---------- quick actions ---------- */
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.qa{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;color:var(--ink)}
-.qa:active{transform:scale(.985)}
-.qa .ic{width:40px;height:40px;flex:none;border-radius:11px;background:var(--bone2);display:grid;place-items:center;color:var(--stone)}
-.qa b{display:block;font-size:14px;font-weight:600;line-height:1.2}
-.qa small{color:var(--muted);font-size:11px}
-.qa.full{grid-column:1/-1}
-.qa.emg{background:var(--emg-soft);border-color:#f2cfca}
-.qa.emg .ic{background:#f8d5cf;color:var(--deep)}
-.qa.emg b{color:var(--deep)}
-/* ---------- forms ---------- */
-.field{margin-bottom:15px}
-.field > label{display:block;font-size:13px;font-weight:600;color:var(--stone);margin-bottom:6px}
+h2.sec{font-family:var(--jp);font-weight:600;font-size:18px;margin:26px 0 12px;color:var(--ink)}
+.backlink{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px}
+.muted{color:var(--muted)} .accent{color:var(--deep)}
+/* cards / lists */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
+.li{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;margin-bottom:10px}
+.li .ic{width:38px;height:38px;flex:none;border-radius:11px;background:var(--soft);display:grid;place-items:center;color:var(--stone)}
+.li .body{flex:1;min-width:0}.li .body b{font-size:14.5px;font-weight:600}.li .body p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.lvl{font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.lvl.A{background:var(--A-s);color:var(--A)} .lvl.B{background:var(--B-s);color:var(--B)} .lvl.C{background:var(--C-s);color:var(--C)} .lvl.D{background:var(--D-s);color:var(--D)}
+.lvl.low{background:var(--A-s);color:var(--A)} .lvl.mid{background:var(--C-s);color:var(--C)} .lvl.high{background:var(--D-s);color:var(--D)} .lvl.ng{background:#3a2a24;color:#fff}
+/* forms */
+.field{margin-bottom:15px}.field>label{display:block;font-size:13px;font-weight:600;color:var(--stone);margin-bottom:6px}
 .field .hint{font-size:11.5px;color:var(--muted);font-weight:400}
-input[type=text],input[type=date],select,textarea{
-  width:100%;padding:13px 14px;border:1px solid var(--line2);border-radius:13px;background:var(--paper);
-  font-family:inherit;font-size:15px;color:var(--ink);
-}
+input[type=text],input[type=date],input[type=number],input[type=tel],input[type=email],select,textarea{
+  width:100%;padding:12px 13px;border:1px solid var(--line2);border-radius:12px;background:#fff;font-family:inherit;font-size:15px;color:var(--ink)}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--coral);outline-offset:1px;border-color:var(--coral)}
-textarea{resize:vertical;min-height:70px;line-height:1.6}
+textarea{resize:vertical;min-height:64px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
-.opt{cursor:pointer}
-.opt input{position:absolute;opacity:0;pointer-events:none}
-.opt span{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid var(--line2);border-radius:999px;background:var(--paper);font-size:13px;font-weight:500;color:var(--stone)}
+.opt{cursor:pointer}.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid var(--line2);border-radius:999px;background:#fff;font-size:13px;font-weight:500;color:var(--stone)}
 .opt input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
 .opt.tone input:checked + span{background:var(--coral-soft);border-color:var(--coral);color:var(--deep)}
-/* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:14px;font-size:15.5px;font-weight:600;border:1px solid transparent;cursor:pointer}
+.addbar{display:flex;gap:8px;margin:6px 0 14px}.addbar input{flex:1}
+.addbar button{flex:none;width:48px;border-radius:12px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:20px;cursor:pointer}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:13px;font-size:15px;font-weight:600;border:1px solid transparent;cursor:pointer}
 .btn:active{transform:translateY(1px)}
 .btn.primary{background:var(--ink);color:#fff}
-.btn.coral{background:var(--coral);color:#fff;box-shadow:0 12px 26px rgba(233,68,54,.24)}
-.btn.ghost{background:var(--paper);border-color:var(--line2);color:var(--ink)}
-.btn.danger{background:var(--emg);color:#fff;box-shadow:0 12px 30px rgba(192,57,43,.3)}
+.btn.coral{background:var(--coral);color:#fff;box-shadow:0 12px 26px -10px rgba(233,68,54,.5)}
+.btn.ghost{background:#fff;border-color:var(--line2);color:var(--ink)}
+.btn.danger{background:var(--D);color:#fff}
+.btn.sm{width:auto;padding:10px 16px;font-size:13.5px}
 .btn-row{display:flex;gap:10px;margin-top:6px}
-.backlink{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px}
-/* ---------- list items ---------- */
-.li{display:flex;align-items:flex-start;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;margin-bottom:10px}
-.li .ic{width:38px;height:38px;flex:none;border-radius:11px;background:var(--bone2);display:grid;place-items:center;color:var(--stone)}
-.li .body{flex:1;min-width:0}
-.li .body b{font-size:14.5px;font-weight:600}
-.li .body p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
-.li .lvl{font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;white-space:nowrap}
-.lvl.ok{background:var(--ok-soft);color:var(--ok)}
-.lvl.warn{background:var(--warn-soft);color:var(--warn)}
-.lvl.emg{background:var(--emg-soft);color:var(--emg)}
-.addbar{display:flex;gap:8px;margin:6px 0 18px}
-.addbar input{flex:1}
-.addbar button{flex:none;width:50px;border-radius:13px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:22px;cursor:pointer}
-/* ---------- doc rows ---------- */
-.docrow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
-.docrow:last-child{border-bottom:0}
-.docrow .ic{color:var(--stone)}
-.docrow .nm{flex:1;font-size:14px;font-weight:500}
-.statebtn{font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);background:var(--paper);color:var(--muted);cursor:pointer}
-.statebtn[data-s="prep"]{background:var(--warn-soft);color:var(--warn);border-color:#eeddc2}
-.statebtn[data-s="done"]{background:var(--ok-soft);color:var(--ok);border-color:#cfe0d4}
-/* ---------- schedule ---------- */
-.slot{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:9px}
-.slot .when{font-size:14px;font-weight:600}
-.slot .who{font-size:12px;color:var(--muted)}
-.slot button{flex:none;font-size:13px;font-weight:600;padding:9px 15px;border-radius:11px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
-/* ---------- emergency ---------- */
-.emg-hero{background:var(--emg-soft);border:1px solid #f2cfca;border-radius:var(--r-lg);padding:20px;margin-bottom:16px}
-.emg-hero .num{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--deep);line-height:1}
-.emg-hero .lbl{font-size:13px;color:var(--stone);font-weight:500}
-.gps{font-size:12.5px;color:var(--muted);margin-top:8px}
-/* ---------- note / disclaimer ---------- */
-.note{background:var(--coral-soft);border:1px solid #f6d6cf;border-radius:16px;padding:14px 16px;font-size:12.5px;color:#8a3a2f;margin-top:16px}
+/* 6 big buttons */
+.hubgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hub{display:flex;flex-direction:column;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 16px;cursor:pointer;text-align:left;color:var(--ink);min-height:128px;transition:border-color .2s,box-shadow .2s}
+.hub:hover{border-color:var(--line2);box-shadow:0 18px 40px -28px rgba(74,59,52,.4)}
+.hub:active{transform:scale(.99)}
+.hub .ic{width:46px;height:46px;border-radius:13px;background:var(--coral-soft);display:grid;place-items:center}
+.hub .ic img{width:30px;height:30px;object-fit:contain}
+.hub b{font-size:15px;font-weight:600;line-height:1.3}
+.hub small{font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:-4px}
+.hub.emg .ic{background:var(--D-s)} .hub.emg b{color:var(--deep)}
+/* note */
+.note{background:var(--coral-soft);border:1px solid #f6ddd4;border-radius:14px;padding:13px 15px;font-size:12.5px;color:#8a4034;margin-top:14px}
 .note b{color:var(--deep)}
-.callout{background:var(--bone2);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:13px;color:var(--stone);margin-top:14px}
-.callout b{color:var(--ink)}
-/* ---------- online call ---------- */
-.callstage{background:#3a2a24;border-radius:var(--r-lg);min-height:320px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+.callout{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:13px 15px;font-size:13px;color:var(--stone);margin-top:14px}
+/* result hero A-D */
+.verdict{border-radius:var(--r-lg);padding:22px 20px;color:#fff;margin-bottom:18px}
+.verdict.A{background:linear-gradient(135deg,#4a7c59,#3c6b4a)} .verdict.B{background:linear-gradient(135deg,#3f7c8c,#356a78)}
+.verdict.C{background:linear-gradient(135deg,#c8853a,#b0702a)} .verdict.D{background:linear-gradient(135deg,#c0392b,#9e2c20)}
+.verdict .g{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1}
+.verdict .t{font-family:var(--jp);font-weight:600;font-size:19px;margin:6px 0 4px}
+.verdict .d{font-size:13px;opacity:.92}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 6px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--stone)}
+/* doc rows */
+.docrow{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.docrow:last-child{border-bottom:0}.docrow .nm{flex:1;font-size:14px;font-weight:500}
+.docrow .who{font-size:10.5px;color:var(--muted);display:block;margin-top:2px;font-weight:400}
+.statebtn{font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer}
+.statebtn[data-s="prep"]{background:var(--C-s);color:var(--C);border-color:#eeddc2}
+.statebtn[data-s="done"]{background:var(--A-s);color:var(--A);border-color:#cfe0d4}
+/* schedule */
+.slot{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:9px}
+.slot .when{font-size:14px;font-weight:600}.slot .who{font-size:12px;color:var(--muted)}
+.slot button{flex:none;font-size:13px;font-weight:600;padding:9px 15px;border-radius:11px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+/* call */
+.callstage{background:#3a2a24;border-radius:var(--r-lg);min-height:300px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
 .ctimer{position:absolute;top:14px;left:16px;color:#f3e7df;font-size:12px;font-weight:600;background:rgba(0,0,0,.28);padding:4px 11px;border-radius:999px}
 .avatars{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
 .av{display:flex;flex-direction:column;align-items:center;gap:8px}
-.av span{width:66px;height:66px;border-radius:50%;background:#5a4640;color:#fff;display:grid;place-items:center;font-size:26px;font-family:var(--serif)}
-.av.speaking span{box-shadow:0 0 0 3px var(--coral)}
-.av small{color:#e9d9cf;font-size:11px}
+.av span{width:62px;height:62px;border-radius:50%;background:#5a4640;color:#fff;display:grid;place-items:center;font-size:24px;font-family:var(--serif)}
+.av.speaking span{box-shadow:0 0 0 3px var(--coral)}.av small{color:#e9d9cf;font-size:11px}
 .callctrls{display:flex;gap:9px;justify-content:center;margin-top:14px}
-.cbtn{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--paper);border:1px solid var(--line2);border-radius:14px;padding:11px 13px;font-size:10.5px;font-weight:600;color:var(--stone);cursor:pointer;flex:1}
-.cbtn.off{background:var(--bone2);color:var(--muted)}
-.cbtn.end{background:var(--emg);border-color:var(--emg);color:#fff}
-.cbtn svg{width:22px;height:22px}
-.tripcard ul{line-height:1.7}
-/* ---------- bottom nav ---------- */
-.tabbar{
-  position:sticky;bottom:0;z-index:30;max-width:440px;margin:0 auto;
-  background:rgba(255,253,251,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);
-  display:grid;grid-template-columns:repeat(5,1fr);
-  padding:8px 6px calc(env(safe-area-inset-bottom) + 8px);
-}
-.tab{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;cursor:pointer;color:var(--muted);font-size:10.5px;font-weight:600;padding:5px 0}
-.tab svg{width:23px;height:23px}
-.tab.active{color:var(--deep)}
-.tab.active .nimbus{stroke:var(--deep)}
-/* toast */
-.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.3s;z-index:60;box-shadow:var(--shadow)}
+.cbtn{display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:1px solid var(--line2);border-radius:14px;padding:11px 13px;font-size:10.5px;font-weight:600;color:var(--stone);cursor:pointer;flex:1}
+.cbtn.off{background:var(--soft);color:var(--muted)}.cbtn.end{background:var(--D);border-color:var(--D);color:#fff}.cbtn svg{width:22px;height:22px}
+/* emergency triage */
+.symgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sym{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line2);border-radius:13px;padding:14px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.sym:active{transform:scale(.98)}
+.triage{border-radius:var(--r-lg);padding:22px;color:#fff;margin-bottom:14px}
+.triage.red{background:linear-gradient(135deg,#c0392b,#8e211a)} .triage.orange{background:linear-gradient(135deg,#d2682b,#b14e1c)}
+.triage.yellow{background:linear-gradient(135deg,#c8853a,#a96c25)} .triage.green{background:linear-gradient(135deg,#4a7c59,#3a6647)}
+.triage .lvl2{font-family:var(--serif);font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.9}
+.triage h3{font-family:var(--jp);font-size:22px;margin:6px 0 6px;font-weight:600}
+.triage p{margin:0;font-size:13.5px;opacity:.95}
+.emgnum{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--deep);line-height:1}
+/* passport */
+.pp{background:linear-gradient(160deg,#2e1f18,#48352c);color:#fff;border-radius:var(--r-lg);padding:22px;position:relative;overflow:hidden}
+.pp .ttl{font-family:var(--serif);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#e7c9bf}
+.pp .nm{font-family:var(--jp);font-size:24px;font-weight:600;margin:6px 0 2px}
+.pp .meta{font-size:12px;color:#e0cfc6}
+.pp .qr{position:absolute;right:18px;top:18px;width:84px;height:84px;background:#fff;border-radius:10px;padding:6px}
+.pp .qr svg,.pp .qr img{width:100%;height:100%}
+.pprow{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.pprow:last-child{border-bottom:0}.pprow .k{color:var(--muted)}.pprow .v{font-weight:600;text-align:right}
+.langtog{display:flex;gap:6px}
+.langtog button{font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer}
+.langtog button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* timeline */
+.tl{position:relative;margin-left:8px;padding-left:20px;border-left:2px solid var(--line)}
+.tl .ev{position:relative;margin-bottom:16px}
+.tl .ev::before{content:"";position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--coral)}
+.tl .ev .w{font-size:12px;color:var(--muted);font-weight:600}
+.tl .ev .x{font-size:14px;font-weight:600}
+/* org table */
+.orgrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line)}
+.orgrow:last-child{border-bottom:0}.orgrow .nm{font-size:14px;font-weight:600}.orgrow .sub2{font-size:12px;color:var(--muted)}
+/* tabbar */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:40;max-width:1080px;margin:0 auto;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px calc(env(safe-area-inset-bottom) + 8px)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;cursor:pointer;color:var(--muted);font-size:10px;font-weight:600;padding:5px 0}
+.tab svg{width:22px;height:22px}.tab.active{color:var(--deep)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.3s;z-index:60}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.fade-foot{text-align:center;font-size:10.5px;color:var(--rose);letter-spacing:1.5px;margin-top:22px}
-/* ---------- editorial photography ---------- */
-.editorial{position:relative;border-radius:var(--r-lg);overflow:hidden;margin:0 0 18px;border:1px solid var(--line);aspect-ratio:16/9;background:var(--bone2)}
-.editorial img{width:100%;height:100%;object-fit:cover;display:block}
-.editorial .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(46,31,24,.46),rgba(46,31,24,.05) 52%,transparent 78%)}
-.editorial .cap{position:absolute;left:16px;right:16px;bottom:14px;color:#fff}
-.editorial .cap .ey{font-size:10px;letter-spacing:2.5px;font-weight:600;text-transform:uppercase;color:#f3d9d1}
-.editorial .cap .ln{font-family:var(--jpserif);font-weight:600;font-size:18px;line-height:1.42;margin-top:4px;text-shadow:0 1px 16px rgba(46,31,24,.55)}
-/* use-case rail */
-.usecases{margin:0 -18px}
-.usecases .rail{display:flex;gap:12px;overflow-x:auto;padding:2px 18px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.usecases .rail::-webkit-scrollbar{display:none}
-.usecases .rail{scrollbar-width:none}
-.ucard{flex:0 0 150px;scroll-snap-align:start;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper);cursor:pointer;text-align:left;padding:0;color:var(--ink);font-family:inherit}
-.ucard .ph{aspect-ratio:1/1;overflow:hidden;background:var(--bone2)}
-.ucard .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
-.ucard:active{transform:scale(.985)}
-.ucard:active .ph img{transform:scale(1.04)}
-.ucard .tx{padding:10px 12px 13px}
-.ucard .tx b{display:block;font-size:13px;font-weight:600;line-height:1.3}
-.ucard .tx small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
-/* service banner */
-.svchero{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);margin:0 0 18px;aspect-ratio:5/2;background:var(--bone2)}
-.svchero img{width:100%;height:100%;object-fit:cover;display:block}
-/* topnav (PC only) */
-.topnav{display:none}
-/* ========== DESKTOP ========== */
+.foot{text-align:center;font-size:10px;color:var(--rose);letter-spacing:1.5px;margin-top:24px}
+/* onboarding */
+.ob{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;max-width:520px;margin:0 auto}
+.ob .lead{font-family:var(--jp);font-size:24px;font-weight:600;line-height:1.4;margin:18px 0 8px}
+.choice{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.choicebtn{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:16px;cursor:pointer;text-align:left;color:var(--ink)}
+.choicebtn:hover{border-color:var(--coral);background:var(--coral-soft)}
+.choicebtn b{font-size:15px;font-weight:600;display:block}.choicebtn small{font-size:12px;color:var(--muted)}
+.choicebtn .n{width:40px;height:40px;border-radius:11px;background:var(--soft);display:grid;place-items:center;flex:none;color:var(--stone)}
+/* desktop */
 @media (min-width:880px){
-  body{background-attachment:fixed}
-  .app{max-width:1140px;min-height:100vh;box-shadow:none;background:transparent}
-  .topbar{padding:16px 32px;background:rgba(251,242,236,.92)}
-  .topbar .mk{width:34px;height:27px}
-  .topbar .wm{font-size:24px}
-  .topbar .tag{font-size:10px;letter-spacing:3px}
-  .topnav{display:flex;gap:2px;align-items:center}
-  .topnav .tab{flex-direction:row;gap:7px;font-size:13.5px;padding:9px 14px;border-radius:11px;color:var(--muted)}
-  .topnav .tab svg{width:18px;height:18px}
-  .topnav .tab:hover{background:var(--bone2);color:var(--ink)}
-  .topnav .tab.active{color:var(--deep);background:var(--coral-soft)}
+  .app{box-shadow:none}
+  .topbar{padding:16px 28px}
+  .topnav{display:flex}
   .tabbar{display:none}
-  main{padding:32px 32px 64px}
-  /* non-home screens: readable centered column */
-  .screen{max-width:780px;margin:0 auto}
-  .screen[data-screen="home"]{max-width:100%}
-  h1.title{font-size:34px}
-  /* home top: brand + editorial side by side */
-  .home-top{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:stretch;margin-bottom:6px}
-  .home-top .hero{margin:0;display:flex;flex-direction:column;justify-content:center;min-height:300px}
-  .home-top .hero .line{font-size:30px;max-width:none}
-  .home-top .hero .sphere{width:280px;height:280px;opacity:.8}
-  .home-top .editorial{margin:0;aspect-ratio:auto;min-height:300px}
-  .home-top .editorial .cap .ln{font-size:22px}
-  #homeTrip{margin-top:18px}
-  .home-top + #homeTrip .tripcard,.home-top + #homeTrip .empty{max-width:760px}
-  .quick{grid-template-columns:repeat(2,1fr);gap:14px}
-  /* use-cases: rail -> grid */
-  .usecases{margin:0}
-  .usecases .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;overflow:visible;padding:2px 0 6px;scroll-snap-type:none}
-  .ucard{flex:initial}
-  .svchero{aspect-ratio:auto;height:280px}
-}
-@media (min-width:1180px){
-  .app{margin:0 auto}
+  main{padding:30px 28px 60px}
+  .hubgrid{grid-template-columns:repeat(3,1fr)}
+  .screen{max-width:760px}
+  .screen[data-screen="home"],.screen[data-screen="org"]{max-width:100%}
+  h1.title{font-size:32px}
 }
 </style>
 </head>
 <body>
-<div class="app" id="app">
 
+<!-- ============ ONBOARDING ============ -->
+<section id="onboard" style="display:none">
+  <div class="ob">
+    <svg width="44" height="32" viewBox="0 0 280 190" aria-hidden="true">
+      <path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/>
+      <path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/>
+    </svg>
+    <p class="eyebrow" style="margin-top:18px">WELCOME TO ANIMED</p>
+    <p class="lead jp">世界のどこにいても、<br>日本の医療があなたを支えます。</p>
+    <p class="sub jp">はじめに、あなたの立場を選んでください。あとから変更できます。</p>
+    <div id="obStep"></div>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app" style="display:none">
   <header class="topbar">
     <svg class="mk" viewBox="0 0 280 190" aria-hidden="true">
       <path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/>
-      <line x1="120" y1="98" x2="120" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
-      <line x1="130" y1="98" x2="130" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
-      <line x1="140" y1="98" x2="140" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
-      <line x1="150" y1="98" x2="150" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
-      <line x1="160" y1="98" x2="160" y2="113" stroke="#4a3b34" stroke-width="2.5"/>
       <path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/>
     </svg>
-    <div class="brand">
-      <span class="wm">Animed</span>
-      <span class="tag">GLOBAL HEALTH BRIDGE</span>
-    </div>
-    <span class="spacer"></span>
-    <nav class="topnav">
-      <button class="tab active" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/></svg>ホーム</button>
-      <button class="tab" data-tab="trip" onclick="go('trip')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle class="nimbus" cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/></svg>渡航</button>
-      <button class="tab" data-tab="health" onclick="go('health')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M3 13h3l2-4 3 7 2-5 1.5 2H21"/></svg>けんこう</button>
-      <button class="tab" data-tab="docs" onclick="go('docs')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>書類</button>
-      <button class="tab" data-tab="emergency" onclick="go('emergency')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>緊急</button>
-    </nav>
-    <button class="iconbtn" id="resetBtn" aria-label="データをリセット" title="データをリセット">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+    <div class="brand"><span class="wm">Animed</span><span class="tg">GLOBAL HEALTH BRIDGE</span></div>
+    <span class="sp"></span>
+    <nav class="topnav" id="topnav"></nav>
+    <span class="statuspill" id="statusPill" title="現在のステータス">未設定</span>
+    <button class="iconbtn" id="resetBtn" title="リセット" aria-label="リセット">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
     </button>
   </header>
 
   <main>
-    <!-- ===================== HOME ===================== -->
+    <!-- HOME -->
     <section class="screen active" data-screen="home">
-      <div class="home-top">
-      <div class="hero">
-        <svg class="sphere" viewBox="0 0 230 230" aria-hidden="true">
-          <g fill="none" stroke="#e94436">
-            <circle cx="115" cy="115" r="92" stroke-opacity=".14"/>
-            <circle cx="115" cy="115" r="66" stroke-opacity=".11"/>
-            <ellipse cx="115" cy="115" rx="92" ry="34" stroke-opacity=".10"/>
-            <ellipse cx="115" cy="115" rx="34" ry="92" stroke-opacity=".10"/>
-          </g>
-          <g stroke="#e94436" stroke-opacity=".2" stroke-width=".9">
-            <line x1="60" y1="58" x2="150" y2="40"/><line x1="150" y1="40" x2="190" y2="120"/>
-            <line x1="190" y1="120" x2="120" y2="190"/><line x1="120" y1="190" x2="48" y2="135"/><line x1="48" y1="135" x2="60" y2="58"/>
-          </g>
-          <circle cx="60" cy="58" r="3.5" fill="#e94436"/><circle cx="150" cy="40" r="3" fill="#fff" stroke="#e94436" stroke-width="1.4"/>
-          <circle cx="190" cy="120" r="3" fill="#3a2a24"/><circle cx="120" cy="190" r="3.5" fill="#e94436"/><circle cx="48" cy="135" r="3" fill="#3a2a24"/>
-        </svg>
-        <p class="hi" id="greet">こんにちは</p>
-        <p class="line">海外でも、<br><span class="accent">日本語で医療につながる。</span></p>
-      </div>
-
-      <div class="editorial">
-        <img src="img/hero-world.webp" alt="海外へ向かう人々" loading="eager" decoding="async">
-        <div class="veil"></div>
-        <div class="cap">
-          <div class="ey">GLOBAL HEALTH BRIDGE</div>
-          <div class="ln">渡航前に薬と書類を整え、<br>現地で迷わない。</div>
-        </div>
-      </div>
-      </div>
-
+      <p class="eyebrow">HOME</p>
+      <h1 class="title jp" id="homeGreet">こんにちは</h1>
+      <p class="sub jp" id="homeRole">渡航の準備を、ここから始めましょう。</p>
       <div id="homeTrip"></div>
-
       <h2 class="sec">できること</h2>
-      <div class="quick">
-        <button class="qa" onclick="go('schedule')">
-          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a3.5 3.5 0 0 1-3.5 3.5h-7L4 19V7a3 3 0 0 1 3-3h8.5A3.5 3.5 0 0 1 19 7.5z"/><path d="M11.5 8.5l1 2 1.8.3-1.3 1.3.3 1.9-1.8-1-1.8 1 .3-1.9-1.3-1.3 1.8-.3z" stroke="#e94436"/></svg></span>
-          <span><b>医師・薬剤師に相談</b><small>オンラインで確認</small></span>
-        </button>
-        <button class="qa" onclick="go('meds')">
-          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/><circle cx="18.5" cy="6.5" r="2.5"/></svg></span>
-          <span><b>薬を確認</b><small>持込・同等薬</small></span>
-        </button>
-        <button class="qa" onclick="go('docs')">
-          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h4" stroke="#e94436"/></svg></span>
-          <span><b>書類を準備</b><small>英文診断書ほか</small></span>
-        </button>
-        <button class="qa" onclick="go('trip')">
-          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/><path d="M15.5 10l-1 1.2-1.3-.4" stroke="#e94436"/></svg></span>
-          <span><b>渡航を登録</b><small>国・期間・目的</small></span>
-        </button>
-        <button class="qa full emg" onclick="go('emergency')">
-          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></span>
-          <span><b>緊急サポート</b><small>現在地・現地救急・日本語サポートへ</small></span>
-        </button>
+      <div class="hubgrid">
+        <button class="hub" onclick="go('precheck')"><span class="ic"><img src="img/icons/ic-globe.webp" alt=""></span><b>渡航前チェック</b><small class="jp">薬・持病・書類・医療リスクを確認</small></button>
+        <button class="hub" onclick="goConsult('doctor')"><span class="ic"><img src="img/icons/ic-stethoscope.webp" alt=""></span><b>医師に相談</b><small class="jp">オンラインで渡航前診察</small></button>
+        <button class="hub" onclick="goConsult('pharmacist')"><span class="ic"><img src="img/icons/ic-pouch.webp" alt=""></span><b>薬剤師に相談</b><small class="jp">持込・同等薬・飲み合わせ</small></button>
+        <button class="hub" onclick="go('passport')"><span class="ic"><img src="img/icons/ic-idcard.webp" alt=""></span><b>お薬・医療パスポート</b><small class="jp">常用薬・既往歴・英文情報</small></button>
+        <button class="hub" onclick="go('org')"><span class="ic"><img src="img/icons/ic-document.webp" alt=""></span><b>企業・学校・団体</b><small class="jp">メンバーの渡航準備を管理</small></button>
+        <button class="hub emg" onclick="go('emergency')"><span class="ic"><img src="img/icons/ic-lifering.webp" alt=""></span><b>緊急サポート</b><small class="jp">海外で困ったとき</small></button>
       </div>
-
-      <h2 class="sec">こんな方へ</h2>
-      <p class="sub" style="margin:-6px 0 14px">渡航のかたちは人それぞれ。あてはまる場面から始められます。</p>
-      <div class="usecases">
-        <div class="rail">
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-school.webp" alt="修学旅行・研修" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>修学旅行・研修</b><small>学校単位の渡航前チェックを一括で</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-study.webp" alt="留学・ワーホリ" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>留学・ワーホリ</b><small>長期滞在の常用薬と書類を整える</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-assign.webp" alt="海外赴任・帯同家族" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>海外赴任・帯同家族</b><small>家族ぶんの薬と持病をまとめて管理</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-business.webp" alt="出張・ビジネス" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>出張・ビジネス</b><small>短期でも薬と緊急連絡先を確認</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-worker.webp" alt="就労VISA・技能実習" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>就労VISA・技能実習</b><small>母国語サポートで医療につなぐ</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-location.webp" alt="芸能・海外ロケ" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>芸能・海外ロケ</b><small>スケジュールに合わせた事前準備</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-sports.webp" alt="スポーツ遠征" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>スポーツ遠征</b><small>遠征先の医療体制とコンディション</small></div>
-          </button>
-          <button class="ucard" onclick="go('trip')">
-            <div class="ph"><img src="img/use-travel.webp" alt="一般旅行" loading="lazy" decoding="async"></div>
-            <div class="tx"><b>一般旅行</b><small>旅先で困っても日本語で相談</small></div>
-          </button>
-        </div>
-      </div>
-
       <div id="homeAppt"></div>
-      <div id="homeSummary"></div>
-      <p class="fade-foot">ANIMA · 命を、世界へつなぐ</p>
+      <h2 class="sec">渡航までの流れ</h2>
+      <div class="card" id="homeTimeline"></div>
+      <p class="foot">ANIMA · 命を、世界へつなぐ</p>
     </section>
 
-    <!-- ===================== TRIP ===================== -->
-    <section class="screen" data-screen="trip">
+    <!-- PRECHECK -->
+    <section class="screen" data-screen="precheck">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
-      <p class="eyebrow">STEP 1</p>
-      <h1 class="title">渡航を登録</h1>
-      <p class="sub">国と期間を入れると、必要な相談・薬・書類をAnimedが整理します。</p>
-
-      <div class="field">
-        <label for="f-country">渡航先（国）</label>
-        <select id="f-country"></select>
-      </div>
-      <div class="field">
-        <label for="f-city">都市 <span class="hint">任意</span></label>
-        <input type="text" id="f-city" placeholder="例：ドバイ">
+      <p class="eyebrow">STEP 01</p>
+      <h1 class="title">渡航前チェック</h1>
+      <p class="sub jp">国と体調を入れると、渡航準備のレベル（A〜D）と必要な書類・相談を判定します。</p>
+      <div class="two">
+        <div class="field"><label>渡航先（国）</label><select id="f-country"></select></div>
+        <div class="field"><label>都市 <span class="hint">任意</span></label><input type="text" id="f-city" placeholder="例：ドバイ"></div>
       </div>
       <div class="two">
-        <div class="field"><label for="f-start">出発日</label><input type="date" id="f-start"></div>
-        <div class="field"><label for="f-end">帰国日</label><input type="date" id="f-end"></div>
+        <div class="field"><label>出発日</label><input type="date" id="f-start"></div>
+        <div class="field"><label>帰国日</label><input type="date" id="f-end"></div>
       </div>
-      <div class="field">
-        <label>目的</label>
-        <div class="seg" id="f-purpose"></div>
+      <div class="field"><label>滞在目的</label><div class="seg" id="f-purpose"></div></div>
+      <div class="two">
+        <div class="field"><label>年齢 <span class="hint">任意</span></label><input type="number" id="f-age" min="0" max="120" placeholder="例：34"></div>
+        <div class="field"><label>性別 <span class="hint">任意</span></label>
+          <select id="f-sex"><option value="">選択しない</option><option>女性</option><option>男性</option><option>その他</option></select></div>
       </div>
-      <div class="field">
-        <label>海外旅行保険</label>
-        <div class="seg">
-          <label class="opt"><input type="radio" name="ins" value="加入あり" checked><span>加入あり</span></label>
-          <label class="opt"><input type="radio" name="ins" value="会社・学校が加入"><span>会社・学校が加入</span></label>
-          <label class="opt"><input type="radio" name="ins" value="未加入・未確認"><span>未加入・未確認</span></label>
-        </div>
-      </div>
-      <div class="field">
-        <label for="f-comp">同行者 <span class="hint">任意</span></label>
-        <input type="text" id="f-city2" style="display:none">
-        <input type="text" id="f-comp" placeholder="例：会社の同僚2名 / 引率教員">
-      </div>
-      <button class="btn primary" onclick="saveTrip()">登録して次へ（問診）</button>
+      <div class="field"><label>持病・通院中の状態 <span class="hint">複数選択可</span></label><div class="seg" id="f-cond"></div></div>
+      <div class="field"><label>アレルギー <span class="hint">任意</span></label><input type="text" id="f-allergy" placeholder="例：ペニシリン、そば、ラテックス"></div>
+      <div class="field"><label>あてはまる場合</label><div class="seg">
+        <label class="opt tone"><input type="checkbox" id="f-preg"><span>妊娠中・可能性</span></label>
+        <label class="opt tone"><input type="checkbox" id="f-hosp"><span>過去の入院歴</span></label>
+        <label class="opt tone"><input type="checkbox" id="f-vacc"><span>ワクチン未確認</span></label>
+        <label class="opt tone"><input type="checkbox" id="f-ins"><span>保険 未加入・未確認</span></label>
+      </div></div>
+      <div class="field"><label>常用薬・持参したい薬 <span class="hint">名前を入力して＋</span></label>
+        <div class="addbar"><input type="text" id="f-medname" placeholder="例：マイスリー、ロキソニン、インスリン" onkeydown="if(event.key==='Enter')addMed()"><button onclick="addMed()" aria-label="追加">＋</button></div>
+        <div id="medList"></div></div>
+      <div class="field"><label>緊急連絡先 <span class="hint">任意</span></label><input type="text" id="f-emgc" placeholder="例：家族 / 会社 担当者と電話番号"></div>
+      <button class="btn coral" onclick="runPrecheck()">判定する</button>
+      <div class="note jp"><b>大切なお願い：</b> 強い胸の痛み・呼吸困難・大量出血・重いアレルギー症状などは、判定を待たず現地の救急へ連絡してください。</div>
     </section>
 
-    <!-- ===================== HEALTH ===================== -->
-    <section class="screen" data-screen="health">
-      <button class="backlink" onclick="go('trip')">‹ 渡航登録</button>
-      <p class="eyebrow">STEP 2</p>
-      <h1 class="title">問診</h1>
-      <p class="sub">あてはまるものを選んでください。医師・薬剤師の確認や書類の要否を判定します。</p>
-
-      <div class="field">
-        <label>持病・通院中の状態 <span class="hint">複数選択可</span></label>
-        <div class="seg" id="f-cond"></div>
-      </div>
-      <div class="field">
-        <label for="f-allergy">アレルギー <span class="hint">任意</span></label>
-        <input type="text" id="f-allergy" placeholder="例：ペニシリン、そば、ラテックス">
-      </div>
-      <div class="field">
-        <label>該当する場合</label>
-        <div class="seg">
-          <label class="opt tone"><input type="checkbox" id="f-preg"><span>妊娠中・妊娠の可能性</span></label>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>常用薬・持参したい薬 <span class="hint">薬の名前を入力して＋</span></label>
-        <div class="addbar">
-          <input type="text" id="f-medname" placeholder="例：マイスリー、ロキソニン、インスリン" onkeydown="if(event.key==='Enter')addMed()">
-          <button onclick="addMed()" aria-label="薬を追加">＋</button>
-        </div>
-        <div id="medList"></div>
-      </div>
-
-      <button class="btn primary" onclick="saveHealth()">判定する</button>
-      <div class="note"><b>大切なお願い：</b> 強い胸の痛み、意識がもうろうとする、呼吸が苦しい、手足のまひ、大量の出血、重いアレルギー症状があるときは、アプリの相談を待たず現地の救急に連絡してください。</div>
-    </section>
-
-    <!-- ===================== RESULT ===================== -->
+    <!-- PRECHECK RESULT -->
     <section class="screen" data-screen="result">
-      <button class="backlink" onclick="go('home')">‹ ホーム</button>
-      <p class="eyebrow">判定結果</p>
-      <h1 class="title" id="res-dest">—</h1>
-      <p class="sub" id="res-lead">登録内容をもとに、渡航前に準備したいことを整理しました。</p>
-      <div class="chips" id="res-chips" style="margin-bottom:18px"></div>
+      <button class="backlink" onclick="go('precheck')">‹ 入力に戻る</button>
+      <div id="verdict"></div>
+      <div class="chips" id="res-chips"></div>
+      <h2 class="sec">確認したいこと</h2>
       <div id="res-items"></div>
-
       <h2 class="sec">準備すると安心な書類</h2>
       <div id="res-docs"></div>
-
-      <div class="btn-row">
-        <button class="btn coral" onclick="go('schedule')">相談を予約する</button>
-        <button class="btn ghost" onclick="go('docs')">書類を見る</button>
+      <div class="callout jp" id="res-country"></div>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn coral" onclick="goConsult('team')">相談を予約</button>
+        <button class="btn ghost" onclick="go('meds')">薬の持込を確認</button>
       </div>
-      <div class="callout" id="res-countrynote"></div>
-      <div class="note"><b>注意：</b> この判定は支援範囲の目安です。医師の診断書や薬剤証明書は説明資料として有効ですが、持込や通関を保証するものではありません。最終確認は渡航国政府・大使館・税関・航空会社・現地医療機関の最新情報を優先してください。</div>
+      <div class="note jp"><b>注意：</b> 判定は準備の目安です。診断書・薬剤証明書は説明資料として有効ですが、持込や通関を保証するものではありません。最終確認は渡航国政府・大使館・税関・航空会社・現地医療機関の最新情報を優先してください。</div>
     </section>
 
-    <!-- ===================== MEDS ===================== -->
+    <!-- MEDS (import check + pack) -->
     <section class="screen" data-screen="meds">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
-      <p class="eyebrow">薬の確認</p>
-      <h1 class="title">薬の管理</h1>
-      <p class="sub">登録した薬の持込リスクと、現地で必要になりやすい対応をまとめます。</p>
-      <div class="svchero"><img src="img/svc-meds.webp" alt="薬の準備" loading="lazy" decoding="async"></div>
-      <div class="addbar">
-        <input type="text" id="m-name" placeholder="薬の名前を追加" onkeydown="if(event.key==='Enter'){addMedFrom('m-name')}">
-        <button onclick="addMedFrom('m-name')" aria-label="薬を追加">＋</button>
-      </div>
+      <p class="eyebrow">薬剤チェック</p>
+      <h1 class="title">薬の持込を確認</h1>
+      <p class="sub jp">登録した薬の持込確認レベルを国別に整理します。最終判断は医師・薬剤師が行います。</p>
+      <div class="addbar"><input type="text" id="m-name" placeholder="薬の名前を追加" onkeydown="if(event.key==='Enter')addMedFrom('m-name')"><button onclick="addMedFrom('m-name')" aria-label="追加">＋</button></div>
       <div id="medsAssess"></div>
-      <div class="callout"><b>同等薬の検索：</b> 現地で同じ薬が手に入らないときは、成分から現地の同等薬候補を薬剤師が確認します。相談予約からどうぞ。</div>
+      <h2 class="sec">渡航用メディカルパック</h2>
+      <p class="sub jp">渡航に合わせたセットの目安です。実際の薬はオンライン相談で医師・薬剤師が確認します。</p>
+      <div id="packs"></div>
+      <div class="callout jp"><b>同等薬の確認：</b> 現地で同じ薬が手に入らないときは、成分から現地の同等薬候補を薬剤師が確認します。相談予約からどうぞ。</div>
     </section>
 
-    <!-- ===================== DOCS ===================== -->
+    <!-- DOCS -->
     <section class="screen" data-screen="docs">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
       <p class="eyebrow">書類</p>
       <h1 class="title">渡航書類</h1>
-      <p class="sub">医師・薬剤師の確認後に発行できます。状態をタップして進捗を管理できます。</p>
-      <div class="svchero"><img src="img/svc-docs.webp" alt="英文書類・処方の準備" loading="lazy" decoding="async"></div>
-      <div class="tripcard" style="padding:6px 16px"><div id="docList"></div></div>
-      <div class="callout">英文診断書・薬剤証明書・処方内容証明・紹介状は、相談で確認が済むと「準備完了」になります。学校・企業・保険会社向けのサマリも同じ場所から受け取れます。</div>
+      <p class="sub jp">医師署名・薬剤師確認・本人入力で区分しています。状態をタップして進捗を管理できます。</p>
+      <div class="card" style="padding:6px 16px"><div id="docList"></div></div>
+      <div class="callout jp">英文診断書・薬剤証明書・紹介状は、相談で確認が済むと「準備完了」になります。学校・企業・保険会社向けのサマリも同じ場所から受け取れます。</div>
     </section>
 
-    <!-- ===================== SCHEDULE (availability matching) ===================== -->
+    <!-- SCHEDULE -->
     <section class="screen" data-screen="schedule">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
       <p class="eyebrow">相談予約</p>
       <h1 class="title">日程を合わせる</h1>
-      <p class="sub">医師・薬剤師・通訳の空き状況とあなたの希望を照合します。全員が空いている枠で確定すると、オンライン通話のリンクが発行されます。</p>
-      <div class="svchero"><img src="img/svc-consult.webp" alt="医師・薬剤師に相談" loading="lazy" decoding="async"></div>
+      <p class="sub jp">医師・薬剤師・通訳の空き状況とあなたの希望を照合します。全員が空いている枠で確定すると、通話リンクが発行されます。</p>
       <div class="seg" style="margin-bottom:12px">
-        <label class="opt"><input type="radio" name="prov" value="doctor" checked onchange="renderSlots()"><span>医師</span></label>
+        <label class="opt"><input type="radio" name="prov" value="doctor" onchange="renderSlots()"><span>医師</span></label>
         <label class="opt"><input type="radio" name="prov" value="pharmacist" onchange="renderSlots()"><span>薬剤師</span></label>
         <label class="opt"><input type="radio" name="prov" value="team" onchange="renderSlots()"><span>医師＋薬剤師</span></label>
       </div>
@@ -518,16 +337,15 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       <div class="callout">○＝空き　△＝調整可　×＝不可。あなたはいつでも参加できる前提で照合します。</div>
     </section>
 
-    <!-- ===================== ONLINE CALL ===================== -->
+    <!-- CALL -->
     <section class="screen" data-screen="call">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
       <div id="callPre">
-        <p class="eyebrow">オンライン通話</p>
+        <p class="eyebrow">オンライン相談</p>
         <h1 class="title">まもなく開始</h1>
         <p class="sub" id="callWhen">—</p>
-        <div class="svchero"><img src="img/svc-interp.webp" alt="オンライン通訳・通話" loading="lazy" decoding="async"></div>
-        <div class="tripcard" style="padding:6px 16px"><div id="callParties"></div></div>
-        <button class="btn coral" onclick="enterCall()">通話に参加する</button>
+        <div class="card" style="padding:6px 16px"><div id="callParties"></div></div>
+        <button class="btn coral" onclick="enterCall()" style="margin-top:14px">通話に参加する</button>
         <div class="callout">通話の記録・要約は同意した場合のみ保存されます。終了後に相談サマリと書類の状態が更新されます。</div>
       </div>
       <div id="callLive" style="display:none">
@@ -541,42 +359,2349 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       </div>
     </section>
 
-    <!-- ===================== EMERGENCY ===================== -->
+    <!-- PASSPORT -->
+    <section class="screen" data-screen="passport">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
+        <div><p class="eyebrow" style="margin:0">MEDICAL PASSPORT</p><h1 class="title" style="margin:0" id="ppTitle">医療パスポート</h1></div>
+        <div class="langtog"><button id="langJa" class="on" onclick="setPPLang('ja')">日本語</button><button id="langEn" onclick="setPPLang('en')">EN</button></div>
+      </div>
+      <div class="pp" id="ppCard"></div>
+      <h2 class="sec" id="ppEditTtl">情報を編集</h2>
+      <div id="ppForm"></div>
+      <button class="btn primary" onclick="savePassport()">保存してQRを更新</button>
+      <div class="callout jp" id="ppNote">海外の医療機関では右上のQR、または「EN」表示で見せられます。記載は本人入力です。診断書など公式書類は書類タブから準備してください。</div>
+    </section>
+
+    <!-- EMERGENCY -->
     <section class="screen" data-screen="emergency">
       <button class="backlink" onclick="go('home')">‹ ホーム</button>
       <p class="eyebrow" style="color:var(--deep)">緊急サポート</p>
       <h1 class="title">いま困っている</h1>
-      <p class="sub">重い症状のときは、まず現地の救急へ。Animedは現在地の共有と日本語サポートをつなぎます。</p>
-      <div class="emg-hero">
-        <div class="lbl" id="emg-country">渡航先の救急番号</div>
-        <div class="num" id="emg-number">—</div>
-        <div class="gps" id="emg-gps">現在地：未取得</div>
-      </div>
-      <button class="btn danger" onclick="getGPS()" style="margin-bottom:10px">現在地を取得して共有</button>
-      <button class="btn ghost" onclick="toast('日本語サポートにつないでいます…')" style="margin-bottom:10px">日本語サポートに相談</button>
-      <button class="btn ghost" onclick="toast('近くの医療機関を表示します（連携先データ）')">近くの病院・薬局を探す</button>
-      <div class="note"><b>救急を最優先に：</b> 強い胸の痛み、意識障害、呼吸困難、まひ、大量出血、重いアレルギー症状は、アプリの操作より先に現地の救急番号へ連絡してください。</div>
+      <p class="sub jp">どの症状に近いですか？　重い症状のときは、まず現地の救急へ。</p>
+      <div id="symStep"></div>
+    </section>
+
+    <!-- ORG -->
+    <section class="screen" data-screen="org">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">団体管理</p>
+      <h1 class="title" id="orgTitle">企業・学校・団体</h1>
+      <p class="sub jp" id="orgSub">メンバーの渡航準備の進み具合を、病名を出さずにステータスで管理します。</p>
+      <div id="orgBody"></div>
     </section>
   </main>
 
   <nav class="tabbar" id="tabbar">
-    <button class="tab active" data-tab="home" onclick="go('home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/></svg>ホーム</button>
-    <button class="tab" data-tab="trip" onclick="go('trip')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle class="nimbus" cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/></svg>渡航</button>
-    <button class="tab" data-tab="health" onclick="go('health')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M3 13h3l2-4 3 7 2-5 1.5 2H21"/></svg>けんこう</button>
-    <button class="tab" data-tab="docs" onclick="go('docs')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>書類</button>
-    <button class="tab" data-tab="emergency" onclick="go('emergency')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>緊急</button>
+    <button class="tab active" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/></svg>ホーム</button>
+    <button class="tab" data-tab="precheck" onclick="go('precheck')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/></svg>チェック</button>
+    <button class="tab" data-tab="schedule" onclick="go('schedule')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a3.5 3.5 0 0 1-3.5 3.5h-7L4 19V7a3 3 0 0 1 3-3h8.5A3.5 3.5 0 0 1 19 7.5z"/></svg>相談</button>
+    <button class="tab" data-tab="passport" onclick="go('passport')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M5 17c1-2.5 7-2.5 8 0M15 9h4M15 13h4"/></svg>パスポート</button>
+    <button class="tab" data-tab="emergency" onclick="go('emergency')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>緊急</button>
   </nav>
-
   <div class="toast" id="toast"></div>
 </div>
 
+<script>//---------------------------------------------------------------------
+//
+// QR Code Generator for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//  http://www.opensource.org/licenses/mit-license.php
+//
+// The word 'QR Code' is registered trademark of
+// DENSO WAVE INCORPORATED
+//  http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+
+var qrcode = function() {
+
+  //---------------------------------------------------------------------
+  // qrcode
+  //---------------------------------------------------------------------
+
+  /**
+   * qrcode
+   * @param typeNumber 1 to 40
+   * @param errorCorrectionLevel 'L','M','Q','H'
+   */
+  var qrcode = function(typeNumber, errorCorrectionLevel) {
+
+    var PAD0 = 0xEC;
+    var PAD1 = 0x11;
+
+    var _typeNumber = typeNumber;
+    var _errorCorrectionLevel = QRErrorCorrectionLevel[errorCorrectionLevel];
+    var _modules = null;
+    var _moduleCount = 0;
+    var _dataCache = null;
+    var _dataList = [];
+
+    var _this = {};
+
+    var makeImpl = function(test, maskPattern) {
+
+      _moduleCount = _typeNumber * 4 + 17;
+      _modules = function(moduleCount) {
+        var modules = new Array(moduleCount);
+        for (var row = 0; row < moduleCount; row += 1) {
+          modules[row] = new Array(moduleCount);
+          for (var col = 0; col < moduleCount; col += 1) {
+            modules[row][col] = null;
+          }
+        }
+        return modules;
+      }(_moduleCount);
+
+      setupPositionProbePattern(0, 0);
+      setupPositionProbePattern(_moduleCount - 7, 0);
+      setupPositionProbePattern(0, _moduleCount - 7);
+      setupPositionAdjustPattern();
+      setupTimingPattern();
+      setupTypeInfo(test, maskPattern);
+
+      if (_typeNumber >= 7) {
+        setupTypeNumber(test);
+      }
+
+      if (_dataCache == null) {
+        _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
+      }
+
+      mapData(_dataCache, maskPattern);
+    };
+
+    var setupPositionProbePattern = function(row, col) {
+
+      for (var r = -1; r <= 7; r += 1) {
+
+        if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+        for (var c = -1; c <= 7; c += 1) {
+
+          if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+          if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
+              || (0 <= c && c <= 6 && (r == 0 || r == 6) )
+              || (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+            _modules[row + r][col + c] = true;
+          } else {
+            _modules[row + r][col + c] = false;
+          }
+        }
+      }
+    };
+
+    var getBestMaskPattern = function() {
+
+      var minLostPoint = 0;
+      var pattern = 0;
+
+      for (var i = 0; i < 8; i += 1) {
+
+        makeImpl(true, i);
+
+        var lostPoint = QRUtil.getLostPoint(_this);
+
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
+      }
+
+      return pattern;
+    };
+
+    var setupTimingPattern = function() {
+
+      for (var r = 8; r < _moduleCount - 8; r += 1) {
+        if (_modules[r][6] != null) {
+          continue;
+        }
+        _modules[r][6] = (r % 2 == 0);
+      }
+
+      for (var c = 8; c < _moduleCount - 8; c += 1) {
+        if (_modules[6][c] != null) {
+          continue;
+        }
+        _modules[6][c] = (c % 2 == 0);
+      }
+    };
+
+    var setupPositionAdjustPattern = function() {
+
+      var pos = QRUtil.getPatternPosition(_typeNumber);
+
+      for (var i = 0; i < pos.length; i += 1) {
+
+        for (var j = 0; j < pos.length; j += 1) {
+
+          var row = pos[i];
+          var col = pos[j];
+
+          if (_modules[row][col] != null) {
+            continue;
+          }
+
+          for (var r = -2; r <= 2; r += 1) {
+
+            for (var c = -2; c <= 2; c += 1) {
+
+              if (r == -2 || r == 2 || c == -2 || c == 2
+                  || (r == 0 && c == 0) ) {
+                _modules[row + r][col + c] = true;
+              } else {
+                _modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var setupTypeNumber = function(test) {
+
+      var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+      }
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    };
+
+    var setupTypeInfo = function(test, maskPattern) {
+
+      var data = (_errorCorrectionLevel << 3) | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+
+      // vertical
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 6) {
+          _modules[i][8] = mod;
+        } else if (i < 8) {
+          _modules[i + 1][8] = mod;
+        } else {
+          _modules[_moduleCount - 15 + i][8] = mod;
+        }
+      }
+
+      // horizontal
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 8) {
+          _modules[8][_moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          _modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          _modules[8][15 - i - 1] = mod;
+        }
+      }
+
+      // fixed module
+      _modules[_moduleCount - 8][8] = (!test);
+    };
+
+    var mapData = function(data, maskPattern) {
+
+      var inc = -1;
+      var row = _moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+      for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+        if (col == 6) col -= 1;
+
+        while (true) {
+
+          for (var c = 0; c < 2; c += 1) {
+
+            if (_modules[row][col - c] == null) {
+
+              var dark = false;
+
+              if (byteIndex < data.length) {
+                dark = ( ( (data[byteIndex] >>> bitIndex) & 1) == 1);
+              }
+
+              var mask = maskFunc(row, col - c);
+
+              if (mask) {
+                dark = !dark;
+              }
+
+              _modules[row][col - c] = dark;
+              bitIndex -= 1;
+
+              if (bitIndex == -1) {
+                byteIndex += 1;
+                bitIndex = 7;
+              }
+            }
+          }
+
+          row += inc;
+
+          if (row < 0 || _moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    };
+
+    var createBytes = function(buffer, rsBlocks) {
+
+      var offset = 0;
+
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+
+        var dcCount = rsBlocks[r].dataCount;
+        var ecCount = rsBlocks[r].totalCount - dcCount;
+
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+
+        dcdata[r] = new Array(dcCount);
+
+        for (var i = 0; i < dcdata[r].length; i += 1) {
+          dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+        }
+        offset += dcCount;
+
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i += 1) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = (modIndex >= 0)? modPoly.getAt(modIndex) : 0;
+        }
+      }
+
+      var totalCodeCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalCodeCount += rsBlocks[i].totalCount;
+      }
+
+      var data = new Array(totalCodeCount);
+      var index = 0;
+
+      for (var i = 0; i < maxDcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < dcdata[r].length) {
+            data[index] = dcdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      for (var i = 0; i < maxEcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < ecdata[r].length) {
+            data[index] = ecdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      return data;
+    };
+
+    var createData = function(typeNumber, errorCorrectionLevel, dataList) {
+
+      var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
+
+      var buffer = qrBitBuffer();
+
+      for (var i = 0; i < dataList.length; i += 1) {
+        var data = dataList[i];
+        buffer.put(data.getMode(), 4);
+        buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+        data.write(buffer);
+      }
+
+      // calc num max data.
+      var totalDataCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      if (buffer.getLengthInBits() > totalDataCount * 8) {
+        throw 'code length overflow. ('
+          + buffer.getLengthInBits()
+          + '>'
+          + totalDataCount * 8
+          + ')';
+      }
+
+      // end code
+      if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+
+      // padding
+      while (buffer.getLengthInBits() % 8 != 0) {
+        buffer.putBit(false);
+      }
+
+      // padding
+      while (true) {
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD0, 8);
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD1, 8);
+      }
+
+      return createBytes(buffer, rsBlocks);
+    };
+
+    _this.addData = function(data, mode) {
+
+      mode = mode || 'Byte';
+
+      var newData = null;
+
+      switch(mode) {
+      case 'Numeric' :
+        newData = qrNumber(data);
+        break;
+      case 'Alphanumeric' :
+        newData = qrAlphaNum(data);
+        break;
+      case 'Byte' :
+        newData = qr8BitByte(data);
+        break;
+      case 'Kanji' :
+        newData = qrKanji(data);
+        break;
+      default :
+        throw 'mode:' + mode;
+      }
+
+      _dataList.push(newData);
+      _dataCache = null;
+    };
+
+    _this.isDark = function(row, col) {
+      if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+        throw row + ',' + col;
+      }
+      return _modules[row][col];
+    };
+
+    _this.getModuleCount = function() {
+      return _moduleCount;
+    };
+
+    _this.make = function() {
+      if (_typeNumber < 1) {
+        var typeNumber = 1;
+
+        for (; typeNumber < 40; typeNumber++) {
+          var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, _errorCorrectionLevel);
+          var buffer = qrBitBuffer();
+
+          for (var i = 0; i < _dataList.length; i++) {
+            var data = _dataList[i];
+            buffer.put(data.getMode(), 4);
+            buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+            data.write(buffer);
+          }
+
+          var totalDataCount = 0;
+          for (var i = 0; i < rsBlocks.length; i++) {
+            totalDataCount += rsBlocks[i].dataCount;
+          }
+
+          if (buffer.getLengthInBits() <= totalDataCount * 8) {
+            break;
+          }
+        }
+
+        _typeNumber = typeNumber;
+      }
+
+      makeImpl(false, getBestMaskPattern() );
+    };
+
+    _this.createTableTag = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var qrHtml = '';
+
+      qrHtml += '<table style="';
+      qrHtml += ' border-width: 0px; border-style: none;';
+      qrHtml += ' border-collapse: collapse;';
+      qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+      qrHtml += '">';
+      qrHtml += '<tbody>';
+
+      for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+        qrHtml += '<tr>';
+
+        for (var c = 0; c < _this.getModuleCount(); c += 1) {
+          qrHtml += '<td style="';
+          qrHtml += ' border-width: 0px; border-style: none;';
+          qrHtml += ' border-collapse: collapse;';
+          qrHtml += ' padding: 0px; margin: 0px;';
+          qrHtml += ' width: ' + cellSize + 'px;';
+          qrHtml += ' height: ' + cellSize + 'px;';
+          qrHtml += ' background-color: ';
+          qrHtml += _this.isDark(r, c)? '#000000' : '#ffffff';
+          qrHtml += ';';
+          qrHtml += '"/>';
+        }
+
+        qrHtml += '</tr>';
+      }
+
+      qrHtml += '</tbody>';
+      qrHtml += '</table>';
+
+      return qrHtml;
+    };
+
+    _this.createSvgTag = function(cellSize, margin, alt, title) {
+
+      var opts = {};
+      if (typeof arguments[0] == 'object') {
+        // Called by options.
+        opts = arguments[0];
+        // overwrite cellSize and margin.
+        cellSize = opts.cellSize;
+        margin = opts.margin;
+        alt = opts.alt;
+        title = opts.title;
+      }
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      // Compose alt property surrogate
+      alt = (typeof alt === 'string') ? {text: alt} : alt || {};
+      alt.text = alt.text || null;
+      alt.id = (alt.text) ? alt.id || 'qrcode-description' : null;
+
+      // Compose title property surrogate
+      title = (typeof title === 'string') ? {text: title} : title || {};
+      title.text = title.text || null;
+      title.id = (title.text) ? title.id || 'qrcode-title' : null;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var c, mc, r, mr, qrSvg='', rect;
+
+      rect = 'l' + cellSize + ',0 0,' + cellSize +
+        ' -' + cellSize + ',0 0,-' + cellSize + 'z ';
+
+      qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+      qrSvg += !opts.scalable ? ' width="' + size + 'px" height="' + size + 'px"' : '';
+      qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
+      qrSvg += ' preserveAspectRatio="xMinYMin meet"';
+      qrSvg += (title.text || alt.text) ? ' role="img" aria-labelledby="' +
+          escapeXml([title.id, alt.id].join(' ').trim() ) + '"' : '';
+      qrSvg += '>';
+      qrSvg += (title.text) ? '<title id="' + escapeXml(title.id) + '">' +
+          escapeXml(title.text) + '</title>' : '';
+      qrSvg += (alt.text) ? '<description id="' + escapeXml(alt.id) + '">' +
+          escapeXml(alt.text) + '</description>' : '';
+      qrSvg += '<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>';
+      qrSvg += '<path d="';
+
+      for (r = 0; r < _this.getModuleCount(); r += 1) {
+        mr = r * cellSize + margin;
+        for (c = 0; c < _this.getModuleCount(); c += 1) {
+          if (_this.isDark(r, c) ) {
+            mc = c*cellSize+margin;
+            qrSvg += 'M' + mc + ',' + mr + rect;
+          }
+        }
+      }
+
+      qrSvg += '" stroke="transparent" fill="black"/>';
+      qrSvg += '</svg>';
+
+      return qrSvg;
+    };
+
+    _this.createDataURL = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      return createDataURL(size, size, function(x, y) {
+        if (min <= x && x < max && min <= y && y < max) {
+          var c = Math.floor( (x - min) / cellSize);
+          var r = Math.floor( (y - min) / cellSize);
+          return _this.isDark(r, c)? 0 : 1;
+        } else {
+          return 1;
+        }
+      } );
+    };
+
+    _this.createImgTag = function(cellSize, margin, alt) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+
+      var img = '';
+      img += '<img';
+      img += '\u0020src="';
+      img += _this.createDataURL(cellSize, margin);
+      img += '"';
+      img += '\u0020width="';
+      img += size;
+      img += '"';
+      img += '\u0020height="';
+      img += size;
+      img += '"';
+      if (alt) {
+        img += '\u0020alt="';
+        img += escapeXml(alt);
+        img += '"';
+      }
+      img += '/>';
+
+      return img;
+    };
+
+    var escapeXml = function(s) {
+      var escaped = '';
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charAt(i);
+        switch(c) {
+        case '<': escaped += '&lt;'; break;
+        case '>': escaped += '&gt;'; break;
+        case '&': escaped += '&amp;'; break;
+        case '"': escaped += '&quot;'; break;
+        default : escaped += c; break;
+        }
+      }
+      return escaped;
+    };
+
+    var _createHalfASCII = function(margin) {
+      var cellSize = 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r1, r2, p;
+
+      var blocks = {
+        '██': '█',
+        '█ ': '▀',
+        ' █': '▄',
+        '  ': ' '
+      };
+
+      var blocksLastLineNoMargin = {
+        '██': '▀',
+        '█ ': '▀',
+        ' █': ' ',
+        '  ': ' '
+      };
+
+      var ascii = '';
+      for (y = 0; y < size; y += 2) {
+        r1 = Math.floor((y - min) / cellSize);
+        r2 = Math.floor((y + 1 - min) / cellSize);
+        for (x = 0; x < size; x += 1) {
+          p = '█';
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r1, Math.floor((x - min) / cellSize))) {
+            p = ' ';
+          }
+
+          if (min <= x && x < max && min <= y+1 && y+1 < max && _this.isDark(r2, Math.floor((x - min) / cellSize))) {
+            p += ' ';
+          }
+          else {
+            p += '█';
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          ascii += (margin < 1 && y+1 >= max) ? blocksLastLineNoMargin[p] : blocks[p];
+        }
+
+        ascii += '\n';
+      }
+
+      if (size % 2 && margin > 0) {
+        return ascii.substring(0, ascii.length - size - 1) + Array(size+1).join('▀');
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.createASCII = function(cellSize, margin) {
+      cellSize = cellSize || 1;
+
+      if (cellSize < 2) {
+        return _createHalfASCII(margin);
+      }
+
+      cellSize -= 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r, p;
+
+      var white = Array(cellSize+1).join('██');
+      var black = Array(cellSize+1).join('  ');
+
+      var ascii = '';
+      var line = '';
+      for (y = 0; y < size; y += 1) {
+        r = Math.floor( (y - min) / cellSize);
+        line = '';
+        for (x = 0; x < size; x += 1) {
+          p = 1;
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r, Math.floor((x - min) / cellSize))) {
+            p = 0;
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          line += p ? white : black;
+        }
+
+        for (r = 0; r < cellSize; r += 1) {
+          ascii += line + '\n';
+        }
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.renderTo2dContext = function(context, cellSize) {
+      cellSize = cellSize || 2;
+      var length = _this.getModuleCount();
+      for (var row = 0; row < length; row++) {
+        for (var col = 0; col < length; col++) {
+          context.fillStyle = _this.isDark(row, col) ? 'black' : 'white';
+          context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrcode.stringToBytes
+  //---------------------------------------------------------------------
+
+  qrcode.stringToBytesFuncs = {
+    'default' : function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        bytes.push(c & 0xff);
+      }
+      return bytes;
+    }
+  };
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['default'];
+
+  //---------------------------------------------------------------------
+  // qrcode.createStringToBytes
+  //---------------------------------------------------------------------
+
+  /**
+   * @param unicodeData base64 string of byte array.
+   * [16bit Unicode],[16bit Bytes], ...
+   * @param numChars
+   */
+  qrcode.createStringToBytes = function(unicodeData, numChars) {
+
+    // create conversion map.
+
+    var unicodeMap = function() {
+
+      var bin = base64DecodeInputStream(unicodeData);
+      var read = function() {
+        var b = bin.read();
+        if (b == -1) throw 'eof';
+        return b;
+      };
+
+      var count = 0;
+      var unicodeMap = {};
+      while (true) {
+        var b0 = bin.read();
+        if (b0 == -1) break;
+        var b1 = read();
+        var b2 = read();
+        var b3 = read();
+        var k = String.fromCharCode( (b0 << 8) | b1);
+        var v = (b2 << 8) | b3;
+        unicodeMap[k] = v;
+        count += 1;
+      }
+      if (count != numChars) {
+        throw count + ' != ' + numChars;
+      }
+
+      return unicodeMap;
+    }();
+
+    var unknownChar = '?'.charCodeAt(0);
+
+    return function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        if (c < 128) {
+          bytes.push(c);
+        } else {
+          var b = unicodeMap[s.charAt(i)];
+          if (typeof b == 'number') {
+            if ( (b & 0xff) == b) {
+              // 1byte
+              bytes.push(b);
+            } else {
+              // 2bytes
+              bytes.push(b >>> 8);
+              bytes.push(b & 0xff);
+            }
+          } else {
+            bytes.push(unknownChar);
+          }
+        }
+      }
+      return bytes;
+    };
+  };
+
+  //---------------------------------------------------------------------
+  // QRMode
+  //---------------------------------------------------------------------
+
+  var QRMode = {
+    MODE_NUMBER :    1 << 0,
+    MODE_ALPHA_NUM : 1 << 1,
+    MODE_8BIT_BYTE : 1 << 2,
+    MODE_KANJI :     1 << 3
+  };
+
+  //---------------------------------------------------------------------
+  // QRErrorCorrectionLevel
+  //---------------------------------------------------------------------
+
+  var QRErrorCorrectionLevel = {
+    L : 1,
+    M : 0,
+    Q : 3,
+    H : 2
+  };
+
+  //---------------------------------------------------------------------
+  // QRMaskPattern
+  //---------------------------------------------------------------------
+
+  var QRMaskPattern = {
+    PATTERN000 : 0,
+    PATTERN001 : 1,
+    PATTERN010 : 2,
+    PATTERN011 : 3,
+    PATTERN100 : 4,
+    PATTERN101 : 5,
+    PATTERN110 : 6,
+    PATTERN111 : 7
+  };
+
+  //---------------------------------------------------------------------
+  // QRUtil
+  //---------------------------------------------------------------------
+
+  var QRUtil = function() {
+
+    var PATTERN_POSITION_TABLE = [
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170]
+    ];
+    var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0);
+    var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0);
+    var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1);
+
+    var _this = {};
+
+    var getBCHDigit = function(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit += 1;
+        data >>>= 1;
+      }
+      return digit;
+    };
+
+    _this.getBCHTypeInfo = function(data) {
+      var d = data << 10;
+      while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+        d ^= (G15 << (getBCHDigit(d) - getBCHDigit(G15) ) );
+      }
+      return ( (data << 10) | d) ^ G15_MASK;
+    };
+
+    _this.getBCHTypeNumber = function(data) {
+      var d = data << 12;
+      while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+        d ^= (G18 << (getBCHDigit(d) - getBCHDigit(G18) ) );
+      }
+      return (data << 12) | d;
+    };
+
+    _this.getPatternPosition = function(typeNumber) {
+      return PATTERN_POSITION_TABLE[typeNumber - 1];
+    };
+
+    _this.getMaskFunction = function(maskPattern) {
+
+      switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000 :
+        return function(i, j) { return (i + j) % 2 == 0; };
+      case QRMaskPattern.PATTERN001 :
+        return function(i, j) { return i % 2 == 0; };
+      case QRMaskPattern.PATTERN010 :
+        return function(i, j) { return j % 3 == 0; };
+      case QRMaskPattern.PATTERN011 :
+        return function(i, j) { return (i + j) % 3 == 0; };
+      case QRMaskPattern.PATTERN100 :
+        return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 == 0; };
+      case QRMaskPattern.PATTERN101 :
+        return function(i, j) { return (i * j) % 2 + (i * j) % 3 == 0; };
+      case QRMaskPattern.PATTERN110 :
+        return function(i, j) { return ( (i * j) % 2 + (i * j) % 3) % 2 == 0; };
+      case QRMaskPattern.PATTERN111 :
+        return function(i, j) { return ( (i * j) % 3 + (i + j) % 2) % 2 == 0; };
+
+      default :
+        throw 'bad maskPattern:' + maskPattern;
+      }
+    };
+
+    _this.getErrorCorrectPolynomial = function(errorCorrectLength) {
+      var a = qrPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i += 1) {
+        a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0) );
+      }
+      return a;
+    };
+
+    _this.getLengthInBits = function(mode, type) {
+
+      if (1 <= type && type < 10) {
+
+        // 1 - 9
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 10;
+        case QRMode.MODE_ALPHA_NUM : return 9;
+        case QRMode.MODE_8BIT_BYTE : return 8;
+        case QRMode.MODE_KANJI     : return 8;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 27) {
+
+        // 10 - 26
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 12;
+        case QRMode.MODE_ALPHA_NUM : return 11;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 10;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 41) {
+
+        // 27 - 40
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 14;
+        case QRMode.MODE_ALPHA_NUM : return 13;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 12;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else {
+        throw 'type:' + type;
+      }
+    };
+
+    _this.getLostPoint = function(qrcode) {
+
+      var moduleCount = qrcode.getModuleCount();
+
+      var lostPoint = 0;
+
+      // LEVEL1
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount; col += 1) {
+
+          var sameCount = 0;
+          var dark = qrcode.isDark(row, col);
+
+          for (var r = -1; r <= 1; r += 1) {
+
+            if (row + r < 0 || moduleCount <= row + r) {
+              continue;
+            }
+
+            for (var c = -1; c <= 1; c += 1) {
+
+              if (col + c < 0 || moduleCount <= col + c) {
+                continue;
+              }
+
+              if (r == 0 && c == 0) {
+                continue;
+              }
+
+              if (dark == qrcode.isDark(row + r, col + c) ) {
+                sameCount += 1;
+              }
+            }
+          }
+
+          if (sameCount > 5) {
+            lostPoint += (3 + sameCount - 5);
+          }
+        }
+      };
+
+      // LEVEL2
+
+      for (var row = 0; row < moduleCount - 1; row += 1) {
+        for (var col = 0; col < moduleCount - 1; col += 1) {
+          var count = 0;
+          if (qrcode.isDark(row, col) ) count += 1;
+          if (qrcode.isDark(row + 1, col) ) count += 1;
+          if (qrcode.isDark(row, col + 1) ) count += 1;
+          if (qrcode.isDark(row + 1, col + 1) ) count += 1;
+          if (count == 0 || count == 4) {
+            lostPoint += 3;
+          }
+        }
+      }
+
+      // LEVEL3
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount - 6; col += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row, col + 1)
+              &&  qrcode.isDark(row, col + 2)
+              &&  qrcode.isDark(row, col + 3)
+              &&  qrcode.isDark(row, col + 4)
+              && !qrcode.isDark(row, col + 5)
+              &&  qrcode.isDark(row, col + 6) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount - 6; row += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row + 1, col)
+              &&  qrcode.isDark(row + 2, col)
+              &&  qrcode.isDark(row + 3, col)
+              &&  qrcode.isDark(row + 4, col)
+              && !qrcode.isDark(row + 5, col)
+              &&  qrcode.isDark(row + 6, col) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      // LEVEL4
+
+      var darkCount = 0;
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount; row += 1) {
+          if (qrcode.isDark(row, col) ) {
+            darkCount += 1;
+          }
+        }
+      }
+
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+
+      return lostPoint;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // QRMath
+  //---------------------------------------------------------------------
+
+  var QRMath = function() {
+
+    var EXP_TABLE = new Array(256);
+    var LOG_TABLE = new Array(256);
+
+    // initialize tables
+    for (var i = 0; i < 8; i += 1) {
+      EXP_TABLE[i] = 1 << i;
+    }
+    for (var i = 8; i < 256; i += 1) {
+      EXP_TABLE[i] = EXP_TABLE[i - 4]
+        ^ EXP_TABLE[i - 5]
+        ^ EXP_TABLE[i - 6]
+        ^ EXP_TABLE[i - 8];
+    }
+    for (var i = 0; i < 255; i += 1) {
+      LOG_TABLE[EXP_TABLE[i] ] = i;
+    }
+
+    var _this = {};
+
+    _this.glog = function(n) {
+
+      if (n < 1) {
+        throw 'glog(' + n + ')';
+      }
+
+      return LOG_TABLE[n];
+    };
+
+    _this.gexp = function(n) {
+
+      while (n < 0) {
+        n += 255;
+      }
+
+      while (n >= 256) {
+        n -= 255;
+      }
+
+      return EXP_TABLE[n];
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrPolynomial
+  //---------------------------------------------------------------------
+
+  function qrPolynomial(num, shift) {
+
+    if (typeof num.length == 'undefined') {
+      throw num.length + '/' + shift;
+    }
+
+    var _num = function() {
+      var offset = 0;
+      while (offset < num.length && num[offset] == 0) {
+        offset += 1;
+      }
+      var _num = new Array(num.length - offset + shift);
+      for (var i = 0; i < num.length - offset; i += 1) {
+        _num[i] = num[i + offset];
+      }
+      return _num;
+    }();
+
+    var _this = {};
+
+    _this.getAt = function(index) {
+      return _num[index];
+    };
+
+    _this.getLength = function() {
+      return _num.length;
+    };
+
+    _this.multiply = function(e) {
+
+      var num = new Array(_this.getLength() + e.getLength() - 1);
+
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        for (var j = 0; j < e.getLength(); j += 1) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i) ) + QRMath.glog(e.getAt(j) ) );
+        }
+      }
+
+      return qrPolynomial(num, 0);
+    };
+
+    _this.mod = function(e) {
+
+      if (_this.getLength() - e.getLength() < 0) {
+        return _this;
+      }
+
+      var ratio = QRMath.glog(_this.getAt(0) ) - QRMath.glog(e.getAt(0) );
+
+      var num = new Array(_this.getLength() );
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        num[i] = _this.getAt(i);
+      }
+
+      for (var i = 0; i < e.getLength(); i += 1) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i) ) + ratio);
+      }
+
+      // recursive call
+      return qrPolynomial(num, 0).mod(e);
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // QRRSBlock
+  //---------------------------------------------------------------------
+
+  var QRRSBlock = function() {
+
+    var RS_BLOCK_TABLE = [
+
+      // L
+      // M
+      // Q
+      // H
+
+      // 1
+      [1, 26, 19],
+      [1, 26, 16],
+      [1, 26, 13],
+      [1, 26, 9],
+
+      // 2
+      [1, 44, 34],
+      [1, 44, 28],
+      [1, 44, 22],
+      [1, 44, 16],
+
+      // 3
+      [1, 70, 55],
+      [1, 70, 44],
+      [2, 35, 17],
+      [2, 35, 13],
+
+      // 4
+      [1, 100, 80],
+      [2, 50, 32],
+      [2, 50, 24],
+      [4, 25, 9],
+
+      // 5
+      [1, 134, 108],
+      [2, 67, 43],
+      [2, 33, 15, 2, 34, 16],
+      [2, 33, 11, 2, 34, 12],
+
+      // 6
+      [2, 86, 68],
+      [4, 43, 27],
+      [4, 43, 19],
+      [4, 43, 15],
+
+      // 7
+      [2, 98, 78],
+      [4, 49, 31],
+      [2, 32, 14, 4, 33, 15],
+      [4, 39, 13, 1, 40, 14],
+
+      // 8
+      [2, 121, 97],
+      [2, 60, 38, 2, 61, 39],
+      [4, 40, 18, 2, 41, 19],
+      [4, 40, 14, 2, 41, 15],
+
+      // 9
+      [2, 146, 116],
+      [3, 58, 36, 2, 59, 37],
+      [4, 36, 16, 4, 37, 17],
+      [4, 36, 12, 4, 37, 13],
+
+      // 10
+      [2, 86, 68, 2, 87, 69],
+      [4, 69, 43, 1, 70, 44],
+      [6, 43, 19, 2, 44, 20],
+      [6, 43, 15, 2, 44, 16],
+
+      // 11
+      [4, 101, 81],
+      [1, 80, 50, 4, 81, 51],
+      [4, 50, 22, 4, 51, 23],
+      [3, 36, 12, 8, 37, 13],
+
+      // 12
+      [2, 116, 92, 2, 117, 93],
+      [6, 58, 36, 2, 59, 37],
+      [4, 46, 20, 6, 47, 21],
+      [7, 42, 14, 4, 43, 15],
+
+      // 13
+      [4, 133, 107],
+      [8, 59, 37, 1, 60, 38],
+      [8, 44, 20, 4, 45, 21],
+      [12, 33, 11, 4, 34, 12],
+
+      // 14
+      [3, 145, 115, 1, 146, 116],
+      [4, 64, 40, 5, 65, 41],
+      [11, 36, 16, 5, 37, 17],
+      [11, 36, 12, 5, 37, 13],
+
+      // 15
+      [5, 109, 87, 1, 110, 88],
+      [5, 65, 41, 5, 66, 42],
+      [5, 54, 24, 7, 55, 25],
+      [11, 36, 12, 7, 37, 13],
+
+      // 16
+      [5, 122, 98, 1, 123, 99],
+      [7, 73, 45, 3, 74, 46],
+      [15, 43, 19, 2, 44, 20],
+      [3, 45, 15, 13, 46, 16],
+
+      // 17
+      [1, 135, 107, 5, 136, 108],
+      [10, 74, 46, 1, 75, 47],
+      [1, 50, 22, 15, 51, 23],
+      [2, 42, 14, 17, 43, 15],
+
+      // 18
+      [5, 150, 120, 1, 151, 121],
+      [9, 69, 43, 4, 70, 44],
+      [17, 50, 22, 1, 51, 23],
+      [2, 42, 14, 19, 43, 15],
+
+      // 19
+      [3, 141, 113, 4, 142, 114],
+      [3, 70, 44, 11, 71, 45],
+      [17, 47, 21, 4, 48, 22],
+      [9, 39, 13, 16, 40, 14],
+
+      // 20
+      [3, 135, 107, 5, 136, 108],
+      [3, 67, 41, 13, 68, 42],
+      [15, 54, 24, 5, 55, 25],
+      [15, 43, 15, 10, 44, 16],
+
+      // 21
+      [4, 144, 116, 4, 145, 117],
+      [17, 68, 42],
+      [17, 50, 22, 6, 51, 23],
+      [19, 46, 16, 6, 47, 17],
+
+      // 22
+      [2, 139, 111, 7, 140, 112],
+      [17, 74, 46],
+      [7, 54, 24, 16, 55, 25],
+      [34, 37, 13],
+
+      // 23
+      [4, 151, 121, 5, 152, 122],
+      [4, 75, 47, 14, 76, 48],
+      [11, 54, 24, 14, 55, 25],
+      [16, 45, 15, 14, 46, 16],
+
+      // 24
+      [6, 147, 117, 4, 148, 118],
+      [6, 73, 45, 14, 74, 46],
+      [11, 54, 24, 16, 55, 25],
+      [30, 46, 16, 2, 47, 17],
+
+      // 25
+      [8, 132, 106, 4, 133, 107],
+      [8, 75, 47, 13, 76, 48],
+      [7, 54, 24, 22, 55, 25],
+      [22, 45, 15, 13, 46, 16],
+
+      // 26
+      [10, 142, 114, 2, 143, 115],
+      [19, 74, 46, 4, 75, 47],
+      [28, 50, 22, 6, 51, 23],
+      [33, 46, 16, 4, 47, 17],
+
+      // 27
+      [8, 152, 122, 4, 153, 123],
+      [22, 73, 45, 3, 74, 46],
+      [8, 53, 23, 26, 54, 24],
+      [12, 45, 15, 28, 46, 16],
+
+      // 28
+      [3, 147, 117, 10, 148, 118],
+      [3, 73, 45, 23, 74, 46],
+      [4, 54, 24, 31, 55, 25],
+      [11, 45, 15, 31, 46, 16],
+
+      // 29
+      [7, 146, 116, 7, 147, 117],
+      [21, 73, 45, 7, 74, 46],
+      [1, 53, 23, 37, 54, 24],
+      [19, 45, 15, 26, 46, 16],
+
+      // 30
+      [5, 145, 115, 10, 146, 116],
+      [19, 75, 47, 10, 76, 48],
+      [15, 54, 24, 25, 55, 25],
+      [23, 45, 15, 25, 46, 16],
+
+      // 31
+      [13, 145, 115, 3, 146, 116],
+      [2, 74, 46, 29, 75, 47],
+      [42, 54, 24, 1, 55, 25],
+      [23, 45, 15, 28, 46, 16],
+
+      // 32
+      [17, 145, 115],
+      [10, 74, 46, 23, 75, 47],
+      [10, 54, 24, 35, 55, 25],
+      [19, 45, 15, 35, 46, 16],
+
+      // 33
+      [17, 145, 115, 1, 146, 116],
+      [14, 74, 46, 21, 75, 47],
+      [29, 54, 24, 19, 55, 25],
+      [11, 45, 15, 46, 46, 16],
+
+      // 34
+      [13, 145, 115, 6, 146, 116],
+      [14, 74, 46, 23, 75, 47],
+      [44, 54, 24, 7, 55, 25],
+      [59, 46, 16, 1, 47, 17],
+
+      // 35
+      [12, 151, 121, 7, 152, 122],
+      [12, 75, 47, 26, 76, 48],
+      [39, 54, 24, 14, 55, 25],
+      [22, 45, 15, 41, 46, 16],
+
+      // 36
+      [6, 151, 121, 14, 152, 122],
+      [6, 75, 47, 34, 76, 48],
+      [46, 54, 24, 10, 55, 25],
+      [2, 45, 15, 64, 46, 16],
+
+      // 37
+      [17, 152, 122, 4, 153, 123],
+      [29, 74, 46, 14, 75, 47],
+      [49, 54, 24, 10, 55, 25],
+      [24, 45, 15, 46, 46, 16],
+
+      // 38
+      [4, 152, 122, 18, 153, 123],
+      [13, 74, 46, 32, 75, 47],
+      [48, 54, 24, 14, 55, 25],
+      [42, 45, 15, 32, 46, 16],
+
+      // 39
+      [20, 147, 117, 4, 148, 118],
+      [40, 75, 47, 7, 76, 48],
+      [43, 54, 24, 22, 55, 25],
+      [10, 45, 15, 67, 46, 16],
+
+      // 40
+      [19, 148, 118, 6, 149, 119],
+      [18, 75, 47, 31, 76, 48],
+      [34, 54, 24, 34, 55, 25],
+      [20, 45, 15, 61, 46, 16]
+    ];
+
+    var qrRSBlock = function(totalCount, dataCount) {
+      var _this = {};
+      _this.totalCount = totalCount;
+      _this.dataCount = dataCount;
+      return _this;
+    };
+
+    var _this = {};
+
+    var getRsBlockTable = function(typeNumber, errorCorrectionLevel) {
+
+      switch(errorCorrectionLevel) {
+      case QRErrorCorrectionLevel.L :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectionLevel.M :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectionLevel.Q :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectionLevel.H :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default :
+        return undefined;
+      }
+    };
+
+    _this.getRSBlocks = function(typeNumber, errorCorrectionLevel) {
+
+      var rsBlock = getRsBlockTable(typeNumber, errorCorrectionLevel);
+
+      if (typeof rsBlock == 'undefined') {
+        throw 'bad rs block @ typeNumber:' + typeNumber +
+            '/errorCorrectionLevel:' + errorCorrectionLevel;
+      }
+
+      var length = rsBlock.length / 3;
+
+      var list = [];
+
+      for (var i = 0; i < length; i += 1) {
+
+        var count = rsBlock[i * 3 + 0];
+        var totalCount = rsBlock[i * 3 + 1];
+        var dataCount = rsBlock[i * 3 + 2];
+
+        for (var j = 0; j < count; j += 1) {
+          list.push(qrRSBlock(totalCount, dataCount) );
+        }
+      }
+
+      return list;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrBitBuffer
+  //---------------------------------------------------------------------
+
+  var qrBitBuffer = function() {
+
+    var _buffer = [];
+    var _length = 0;
+
+    var _this = {};
+
+    _this.getBuffer = function() {
+      return _buffer;
+    };
+
+    _this.getAt = function(index) {
+      var bufIndex = Math.floor(index / 8);
+      return ( (_buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+    };
+
+    _this.put = function(num, length) {
+      for (var i = 0; i < length; i += 1) {
+        _this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+      }
+    };
+
+    _this.getLengthInBits = function() {
+      return _length;
+    };
+
+    _this.putBit = function(bit) {
+
+      var bufIndex = Math.floor(_length / 8);
+      if (_buffer.length <= bufIndex) {
+        _buffer.push(0);
+      }
+
+      if (bit) {
+        _buffer[bufIndex] |= (0x80 >>> (_length % 8) );
+      }
+
+      _length += 1;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrNumber
+  //---------------------------------------------------------------------
+
+  var qrNumber = function(data) {
+
+    var _mode = QRMode.MODE_NUMBER;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _data;
+
+      var i = 0;
+
+      while (i + 2 < data.length) {
+        buffer.put(strToNum(data.substring(i, i + 3) ), 10);
+        i += 3;
+      }
+
+      if (i < data.length) {
+        if (data.length - i == 1) {
+          buffer.put(strToNum(data.substring(i, i + 1) ), 4);
+        } else if (data.length - i == 2) {
+          buffer.put(strToNum(data.substring(i, i + 2) ), 7);
+        }
+      }
+    };
+
+    var strToNum = function(s) {
+      var num = 0;
+      for (var i = 0; i < s.length; i += 1) {
+        num = num * 10 + chatToNum(s.charAt(i) );
+      }
+      return num;
+    };
+
+    var chatToNum = function(c) {
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      }
+      throw 'illegal char :' + c;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrAlphaNum
+  //---------------------------------------------------------------------
+
+  var qrAlphaNum = function(data) {
+
+    var _mode = QRMode.MODE_ALPHA_NUM;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var s = _data;
+
+      var i = 0;
+
+      while (i + 1 < s.length) {
+        buffer.put(
+          getCode(s.charAt(i) ) * 45 +
+          getCode(s.charAt(i + 1) ), 11);
+        i += 2;
+      }
+
+      if (i < s.length) {
+        buffer.put(getCode(s.charAt(i) ), 6);
+      }
+    };
+
+    var getCode = function(c) {
+
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      } else if ('A' <= c && c <= 'Z') {
+        return c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+      } else {
+        switch (c) {
+        case ' ' : return 36;
+        case '$' : return 37;
+        case '%' : return 38;
+        case '*' : return 39;
+        case '+' : return 40;
+        case '-' : return 41;
+        case '.' : return 42;
+        case '/' : return 43;
+        case ':' : return 44;
+        default :
+          throw 'illegal char :' + c;
+        }
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qr8BitByte
+  //---------------------------------------------------------------------
+
+  var qr8BitByte = function(data) {
+
+    var _mode = QRMode.MODE_8BIT_BYTE;
+    var _data = data;
+    var _bytes = qrcode.stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _bytes.length;
+    };
+
+    _this.write = function(buffer) {
+      for (var i = 0; i < _bytes.length; i += 1) {
+        buffer.put(_bytes[i], 8);
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrKanji
+  //---------------------------------------------------------------------
+
+  var qrKanji = function(data) {
+
+    var _mode = QRMode.MODE_KANJI;
+    var _data = data;
+
+    var stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+    if (!stringToBytes) {
+      throw 'sjis not supported.';
+    }
+    !function(c, code) {
+      // self test for sjis support.
+      var test = stringToBytes(c);
+      if (test.length != 2 || ( (test[0] << 8) | test[1]) != code) {
+        throw 'sjis not supported.';
+      }
+    }('\u53cb', 0x9746);
+
+    var _bytes = stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return ~~(_bytes.length / 2);
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _bytes;
+
+      var i = 0;
+
+      while (i + 1 < data.length) {
+
+        var c = ( (0xff & data[i]) << 8) | (0xff & data[i + 1]);
+
+        if (0x8140 <= c && c <= 0x9FFC) {
+          c -= 0x8140;
+        } else if (0xE040 <= c && c <= 0xEBBF) {
+          c -= 0xC140;
+        } else {
+          throw 'illegal char at ' + (i + 1) + '/' + c;
+        }
+
+        c = ( (c >>> 8) & 0xff) * 0xC0 + (c & 0xff);
+
+        buffer.put(c, 13);
+
+        i += 2;
+      }
+
+      if (i < data.length) {
+        throw 'illegal char at ' + (i + 1);
+      }
+    };
+
+    return _this;
+  };
+
+  //=====================================================================
+  // GIF Support etc.
+  //
+
+  //---------------------------------------------------------------------
+  // byteArrayOutputStream
+  //---------------------------------------------------------------------
+
+  var byteArrayOutputStream = function() {
+
+    var _bytes = [];
+
+    var _this = {};
+
+    _this.writeByte = function(b) {
+      _bytes.push(b & 0xff);
+    };
+
+    _this.writeShort = function(i) {
+      _this.writeByte(i);
+      _this.writeByte(i >>> 8);
+    };
+
+    _this.writeBytes = function(b, off, len) {
+      off = off || 0;
+      len = len || b.length;
+      for (var i = 0; i < len; i += 1) {
+        _this.writeByte(b[i + off]);
+      }
+    };
+
+    _this.writeString = function(s) {
+      for (var i = 0; i < s.length; i += 1) {
+        _this.writeByte(s.charCodeAt(i) );
+      }
+    };
+
+    _this.toByteArray = function() {
+      return _bytes;
+    };
+
+    _this.toString = function() {
+      var s = '';
+      s += '[';
+      for (var i = 0; i < _bytes.length; i += 1) {
+        if (i > 0) {
+          s += ',';
+        }
+        s += _bytes[i];
+      }
+      s += ']';
+      return s;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64EncodeOutputStream
+  //---------------------------------------------------------------------
+
+  var base64EncodeOutputStream = function() {
+
+    var _buffer = 0;
+    var _buflen = 0;
+    var _length = 0;
+    var _base64 = '';
+
+    var _this = {};
+
+    var writeEncoded = function(b) {
+      _base64 += String.fromCharCode(encode(b & 0x3f) );
+    };
+
+    var encode = function(n) {
+      if (n < 0) {
+        // error.
+      } else if (n < 26) {
+        return 0x41 + n;
+      } else if (n < 52) {
+        return 0x61 + (n - 26);
+      } else if (n < 62) {
+        return 0x30 + (n - 52);
+      } else if (n == 62) {
+        return 0x2b;
+      } else if (n == 63) {
+        return 0x2f;
+      }
+      throw 'n:' + n;
+    };
+
+    _this.writeByte = function(n) {
+
+      _buffer = (_buffer << 8) | (n & 0xff);
+      _buflen += 8;
+      _length += 1;
+
+      while (_buflen >= 6) {
+        writeEncoded(_buffer >>> (_buflen - 6) );
+        _buflen -= 6;
+      }
+    };
+
+    _this.flush = function() {
+
+      if (_buflen > 0) {
+        writeEncoded(_buffer << (6 - _buflen) );
+        _buffer = 0;
+        _buflen = 0;
+      }
+
+      if (_length % 3 != 0) {
+        // padding
+        var padlen = 3 - _length % 3;
+        for (var i = 0; i < padlen; i += 1) {
+          _base64 += '=';
+        }
+      }
+    };
+
+    _this.toString = function() {
+      return _base64;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64DecodeInputStream
+  //---------------------------------------------------------------------
+
+  var base64DecodeInputStream = function(str) {
+
+    var _str = str;
+    var _pos = 0;
+    var _buffer = 0;
+    var _buflen = 0;
+
+    var _this = {};
+
+    _this.read = function() {
+
+      while (_buflen < 8) {
+
+        if (_pos >= _str.length) {
+          if (_buflen == 0) {
+            return -1;
+          }
+          throw 'unexpected end of file./' + _buflen;
+        }
+
+        var c = _str.charAt(_pos);
+        _pos += 1;
+
+        if (c == '=') {
+          _buflen = 0;
+          return -1;
+        } else if (c.match(/^\s$/) ) {
+          // ignore if whitespace.
+          continue;
+        }
+
+        _buffer = (_buffer << 6) | decode(c.charCodeAt(0) );
+        _buflen += 6;
+      }
+
+      var n = (_buffer >>> (_buflen - 8) ) & 0xff;
+      _buflen -= 8;
+      return n;
+    };
+
+    var decode = function(c) {
+      if (0x41 <= c && c <= 0x5a) {
+        return c - 0x41;
+      } else if (0x61 <= c && c <= 0x7a) {
+        return c - 0x61 + 26;
+      } else if (0x30 <= c && c <= 0x39) {
+        return c - 0x30 + 52;
+      } else if (c == 0x2b) {
+        return 62;
+      } else if (c == 0x2f) {
+        return 63;
+      } else {
+        throw 'c:' + c;
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // gifImage (B/W)
+  //---------------------------------------------------------------------
+
+  var gifImage = function(width, height) {
+
+    var _width = width;
+    var _height = height;
+    var _data = new Array(width * height);
+
+    var _this = {};
+
+    _this.setPixel = function(x, y, pixel) {
+      _data[y * _width + x] = pixel;
+    };
+
+    _this.write = function(out) {
+
+      //---------------------------------
+      // GIF Signature
+
+      out.writeString('GIF87a');
+
+      //---------------------------------
+      // Screen Descriptor
+
+      out.writeShort(_width);
+      out.writeShort(_height);
+
+      out.writeByte(0x80); // 2bit
+      out.writeByte(0);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Global Color Map
+
+      // black
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+
+      // white
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+
+      //---------------------------------
+      // Image Descriptor
+
+      out.writeString(',');
+      out.writeShort(0);
+      out.writeShort(0);
+      out.writeShort(_width);
+      out.writeShort(_height);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Local Color Map
+
+      //---------------------------------
+      // Raster Data
+
+      var lzwMinCodeSize = 2;
+      var raster = getLZWRaster(lzwMinCodeSize);
+
+      out.writeByte(lzwMinCodeSize);
+
+      var offset = 0;
+
+      while (raster.length - offset > 255) {
+        out.writeByte(255);
+        out.writeBytes(raster, offset, 255);
+        offset += 255;
+      }
+
+      out.writeByte(raster.length - offset);
+      out.writeBytes(raster, offset, raster.length - offset);
+      out.writeByte(0x00);
+
+      //---------------------------------
+      // GIF Terminator
+      out.writeString(';');
+    };
+
+    var bitOutputStream = function(out) {
+
+      var _out = out;
+      var _bitLength = 0;
+      var _bitBuffer = 0;
+
+      var _this = {};
+
+      _this.write = function(data, length) {
+
+        if ( (data >>> length) != 0) {
+          throw 'length over';
+        }
+
+        while (_bitLength + length >= 8) {
+          _out.writeByte(0xff & ( (data << _bitLength) | _bitBuffer) );
+          length -= (8 - _bitLength);
+          data >>>= (8 - _bitLength);
+          _bitBuffer = 0;
+          _bitLength = 0;
+        }
+
+        _bitBuffer = (data << _bitLength) | _bitBuffer;
+        _bitLength = _bitLength + length;
+      };
+
+      _this.flush = function() {
+        if (_bitLength > 0) {
+          _out.writeByte(_bitBuffer);
+        }
+      };
+
+      return _this;
+    };
+
+    var getLZWRaster = function(lzwMinCodeSize) {
+
+      var clearCode = 1 << lzwMinCodeSize;
+      var endCode = (1 << lzwMinCodeSize) + 1;
+      var bitLength = lzwMinCodeSize + 1;
+
+      // Setup LZWTable
+      var table = lzwTable();
+
+      for (var i = 0; i < clearCode; i += 1) {
+        table.add(String.fromCharCode(i) );
+      }
+      table.add(String.fromCharCode(clearCode) );
+      table.add(String.fromCharCode(endCode) );
+
+      var byteOut = byteArrayOutputStream();
+      var bitOut = bitOutputStream(byteOut);
+
+      // clear code
+      bitOut.write(clearCode, bitLength);
+
+      var dataIndex = 0;
+
+      var s = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      while (dataIndex < _data.length) {
+
+        var c = String.fromCharCode(_data[dataIndex]);
+        dataIndex += 1;
+
+        if (table.contains(s + c) ) {
+
+          s = s + c;
+
+        } else {
+
+          bitOut.write(table.indexOf(s), bitLength);
+
+          if (table.size() < 0xfff) {
+
+            if (table.size() == (1 << bitLength) ) {
+              bitLength += 1;
+            }
+
+            table.add(s + c);
+          }
+
+          s = c;
+        }
+      }
+
+      bitOut.write(table.indexOf(s), bitLength);
+
+      // end code
+      bitOut.write(endCode, bitLength);
+
+      bitOut.flush();
+
+      return byteOut.toByteArray();
+    };
+
+    var lzwTable = function() {
+
+      var _map = {};
+      var _size = 0;
+
+      var _this = {};
+
+      _this.add = function(key) {
+        if (_this.contains(key) ) {
+          throw 'dup key:' + key;
+        }
+        _map[key] = _size;
+        _size += 1;
+      };
+
+      _this.size = function() {
+        return _size;
+      };
+
+      _this.indexOf = function(key) {
+        return _map[key];
+      };
+
+      _this.contains = function(key) {
+        return typeof _map[key] != 'undefined';
+      };
+
+      return _this;
+    };
+
+    return _this;
+  };
+
+  var createDataURL = function(width, height, getPixel) {
+    var gif = gifImage(width, height);
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        gif.setPixel(x, y, getPixel(x, y) );
+      }
+    }
+
+    var b = byteArrayOutputStream();
+    gif.write(b);
+
+    var base64 = base64EncodeOutputStream();
+    var bytes = b.toByteArray();
+    for (var i = 0; i < bytes.length; i += 1) {
+      base64.writeByte(bytes[i]);
+    }
+    base64.flush();
+
+    return 'data:image/gif;base64,' + base64;
+  };
+
+  //---------------------------------------------------------------------
+  // returns qrcode function.
+
+  return qrcode;
+}();
+
+// multibyte support
+!function() {
+
+  qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
+    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    function toUTF8Array(str) {
+      var utf8 = [];
+      for (var i=0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+          utf8.push(0xc0 | (charcode >> 6),
+              0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+          utf8.push(0xe0 | (charcode >> 12),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+          i++;
+          // UTF-16 encodes 0x10000-0x10FFFF by
+          // subtracting 0x10000 and splitting the
+          // 20 bits of 0x0-0xFFFFF into two halves
+          charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+            | (str.charCodeAt(i) & 0x3ff));
+          utf8.push(0xf0 | (charcode >>18),
+              0x80 | ((charcode>>12) & 0x3f),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+      }
+      return utf8;
+    }
+    return toUTF8Array(s);
+  };
+
+}();
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+      define([], factory);
+  } else if (typeof exports === 'object') {
+      module.exports = factory();
+  }
+}(function () {
+    return qrcode;
+}));
+</script>
 <script>
-/* ---------------- data ---------------- */
+/* =================== DATA =================== */
 const COUNTRIES = {
   "アラブ首長国連邦（UAE）":{emg:"999",strict:["psycho","adhd","narcotic"],note:"向精神薬・睡眠薬・一部の市販薬（コデイン等）も事前許可が必要な場合があります。MoHAPの渡航者向け申請を確認します。"},
   "タイ":{emg:"1669",strict:["narcotic","adhd"],note:"医療用麻薬・向精神薬は事前許可と数量制限があります。"},
@@ -590,323 +2715,372 @@ const COUNTRIES = {
   "イギリス":{emg:"999",strict:["narcotic"],note:"規制薬は医師の書類と申告が必要です。"},
   "その他の国":{emg:"—",strict:[],note:"渡航国の大使館・税関で薬剤の扱いを個別に確認します。"}
 };
-const PURPOSES = ["出張","海外赴任","留学・ワーホリ","修学旅行・研修","旅行","海外ロケ・ライブ","スポーツ遠征"];
-const CONDITIONS = [
-  {k:"hypertension",label:"高血圧・脂質異常症",lvl:"warn",docs:["英文薬剤証明書"]},
-  {k:"diabetes_oral",label:"糖尿病（飲み薬）",lvl:"warn",docs:["英文薬剤証明書"]},
-  {k:"diabetes_insulin",label:"糖尿病（インスリン）",lvl:"emg",docs:["英文診断書","薬剤証明書"]},
-  {k:"asthma",label:"喘息・COPD",lvl:"warn",docs:["英文診断書"]},
-  {k:"mental",label:"不眠・不安・精神科通院",lvl:"emg",docs:["英文診断書","処方内容証明書"]},
-  {k:"serious",label:"がん治療中・心不全・透析",lvl:"emg",docs:["英文診療情報提供書"]},
-  {k:"none",label:"特になし",lvl:"ok",docs:[]}
+const PURPOSES=["出張","海外赴任","留学・ワーホリ","修学旅行・研修","旅行","海外ロケ・ライブ","スポーツ遠征"];
+// conditions -> level A/B/C/D
+const CONDITIONS=[
+  {k:"hypertension",label:"高血圧・脂質異常症",lvl:"C",docs:["英文薬剤証明書"]},
+  {k:"diabetes_oral",label:"糖尿病（飲み薬）",lvl:"C",docs:["英文薬剤証明書"]},
+  {k:"diabetes_insulin",label:"糖尿病（インスリン）",lvl:"D",docs:["英文診断書","英文薬剤証明書"]},
+  {k:"asthma",label:"喘息・COPD",lvl:"C",docs:["英文診断書"]},
+  {k:"mental",label:"不眠・不安・精神科通院",lvl:"D",docs:["英文診断書","処方内容証明書"]},
+  {k:"epilepsy",label:"てんかん",lvl:"D",docs:["英文診断書"]},
+  {k:"anticoag",label:"抗凝固薬を服用中",lvl:"D",docs:["英文診断書","英文薬剤証明書"]},
+  {k:"heart",label:"心疾患・心不全",lvl:"D",docs:["英文診療情報提供書"]},
+  {k:"serious",label:"がん治療中・透析",lvl:"D",docs:["英文診療情報提供書"]},
+  {k:"none",label:"特になし",lvl:"A",docs:[]}
 ];
-const MED_RULES = [
-  {cat:"psycho",label:"睡眠薬・抗不安薬・精神科の薬",lvl:"emg",kw:["マイスリー","ハルシオン","レンドルミン","ベンゾ","デパス","リーゼ","ソラナックス","レクサプロ","睡眠","抗不安","抗うつ","精神","ジアゼパム","ロラゼパム","エチゾラム"],docs:["英文診断書","処方内容証明書"],act:"渡航国ルールの確認と事前申請が必要になりやすい薬です。"},
-  {cat:"adhd",label:"ADHD治療薬・中枢神経刺激薬",lvl:"emg",kw:["コンサータ","ストラテラ","ビバンセ","メチルフェニデート","ADHD","アトモキセチン"],docs:["英文診断書","事前許可書類"],act:"渡航国により規制が厳しく、持込不可や事前許可が必要な場合があります。"},
-  {cat:"narcotic",label:"医療用麻薬・規制鎮痛薬",lvl:"emg",kw:["オピオイド","モルヒネ","オキシコ","トラマ","フェンタニル","医療用麻薬","コデイン"],docs:["英文診断書","輸出入手続書類"],act:"国別の輸出入手続き・事前許可・税関確認が必要です。郵送は原則不可。"},
-  {cat:"injection",label:"インスリン・注射薬・要冷蔵",lvl:"warn",kw:["インスリン","注射","GLP","オゼンピック","ヒューマログ","ランタス","ペン"],docs:["英文診断書","薬剤証明書"],act:"保冷方法・針やデバイスの説明・航空会社への確認を準備します。"},
-  {cat:"chronic",label:"慢性疾患の薬",lvl:"warn",kw:["降圧","血圧","アムロジ","ノルバスク","コレステ","スタチン","リピトール","糖尿","メトホルミン","尿酸","フェブリク","アロプリ"],docs:["英文薬剤証明書"],act:"処方内容と滞在日数分の数量を説明できる書類を準備します。"},
-  {cat:"antibiotic",label:"抗菌薬・抗ウイルス薬",lvl:"warn",kw:["抗生","抗菌","セフ","クラビット","タミフル","ゾフルーザ"],docs:[],act:"予防や携行の妥当性は医師が判断します。自己判断での使用は避けます。"},
-  {cat:"otc",label:"市販薬・セルフケア",lvl:"ok",kw:["ロキソニン","カロナール","解熱","鎮痛","胃","整腸","ビオフェルミン","正露丸","酔い止め","湿布","アレグラ","アレジオン","花粉"],docs:[],act:"渡航用セルフケアセットに入れやすい薬です。成分と数量を記録します。"}
+// med categories -> base level + import level
+const MED_RULES=[
+  {cat:"psycho",label:"睡眠薬・抗不安薬・精神科の薬",lvl:"D",imp:"high",kw:["マイスリー","ハルシオン","レンドルミン","ベンゾ","デパス","リーゼ","ソラナックス","レクサプロ","睡眠","抗不安","抗うつ","精神","ジアゼパム","ロラゼパム","エチゾラム"],docs:["英文診断書","処方内容証明書"],act:"渡航国ルールの確認と事前申請が必要になりやすい薬です。"},
+  {cat:"adhd",label:"ADHD治療薬・中枢神経刺激薬",lvl:"D",imp:"high",kw:["コンサータ","ストラテラ","ビバンセ","メチルフェニデート","ADHD","アトモキセチン"],docs:["英文診断書","事前許可書類"],act:"規制が厳しく、持込不可や事前許可が必要な場合があります。"},
+  {cat:"narcotic",label:"医療用麻薬・規制鎮痛薬",lvl:"D",imp:"high",kw:["オピオイド","モルヒネ","オキシコ","トラマ","フェンタニル","医療用麻薬","コデイン"],docs:["英文診断書","輸出入手続書類"],act:"国別の輸出入手続き・事前許可・税関確認が必要です。郵送は原則不可。"},
+  {cat:"injection",label:"インスリン・注射薬・要冷蔵",lvl:"C",imp:"mid",kw:["インスリン","注射","GLP","オゼンピック","ヒューマログ","ランタス","ペン"],docs:["英文診断書","英文薬剤証明書"],act:"保冷方法・針やデバイスの説明・航空会社への確認を準備します。"},
+  {cat:"chronic",label:"慢性疾患の薬",lvl:"C",imp:"mid",kw:["降圧","血圧","アムロジ","ノルバスク","コレステ","スタチン","リピトール","糖尿","メトホルミン","尿酸","フェブリク","アロプリ","ワーファリン","エリキュース","抗凝固"],docs:["英文薬剤証明書"],act:"処方内容と滞在日数分の数量を説明できる書類を準備します。"},
+  {cat:"antibiotic",label:"抗菌薬・抗ウイルス薬",lvl:"B",imp:"mid",kw:["抗生","抗菌","セフ","クラビット","タミフル","ゾフルーザ"],docs:[],act:"予防や携行の妥当性は医師が判断します。自己判断での使用は避けます。"},
+  {cat:"otc",label:"市販薬・セルフケア",lvl:"A",imp:"low",kw:["ロキソニン","カロナール","解熱","鎮痛","胃","整腸","ビオフェルミン","正露丸","酔い止め","湿布","アレグラ","アレジオン","花粉"],docs:[],act:"渡航用セルフケアに入れやすい薬です。成分と数量を記録します。"}
 ];
-const DEFAULT_DOCS = [
-  {id:"diag",name:"英文診断書",s:"none"},
-  {id:"drug",name:"英文薬剤証明書",s:"none"},
-  {id:"presc",name:"処方内容証明書",s:"none"},
-  {id:"allergy",name:"アレルギーカード",s:"none"},
-  {id:"emg",name:"緊急時医療情報カード",s:"none"},
-  {id:"org",name:"学校・企業向けサマリ",s:"none"},
-  {id:"ins",name:"保険会社向けサマリ",s:"none"},
-  {id:"ref",name:"現地医療機関向け紹介状",s:"none"}
+const DEFAULT_DOCS=[
+  {id:"diag",name:"英文診断書",who:"医師署名",s:"none"},
+  {id:"drug",name:"英文薬剤証明書",who:"薬剤師確認",s:"none"},
+  {id:"presc",name:"処方内容証明書",who:"医師署名",s:"none"},
+  {id:"medlist",name:"薬剤リスト",who:"本人入力",s:"none"},
+  {id:"allergy",name:"アレルギー証明書",who:"本人入力",s:"none"},
+  {id:"history",name:"既往歴サマリー",who:"本人入力",s:"none"},
+  {id:"mp",name:"医療パスポートPDF",who:"本人入力",s:"none"},
+  {id:"emg",name:"緊急時カード",who:"本人入力",s:"none"},
+  {id:"consent",name:"保護者向け同意書",who:"本人入力",s:"none"},
+  {id:"school",name:"学校向け健康情報シート",who:"本人入力",s:"none"},
+  {id:"org",name:"企業向け渡航前確認書",who:"本人入力",s:"none"},
+  {id:"ref",name:"現地医療機関宛 紹介状",who:"医師署名",s:"none"},
+  {id:"rxlocal",name:"現地薬局向け 薬剤情報シート",who:"薬剤師確認",s:"none"}
+];
+const PACKS=[
+  {t:"基本セット",lvl:"low",items:"解熱鎮痛薬・胃薬・整腸剤・下痢止め・便秘薬・酔い止め・抗アレルギー薬・湿布・絆創膏・消毒用品・体温計"},
+  {t:"個別処方セット",lvl:"mid",items:"高血圧薬・糖尿病薬・喘息薬/吸入薬・抗アレルギー薬・片頭痛薬・皮膚薬・点眼薬・持病の予備薬"},
+  {t:"注意薬セット（要・国別規制確認）",lvl:"high",items:"睡眠薬・抗不安薬・ADHD薬・向精神薬・抗てんかん薬・インスリン・医療用麻薬・抗凝固薬"}
 ];
 const POLL=[
-  {when:"明日 19:30", av:{医師:"○",薬剤師:"△",通訳:"○"}},
-  {when:"明日 21:00", av:{医師:"○",薬剤師:"○",通訳:"○"}},
-  {when:"水 10:00",  av:{医師:"△",薬剤師:"○",通訳:"○"}},
-  {when:"水 18:00",  av:{医師:"○",薬剤師:"○",通訳:"△"}},
-  {when:"木 12:30",  av:{医師:"×",薬剤師:"○",通訳:"○"}}
+  {when:"明日 19:30",av:{医師:"○",薬剤師:"△",通訳:"○"}},
+  {when:"明日 21:00",av:{医師:"○",薬剤師:"○",通訳:"○"}},
+  {when:"水 10:00",av:{医師:"△",薬剤師:"○",通訳:"○"}},
+  {when:"水 18:00",av:{医師:"○",薬剤師:"○",通訳:"△"}},
+  {when:"木 12:30",av:{医師:"×",薬剤師:"○",通訳:"○"}}
 ];
 const PROV_LABEL={doctor:"医師（渡航前診察）",pharmacist:"薬剤師（薬の相談）",team:"医師＋薬剤師"};
+const USER_TYPES=["一般旅行者","海外出張者","海外赴任者","就労VISA滞在者","技能実習・特定技能","留学生","修学旅行・研修の学生","芸能・アーティスト","スポーツ選手","企業従業員","学校関係者","保護者"];
+const ORG_TYPES=["医療機関","薬局","健康診断機関","企業","学校","旅行会社","保険会社","芸能事務所","スポーツ団体","現地医療機関","現地薬局","通訳者","搬送・救急サポート会社"];
+const SYMPTOMS=[
+  {t:"胸の痛み",tri:"red"},{t:"息が苦しい",tri:"red"},{t:"意識がない",tri:"red"},{t:"けいれん",tri:"red"},
+  {t:"大量の出血",tri:"red"},{t:"強いアレルギー反応",tri:"red"},
+  {t:"強い腹痛",tri:"orange"},{t:"高熱",tri:"orange"},{t:"事故・けが",tri:"orange"},
+  {t:"子どもの体調不良",tri:"orange"},{t:"気持ちがつらい",tri:"orange"},
+  {t:"薬を紛失した",tri:"green"}
+];
+const TRIAGE={
+  red:{lvl:"RED",t:"すぐ現地の救急へ",d:"いますぐ現地の救急番号に連絡してください。アプリは救急番号・現在地・近くの病院・同行者連絡を表示します。"},
+  orange:{lvl:"ORANGE",t:"現地医療機関の受診を",d:"現地での受診をおすすめします。Animedのオペレーター・医師・通訳におつなぎします。"},
+  yellow:{lvl:"YELLOW",t:"オンライン相談で対応",d:"日本の医師または薬剤師にオンラインで相談できます。"},
+  green:{lvl:"GREEN",t:"セルフケア・薬剤師相談",d:"薬剤師相談や現地薬局で対応できる可能性があります。"}
+};
 
-/* ---------------- state ---------------- */
-const KEY="animed_app_v1";
-let state = load();
-function load(){
-  try{const j=localStorage.getItem(KEY);if(j)return JSON.parse(j);}catch(e){}
-  return {profile:{name:""},trip:null,health:{conditions:[],allergy:"",preg:false,meds:[]},appts:[],docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)),assessed:false,summary:null};
-}
+/* =================== STATE =================== */
+const KEY="animed_app_v2";
+let state=load();
+function fresh(){return {
+  account:null, // {side:'user'|'org', type:''}
+  profile:{name:"",birth:"",sex:"",blood:"",nationality:"日本",lang:"日本語",insurance:"",emgc:""},
+  trip:null, health:{conditions:[],allergy:"",preg:false,hosp:false,vacc:false,ins:false,meds:[],age:"",sex:""},
+  docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)), appts:[], assessed:false, verdict:null, summary:null, status:"未登録", ppLang:"ja"
+};}
+function load(){try{const j=localStorage.getItem(KEY);if(j)return Object.assign(fresh(),JSON.parse(j));}catch(e){}return fresh();}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
-/* ---------------- nav ---------------- */
-const TAB_OF={home:"home",trip:"trip",health:"health",result:"home",meds:"health",docs:"docs",schedule:"home",call:"home",emergency:"emergency"};
+/* =================== NAV =================== */
+const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",docs:"home",emergency:"emergency",org:"home"};
+const NAV=[["home","ホーム"],["precheck","チェック"],["schedule","相談"],["passport","パスポート"],["emergency","緊急"]];
 function go(scr){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===scr));
   const tab=TAB_OF[scr]||scr;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  document.querySelectorAll('.tab,.topnav button').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   window.scrollTo({top:0,behavior:'instant'});
-  if(scr==='home')renderHome();
-  if(scr==='health')renderMedList();
-  if(scr==='result')renderResult();
-  if(scr==='meds')renderMedsScreen();
-  if(scr==='docs')renderDocs();
-  if(scr==='schedule')renderSlots();
-  if(scr==='call')renderCall();
-  if(scr==='emergency')renderEmergency();
+  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,emergency:initEmergency,org:renderOrg}[scr]||(()=>{}))();
+}
+function goConsult(scope){
+  document.querySelectorAll('input[name=prov]').forEach(r=>r.checked=(r.value===scope));
+  go('schedule');
+}
+function buildTopnav(){
+  document.getElementById('topnav').innerHTML=NAV.map(([k,l],i)=>`<button class="tab${i===0?' active':''}" data-tab="${k}" onclick="go('${k}')">${l}</button>`).join('');
 }
 
-/* ---------------- init form options ---------------- */
-function initForm(){
-  const cs=document.getElementById('f-country');
-  cs.innerHTML=Object.keys(COUNTRIES).map(c=>`<option>${c}</option>`).join('');
-  document.getElementById('f-purpose').innerHTML=PURPOSES.map((p,i)=>
-    `<label class="opt"><input type="radio" name="purpose" value="${p}" ${i===0?'checked':''}><span>${p}</span></label>`).join('');
-  document.getElementById('f-cond').innerHTML=CONDITIONS.map(c=>
-    `<label class="opt tone"><input type="checkbox" name="cond" value="${c.k}"><span>${c.label}</span></label>`).join('');
+/* =================== ONBOARDING =================== */
+function showOnboard(){
+  document.getElementById('onboard').style.display='block';
+  document.getElementById('app').style.display='none';
+  obSide();
+}
+function obSide(){
+  document.getElementById('obStep').innerHTML=`<div class="choice">
+    <button class="choicebtn" onclick="obPickSide('user')"><span class="n"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 12.5-4 14 0"/></svg></span><span><b>渡航する本人・ご家族</b><small>旅行・出張・赴任・留学・研修・遠征など</small></span></button>
+    <button class="choicebtn" onclick="obPickSide('org')"><span class="n"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 21V8l8-4 8 4v13"/><path d="M9 21v-6h6v6"/></svg></span><span><b>事業者・団体</b><small>医療機関・薬局・企業・学校・旅行・保険など</small></span></button>
+  </div>`;
+}
+function obPickSide(side){
+  const list=side==='user'?USER_TYPES:ORG_TYPES;
+  document.getElementById('obStep').innerHTML=`<p class="sub jp" style="margin-bottom:10px">${side==='user'?'あなたの渡航に近いものは？':'団体の種別は？'}</p>
+    <div class="seg" style="margin-bottom:18px">${list.map(t=>`<label class="opt tone"><input type="radio" name="obtype" value="${t}"><span>${t}</span></label>`).join('')}</div>
+    <button class="btn coral" onclick="obDone('${side}')">はじめる</button>
+    <button class="btn ghost" style="margin-top:8px" onclick="obSide()">戻る</button>`;
+}
+function obDone(side){
+  const t=(document.querySelector('input[name=obtype]:checked')||{}).value||(side==='user'?USER_TYPES[0]:ORG_TYPES[0]);
+  state.account={side,type:t}; state.status="基本情報入力済"; save();
+  document.getElementById('onboard').style.display='none';
+  document.getElementById('app').style.display='flex';
+  if(side==='org'){go('org');} else {go('home');}
 }
 
-/* ---------------- HOME render ---------------- */
+/* =================== HOME =================== */
+function setStatus(s){state.status=s;save();const el=document.getElementById('statusPill');if(el)el.textContent=s;}
 function renderHome(){
-  document.getElementById('greet').textContent = state.profile.name? `こんにちは、${state.profile.name}さん` : 'こんにちは';
-  const t=state.trip, box=document.getElementById('homeTrip');
-  if(!t){
-    box.innerHTML=`<div class="empty">
-      <svg class="em-ill" viewBox="0 0 280 190"><path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/><path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/></svg>
-      <p>まだ渡航の予定が登録されていません。<br>国と期間を入れると準備が始まります。</p>
-      <button class="btn coral" onclick="go('trip')">渡航を登録する</button></div>`;
-  }else{
-    const a=assess();
-    const chips=summaryChips(a);
-    box.innerHTML=`<div class="tripcard">
-      <div class="row"><div><div class="dest">${t.country}${t.city?'・'+t.city:''}</div>
-      <div class="meta">${t.start||'—'} 〜 ${t.end||'—'}・${t.purpose}</div></div>
-      <span class="chip ${a.top}">${a.topLabel}</span></div>
-      <div class="chips">${chips}</div>
-      <div class="btn-row"><button class="btn ghost" onclick="go('result')">判定結果を見る</button></div></div>`;
+  const acc=state.account||{};
+  document.getElementById('homeGreet').textContent=state.profile.name?`こんにちは、${state.profile.name}さん`:'こんにちは';
+  document.getElementById('homeRole').textContent=acc.type?`${acc.type}として登録中。渡航の準備をここから。`:'渡航の準備を、ここから始めましょう。';
+  document.getElementById('statusPill').textContent=state.status||'未設定';
+  // trip card
+  const t=state.trip,box=document.getElementById('homeTrip');
+  if(!t){box.innerHTML='';}
+  else{
+    const v=state.verdict;
+    box.innerHTML=`<div class="card" style="margin-bottom:4px"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <div><b style="font-family:var(--jp);font-size:18px">${t.country}${t.city?'・'+t.city:''}</b><div class="muted" style="font-size:13px">${t.start||'—'} 〜 ${t.end||'—'}・${t.purpose}</div></div>
+      ${v?`<span class="lvl ${v.grade}" style="font-size:13px;padding:6px 11px">判定 ${v.grade}</span>`:''}</div>
+      <div class="btn-row" style="margin-top:12px"><button class="btn ghost sm" onclick="go('result')">判定結果</button><button class="btn ghost sm" onclick="go('docs')">書類</button></div></div>`;
   }
+  // appts
   const ap=document.getElementById('homeAppt');
-  if(state.appts.length){
-    ap.innerHTML='<h2 class="sec">予約</h2>'+state.appts.map(a=>
-      `<div class="li"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
-      <div class="body"><b>${a.when}</b><p>${a.who}・オンライン通話</p></div></div>`).join('');
-  }else ap.innerHTML='';
-  const sm=document.getElementById('homeSummary');
-  if(state.summary){
-    sm.innerHTML=`<h2 class="sec">相談サマリ</h2><div class="tripcard">
-      <div class="meta">${state.summary.date}・${state.summary.who}</div>
-      <ul style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--stone)">${state.summary.advice.map(x=>`<li>${x}</li>`).join('')}</ul>
-      ${state.summary.docsUpdated?`<div class="chips"><span class="chip ok">書類 ${state.summary.docsUpdated}件 準備完了</span></div>`:''}</div>`;
-  }else sm.innerHTML='';
-}
-function summaryChips(a){
-  const out=[];
-  if(a.counts.emg)out.push(`<span class="chip emg">要・個別確認 ${a.counts.emg}件</span>`);
-  if(a.counts.warn)out.push(`<span class="chip warn">確認・書類 ${a.counts.warn}件</span>`);
-  if(a.counts.ok)out.push(`<span class="chip ok">通常対応 ${a.counts.ok}件</span>`);
-  if(!out.length)out.push('<span class="chip ok">問診すると準備が分かります</span>');
-  return out.join('');
+  ap.innerHTML=state.appts.length?('<h2 class="sec">予約</h2>'+state.appts.map(a=>`<div class="li"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span><div class="body"><b>${a.when}</b><p>${a.who}・オンライン通話</p></div></div>`).join(''))+(state.summary?`<h2 class="sec">相談サマリ</h2><div class="card"><div class="muted" style="font-size:12px">${state.summary.date}・${state.summary.who}</div><ul style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--stone)">${state.summary.advice.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:''):(state.summary?`<h2 class="sec">相談サマリ</h2><div class="card"><div class="muted" style="font-size:12px">${state.summary.date}・${state.summary.who}</div><ul style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--stone)">${state.summary.advice.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:'');
+  // timeline
+  const tl=[["出発30日前","渡航前チェック・医師相談の検討"],["出発14日前","薬剤確認・英文書類の準備"],["出発7日前","保険・現地病院情報の確認"],["出発前日","緊急連絡先・医療パスポートの最終確認"],["渡航中","困ったら緊急サポート"],["帰国後","必要に応じてフォロー受診"]];
+  document.getElementById('homeTimeline').innerHTML=`<div class="tl">${tl.map(([w,x])=>`<div class="ev"><div class="w">${w}</div><div class="x jp">${x}</div></div>`).join('')}</div>`;
 }
 
-/* ---------------- TRIP save ---------------- */
-function saveTrip(){
+/* =================== PRECHECK =================== */
+function initPrecheck(){
+  const cs=document.getElementById('f-country');
+  if(!cs.innerHTML)cs.innerHTML=Object.keys(COUNTRIES).map(c=>`<option>${c}</option>`).join('');
+  const pp=document.getElementById('f-purpose');
+  if(!pp.innerHTML)pp.innerHTML=PURPOSES.map((p,i)=>`<label class="opt"><input type="radio" name="purpose" value="${p}" ${i===0?'checked':''}><span>${p}</span></label>`).join('');
+  const cc=document.getElementById('f-cond');
+  if(!cc.innerHTML)cc.innerHTML=CONDITIONS.map(c=>`<label class="opt tone"><input type="checkbox" name="cond" value="${c.k}"><span>${c.label}</span></label>`).join('');
+  renderMedList();
+}
+function addMed(){addMedFrom('f-medname');}
+function addMedFrom(id){const el=document.getElementById(id);const v=el.value.trim();if(!v)return;if(!state.health.meds.includes(v))state.health.meds.push(v);el.value='';save();renderMedList();if(document.querySelector('[data-screen=meds]').classList.contains('active'))renderMeds();}
+function rmMed(i){state.health.meds.splice(i,1);save();renderMedList();renderMeds();}
+function renderMedList(){const box=document.getElementById('medList');if(!box)return;box.innerHTML=state.health.meds.map((m,i)=>{const r=classifyMed(m);return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span><div class="body"><b>${m}</b><p>${r.label}</p></div><button class="statebtn" onclick="rmMed(${i})">削除</button></div>`;}).join('');}
+function classifyMed(name){const n=name.toLowerCase();for(const r of MED_RULES){if(r.kw.some(k=>name.includes(k)||n.includes(k.toLowerCase())))return r;}return {cat:"unknown",label:"分類できない薬・確認が必要",lvl:"B",imp:"mid",docs:["英文薬剤証明書"],act:"薬剤師が成分を確認します。薬の名前や成分が分かるものをご用意ください。"};}
+function docId(name){const map={"英文診断書":"diag","英文薬剤証明書":"drug","処方内容証明書":"presc","事前許可書類":"presc","輸出入手続書類":"presc","英文診療情報提供書":"ref","アレルギーカード":"allergy"};return map[name]||"diag";}
+const ORD={A:0,B:1,C:2,D:3};
+function maxGrade(a,b){return ORD[a]>=ORD[b]?a:b;}
+function runPrecheck(){
   const country=document.getElementById('f-country').value;
   const purpose=(document.querySelector('input[name=purpose]:checked')||{}).value||PURPOSES[0];
-  const ins=(document.querySelector('input[name=ins]:checked')||{}).value||'';
-  state.trip={country,city:document.getElementById('f-city').value.trim(),
-    start:document.getElementById('f-start').value,end:document.getElementById('f-end').value,
-    purpose,insurance:ins,companions:document.getElementById('f-comp').value.trim()};
-  save(); toast('渡航を登録しました'); go('health');
-}
-
-/* ---------------- HEALTH ---------------- */
-function addMed(){addMedFrom('f-medname');}
-function addMedFrom(id){
-  const el=document.getElementById(id);const v=el.value.trim();if(!v)return;
-  if(!state.health.meds.includes(v))state.health.meds.push(v);
-  el.value='';save();renderMedList();if(document.querySelector('[data-screen=meds]').classList.contains('active'))renderMedsScreen();
-}
-function rmMed(i){state.health.meds.splice(i,1);save();renderMedList();renderMedsScreen();}
-function renderMedList(){
-  const box=document.getElementById('medList');if(!box)return;
-  box.innerHTML=state.health.meds.map((m,i)=>{
-    const r=classifyMed(m);
-    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span>
-    <div class="body"><b>${m}</b><p>${r.label}</p></div>
-    <button class="statebtn" onclick="rmMed(${i})">削除</button></div>`;}).join('');
-}
-function saveHealth(){
+  state.trip={country,city:document.getElementById('f-city').value.trim(),start:document.getElementById('f-start').value,end:document.getElementById('f-end').value,purpose};
   state.health.conditions=[...document.querySelectorAll('input[name=cond]:checked')].map(c=>c.value).filter(v=>v!=='none');
   state.health.allergy=document.getElementById('f-allergy').value.trim();
   state.health.preg=document.getElementById('f-preg').checked;
-  state.assessed=true;
-  // auto-flag relevant documents as recommended (prep)
-  const a=assess();a.docNeeds.forEach(id=>{const d=state.docs.find(x=>x.id===id);if(d&&d.s==='none')d.s='prep';});
+  state.health.hosp=document.getElementById('f-hosp').checked;
+  state.health.vacc=document.getElementById('f-vacc').checked;
+  state.health.ins=document.getElementById('f-ins').checked;
+  state.health.age=document.getElementById('f-age').value;
+  state.health.sex=document.getElementById('f-sex').value;
+  if(document.getElementById('f-emgc').value.trim())state.profile.emgc=document.getElementById('f-emgc').value.trim();
+  const a=assess();state.verdict=a;state.assessed=true;
+  a.docNeeds.forEach(id=>{const d=state.docs.find(x=>x.id===id);if(d&&d.s==='none')d.s='prep';});
   if(state.health.allergy){const d=state.docs.find(x=>x.id==='allergy');if(d&&d.s==='none')d.s='prep';}
-  save(); toast('判定しました'); go('result');
-}
-
-/* ---------------- rule engine ---------------- */
-function classifyMed(name){
-  const n=name.toLowerCase();
-  for(const r of MED_RULES){ if(r.kw.some(k=>name.includes(k)||n.includes(k.toLowerCase()))) return r; }
-  return {cat:"unknown",label:"分類できない薬・確認が必要",lvl:"warn",docs:["英文薬剤証明書"],act:"薬剤師が成分を確認します。薬の名前や成分が分かるものをご用意ください。"};
+  setStatus(a.grade==='A'?'出発準備確認中':(a.grade==='D'?'医師確認中':'薬剤師確認中'));
+  save();toast('判定しました');go('result');
 }
 function assess(){
-  const t=state.trip||{country:"その他の国"};
-  const cinfo=COUNTRIES[t.country]||COUNTRIES["その他の国"];
-  const items=[]; const docNeeds=new Set();
-  // medications
-  state.health.meds.forEach(m=>{
-    const r=classifyMed(m); let lvl=r.lvl; let note=r.act;
-    if(cinfo.strict.includes(r.cat)){
-      lvl='emg'; note='【'+t.country+'】要・事前確認。'+r.act;
-    }
-    (r.docs||[]).forEach(d=>docNeeds.add(docId(d)));
-    items.push({title:m,kind:'薬',sub:r.label,lvl,note});
-  });
-  // conditions
-  state.health.conditions.forEach(k=>{
-    const c=CONDITIONS.find(x=>x.k===k);if(!c)return;
-    (c.docs||[]).forEach(d=>docNeeds.add(docId(d)));
-    items.push({title:c.label,kind:'状態',sub:'通院・持病',lvl:c.lvl,
-      note:c.lvl==='emg'?'渡航可否や現地受入先を医師と確認します。':'常用薬の確認と英文書類を準備します。'});
-  });
-  if(state.health.preg)items.push({title:'妊娠中・妊娠の可能性',kind:'状態',sub:'',lvl:'warn',note:'渡航可否・薬剤・予防接種を医師と確認します。'});
-  const counts={ok:0,warn:0,emg:0};items.forEach(i=>counts[i.lvl]++);
-  if(!items.length){items.push({title:'特別な確認は不要',kind:'',sub:'',lvl:'ok',note:'基本的なセルフケアセットと、緊急時の連絡先を用意しておきましょう。'});counts.ok++;}
-  const top = counts.emg?'emg':(counts.warn?'warn':'ok');
-  const topLabel = top==='emg'?'要・個別確認':(top==='warn'?'確認・書類あり':'通常対応');
-  return {items,counts,top,topLabel,country:t.country,cinfo,docNeeds:[...docNeeds]};
+  const t=state.trip||{country:"その他の国"};const cinfo=COUNTRIES[t.country]||COUNTRIES["その他の国"];
+  const items=[];const docNeeds=new Set();let grade="A";
+  state.health.meds.forEach(m=>{const r=classifyMed(m);let lvl=r.lvl;let note=r.act;
+    if(cinfo.strict.includes(r.cat)){lvl="D";note='【'+t.country+'】要・事前確認。'+r.act;}
+    (r.docs||[]).forEach(d=>docNeeds.add(docId(d)));grade=maxGrade(grade,lvl);
+    items.push({title:m,sub:r.label,lvl,note});});
+  state.health.conditions.forEach(k=>{const c=CONDITIONS.find(x=>x.k===k);if(!c)return;(c.docs||[]).forEach(d=>docNeeds.add(docId(d)));grade=maxGrade(grade,c.lvl);
+    items.push({title:c.label,sub:'通院・持病',lvl:c.lvl,note:ORD[c.lvl]>=2?'渡航可否や現地受入先を医師と確認します。':'常用薬の確認と英文書類を準備します。'});});
+  if(state.health.preg){grade=maxGrade(grade,"C");items.push({title:'妊娠中・妊娠の可能性',sub:'',lvl:'C',note:'渡航可否・薬剤・予防接種を医師と確認します。'});}
+  if(state.health.ins){grade=maxGrade(grade,"B");items.push({title:'海外旅行保険 未加入・未確認',sub:'',lvl:'B',note:'渡航前に保険加入をおすすめします。'});}
+  if(state.health.hosp){items.push({title:'過去の入院歴あり',sub:'',lvl:'B',note:'内容により医師が確認します。既往歴サマリーを準備しましょう。'});grade=maxGrade(grade,"B");}
+  if(state.health.vacc){items.push({title:'ワクチン接種歴 未確認',sub:'',lvl:'B',note:'渡航先で推奨される予防接種を確認します。'});grade=maxGrade(grade,"B");}
+  const ageN=parseInt(state.health.age||'0',10);if(ageN>=75){items.push({title:'年齢による配慮',sub:'',lvl:'C',note:'体調・常用薬の確認を医師とおこないましょう。'});grade=maxGrade(grade,"C");}
+  if(!items.length){items.push({title:'特別な確認は不要',sub:'',lvl:'A',note:'基本的なセルフケアセットと、緊急時の連絡先を用意しておきましょう。'});}
+  return {items,grade,country:t.country,cinfo,docNeeds:[...docNeeds]};
 }
-function docId(name){const map={"英文診断書":"diag","英文薬剤証明書":"drug","処方内容証明書":"presc","事前許可書類":"presc","輸出入手続書類":"presc","英文診療情報提供書":"ref","アレルギーカード":"allergy"};return map[name]||"diag";}
-
-/* ---------------- RESULT ---------------- */
+const GRADE_INFO={A:{t:"通常渡航可",d:"特別な医療準備は少なめです。基本のセルフケアと緊急連絡先を整えましょう。"},B:{t:"薬剤師相談 推奨",d:"薬の持込・同等薬・現地購入の確認をおすすめします。"},C:{t:"医師相談 推奨",d:"持病・処方薬・長期滞在などのため、医師の診察をおすすめします。"},D:{t:"渡航前 医療計画 必須",d:"重い持病や規制の強い薬などのため、出発前に医師・薬剤師の計画づくりが必要です。"}};
 function renderResult(){
-  if(!state.trip){go('trip');return;}
-  const a=assess();
-  document.getElementById('res-dest').textContent=a.country+(state.trip.city?'・'+state.trip.city:'');
-  document.getElementById('res-lead').textContent=`${state.trip.purpose}・${state.trip.start||'—'}〜${state.trip.end||'—'} の準備です。`;
-  document.getElementById('res-chips').innerHTML=summaryChips(a);
-  const order={emg:0,warn:1,ok:2};
-  document.getElementById('res-items').innerHTML=a.items.sort((x,y)=>order[x.lvl]-order[y.lvl]).map(i=>{
-    const lab=i.lvl==='emg'?'個別確認':(i.lvl==='warn'?'要確認':'通常対応');
-    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/></svg></span>
-    <div class="body"><b>${i.title}</b><p>${i.note}</p></div><span class="lvl ${i.lvl}">${lab}</span></div>`;}).join('');
-  const docs = a.docNeeds.length? a.docNeeds.map(id=>(state.docs.find(d=>d.id===id)||{}).name).filter(Boolean):['緊急時医療情報カード'];
-  document.getElementById('res-docs').innerHTML=[...new Set(docs)].map(n=>
-    `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span><div class="body"><b>${n}</b><p>相談で確認後に発行できます</p></div></div>`).join('');
-  document.getElementById('res-countrynote').innerHTML=`<b>${a.country}について：</b> ${a.cinfo.note}`;
+  if(!state.trip){go('precheck');return;}
+  const a=state.verdict||assess();const gi=GRADE_INFO[a.grade];
+  document.getElementById('verdict').innerHTML=`<div class="verdict ${a.grade}"><div class="g">${a.grade}</div><div class="t jp">${gi.t}</div><div class="d jp">${a.country}・${state.trip.purpose}／${state.trip.start||'—'}〜${state.trip.end||'—'}。${gi.d}</div></div>`;
+  const cnt={A:0,B:0,C:0,D:0};a.items.forEach(i=>cnt[i.lvl]++);
+  document.getElementById('res-chips').innerHTML=['D','C','B','A'].filter(g=>cnt[g]).map(g=>`<span class="chip"><span class="lvl ${g}" style="padding:2px 7px">${g}</span> ${cnt[g]}件</span>`).join('');
+  const order=i=>3-ORD[i.lvl];
+  document.getElementById('res-items').innerHTML=a.items.slice().sort((x,y)=>order(x)-order(y)).map(i=>`<div class="li"><div class="body"><b>${i.title}</b><p class="jp">${i.note}</p></div><span class="lvl ${i.lvl}">${i.lvl}</span></div>`).join('');
+  const docs=a.docNeeds.length?a.docNeeds.map(id=>(state.docs.find(d=>d.id===id)||{}).name).filter(Boolean):['緊急時カード'];
+  document.getElementById('res-docs').innerHTML=[...new Set(docs)].map(n=>`<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span><div class="body"><b>${n}</b><p>相談で確認後に発行できます</p></div></div>`).join('');
+  document.getElementById('res-country').innerHTML=`<b>${a.country}について：</b> <span class="jp">${a.cinfo.note}</span>`;
 }
 
-/* ---------------- MEDS screen ---------------- */
-function renderMedsScreen(){
+/* =================== MEDS / PACK =================== */
+function renderMeds(){
   const box=document.getElementById('medsAssess');
-  if(!state.health.meds.length){box.innerHTML='<div class="empty"><p>まだ薬が登録されていません。<br>上の欄から薬の名前を追加してください。</p></div>';return;}
-  const cinfo=(COUNTRIES[(state.trip||{}).country]||COUNTRIES["その他の国"]);
-  box.innerHTML=state.health.meds.map((m,i)=>{
-    const r=classifyMed(m); let lvl=r.lvl; let note=r.act;
-    if(cinfo.strict.includes(r.cat)){lvl='emg';note='渡航国で要・事前確認。'+r.act;}
-    const lab=lvl==='emg'?'個別確認':(lvl==='warn'?'要確認':'通常');
-    return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span>
-    <div class="body"><b>${m}</b><p>${r.label}<br>${note}</p></div><span class="lvl ${lvl}">${lab}</span></div>`;}).join('');
+  if(!state.health.meds.length){box.innerHTML='<div class="callout">まだ薬が登録されていません。上の欄から薬の名前を追加してください。</div>';}
+  else{const cinfo=(COUNTRIES[(state.trip||{}).country]||COUNTRIES["その他の国"]);
+    box.innerHTML=state.health.meds.map(m=>{const r=classifyMed(m);let imp=r.imp;let note=r.act;
+      if(cinfo.strict.includes(r.cat)){imp=(r.cat==='narcotic')?'ng':'high';note='渡航国で要・事前確認。'+r.act;}
+      const lab={low:"確認レベル 低",mid:"確認レベル 中",high:"確認レベル 高",ng:"高リスク／持込不可の可能性"}[imp];
+      return `<div class="li"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="9" width="14" height="9" rx="4.5"/><path d="M10 9v9" stroke="#e94436"/></svg></span><div class="body"><b>${m}</b><p class="jp">${r.label}<br>${note}</p></div><span class="lvl ${imp}">${lab}</span></div>`;}).join('');}
+  document.getElementById('packs').innerHTML=PACKS.map(p=>`<div class="li"><div class="body"><b>${p.t}</b><p class="jp">${p.items}</p></div><span class="lvl ${p.lvl}">${p.lvl==='low'?'目安':p.lvl==='mid'?'要処方':'要確認'}</span></div>`).join('');
 }
 
-/* ---------------- DOCS ---------------- */
-const DOC_STATES=["none","prep","done"];const DOC_LABEL={none:"未準備",prep:"準備中",done:"準備完了"};
-function renderDocs(){
-  document.getElementById('docList').innerHTML=state.docs.map((d,i)=>
-    `<div class="docrow"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span>
-    <span class="nm">${d.name}</span>
-    <button class="statebtn" data-s="${d.s}" onclick="cycleDoc(${i})">${DOC_LABEL[d.s]}</button></div>`).join('');
-}
+/* =================== DOCS =================== */
+const DOC_STATES=["none","prep","done"],DOC_LABEL={none:"未準備",prep:"準備中",done:"準備完了"};
+function renderDocs(){document.getElementById('docList').innerHTML=state.docs.map((d,i)=>`<div class="docrow"><span class="nm">${d.name}<span class="who">${d.who}</span></span><button class="statebtn" data-s="${d.s}" onclick="cycleDoc(${i})">${DOC_LABEL[d.s]}</button></div>`).join('');}
 function cycleDoc(i){const d=state.docs[i];d.s=DOC_STATES[(DOC_STATES.indexOf(d.s)+1)%3];save();renderDocs();}
 
-/* ---------------- SCHEDULE (availability matching, medadapt流用) ---------------- */
+/* =================== SCHEDULE / CALL =================== */
 function reqParties(scope){return scope==='doctor'?['医師']:scope==='pharmacist'?['薬剤師']:['医師','薬剤師'];}
 function renderSlots(){
   const scope=(document.querySelector('input[name=prov]:checked')||{}).value||'doctor';
-  const interp=document.getElementById('needInterp').checked;
-  let parties=reqParties(scope); if(interp)parties=[...parties,'通訳'];
-  const colors={'○':'var(--ok)','△':'var(--warn)','×':'var(--emg)'};
-  document.getElementById('slotList').innerHTML=POLL.map((s,i)=>{
-    const blocked=parties.some(p=>s.av[p]==='×');
-    const best=parties.every(p=>s.av[p]==='○');
+  if(!document.querySelector('input[name=prov]:checked'))document.querySelector('input[name=prov][value=doctor]').checked=true;
+  const interp=document.getElementById('needInterp').checked;let parties=reqParties(scope);if(interp)parties=[...parties,'通訳'];
+  const colors={'○':'var(--A)','△':'var(--C)','×':'var(--D)'};
+  document.getElementById('slotList').innerHTML=POLL.map((s,i)=>{const blocked=parties.some(p=>s.av[p]==='×');const best=parties.every(p=>s.av[p]==='○');
     const dots=parties.map(p=>`<span style="color:${colors[s.av[p]]};font-weight:600">${p}\u2009${s.av[p]}</span>`).join('\u3000');
-    return `<div class="slot"><div><div class="when">${s.when}${best?' <span class="chip ok" style="margin-left:6px">全員空き</span>':''}</div>
-    <div class="who">${dots}</div></div>
-    <button onclick="confirmSlot(${i})" ${blocked?'disabled style="opacity:.35"':''}>${blocked?'不可':'確定'}</button></div>`;
-  }).join('');
+    return `<div class="slot"><div><div class="when">${s.when}${best?' <span class="chip" style="margin-left:6px;color:var(--A);border-color:#cfe0d4;background:var(--A-s)">全員空き</span>':''}</div><div class="who">${dots}</div></div><button onclick="confirmSlot(${i})" ${blocked?'disabled style="opacity:.35"':''}>${blocked?'不可':'確定'}</button></div>`;}).join('');
 }
-function confirmSlot(i){
-  const scope=(document.querySelector('input[name=prov]:checked')||{}).value||'doctor';
-  const interp=document.getElementById('needInterp').checked;
-  const s=POLL[i];
-  const who=PROV_LABEL[scope]+(interp?'＋通訳':'');
-  const callUrl='animed.link/c/'+Math.random().toString(36).slice(2,8);
-  state.appts=[{when:s.when,who,status:'confirmed',callUrl,interp,scope}];
-  save(); toast('日程が確定しました。通話リンクを発行しました'); go('call');
-}
-
-/* ---------------- ONLINE CALL (medadapt流用) ---------------- */
+function confirmSlot(i){const scope=(document.querySelector('input[name=prov]:checked')||{}).value||'doctor';const interp=document.getElementById('needInterp').checked;const s=POLL[i];const who=PROV_LABEL[scope]+(interp?'＋通訳':'');
+  state.appts=[{when:s.when,who,status:'confirmed',interp,scope}];setStatus('相談予約済');save();toast('日程が確定しました');go('call');}
 let callTimer=null,callSec=0,callState={mic:true,cam:true,int:false};
 function callParties(a){const p=['あなた'];if(!a)return p;if(a.scope!=='pharmacist')p.push('医師');if(a.scope!=='doctor')p.push('薬剤師');if(a.interp)p.push('通訳');return p;}
-function renderCall(){
-  const a=state.appts[0];
-  document.getElementById('callLive').style.display='none';
-  document.getElementById('callPre').style.display='block';
-  document.getElementById('callWhen').textContent=a?`${a.when}・${a.who}`:'確定した予約がありません。日程調整から予約してください。';
+function renderCall(){const a=state.appts[0];document.getElementById('callLive').style.display='none';document.getElementById('callPre').style.display='block';
+  document.getElementById('callWhen').textContent=a?`${a.when}・${a.who}`:'確定した予約がありません。相談タブから予約してください。';
   const av=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 12.5-4 14 0"/></svg>`;
-  document.getElementById('callParties').innerHTML=callParties(a).map(p=>
-    `<div class="docrow"><span class="ic">${av}</span><span class="nm">${p}</span><span class="statebtn" data-s="done">準備OK</span></div>`).join('');
-}
-function enterCall(){
-  const a=state.appts[0]; const parties=callParties(a);
-  document.getElementById('callPre').style.display='none';
-  document.getElementById('callLive').style.display='block';
-  document.getElementById('callStage').innerHTML=
-    `<div class="ctimer" id="ctimer">00:00</div><div class="avatars">${parties.map((p,idx)=>
-      `<div class="av ${idx===1?'speaking':''}"><span>${p[0]}</span><small>${p}</small></div>`).join('')}</div>`;
-  callSec=0; clearInterval(callTimer);
-  callTimer=setInterval(()=>{callSec++;const m=String(Math.floor(callSec/60)).padStart(2,'0');const s=String(callSec%60).padStart(2,'0');const t=document.getElementById('ctimer');if(t)t.textContent=`${m}:${s}`;},1000);
-}
+  document.getElementById('callParties').innerHTML=callParties(a).map(p=>`<div class="docrow"><span class="nm" style="display:flex;align-items:center;gap:10px">${av}${p}</span><span class="statebtn" data-s="done">準備OK</span></div>`).join('');}
+function enterCall(){const a=state.appts[0];const parties=callParties(a);document.getElementById('callPre').style.display='none';document.getElementById('callLive').style.display='block';
+  document.getElementById('callStage').innerHTML=`<div class="ctimer" id="ctimer">00:00</div><div class="avatars">${parties.map((p,idx)=>`<div class="av ${idx===1?'speaking':''}"><span>${p[0]}</span><small>${p}</small></div>`).join('')}</div>`;
+  callSec=0;clearInterval(callTimer);callTimer=setInterval(()=>{callSec++;const m=String(Math.floor(callSec/60)).padStart(2,'0');const s=String(callSec%60).padStart(2,'0');const t=document.getElementById('ctimer');if(t)t.textContent=`${m}:${s}`;},1000);}
 function tgl(k,btn){callState[k]=!callState[k];btn.classList.toggle('off',!callState[k]);}
-function endCall(){
-  clearInterval(callTimer);
-  let updated=0; state.docs.forEach(d=>{if(d.s==='prep'){d.s='done';updated++;}});
-  const a=state.appts[0]||{};
-  state.summary={date:new Date().toISOString().slice(0,10),who:a.who||'医師',
-    advice:["渡航前の体調・服薬内容を確認しました","必要な英文書類を準備完了にしました","現地で困ったら緊急タブから連絡できます"],
-    docsUpdated:updated};
-  state.appts=[]; save();
-  document.getElementById('callLive').style.display='none';
-  document.getElementById('callPre').style.display='block';
-  toast('相談が終了しました。サマリと書類を更新しました'); go('home');
+function endCall(){clearInterval(callTimer);let updated=0;state.docs.forEach(d=>{if(d.s==='prep'){d.s='done';updated++;}});const a=state.appts[0]||{};
+  state.summary={date:new Date().toISOString().slice(0,10),who:a.who||'医師',advice:["渡航前の体調・服薬内容を確認しました","必要な英文書類を準備完了にしました","現地で困ったら緊急タブから連絡できます"],docsUpdated:updated};
+  state.appts=[];setStatus('出発準備完了');save();document.getElementById('callLive').style.display='none';document.getElementById('callPre').style.display='block';toast('相談が終了しました');go('home');}
+
+/* =================== PASSPORT =================== */
+const PP_FIELDS=[["name","氏名","Name"],["birth","生年月日","Date of birth"],["sex","性別","Sex"],["blood","血液型","Blood type"],["nationality","国籍","Nationality"],["lang","言語","Language"],["emgc","緊急連絡先","Emergency contact"],["insurance","保険","Insurance"]];
+function renderPassport(){
+  const en=state.ppLang==='en';
+  document.getElementById('langJa').classList.toggle('on',!en);document.getElementById('langEn').classList.toggle('on',en);
+  document.getElementById('ppTitle').textContent=en?'Medical Passport':'医療パスポート';
+  document.getElementById('ppEditTtl').textContent=en?'Edit information':'情報を編集';
+  const p=state.profile,h=state.health;
+  const allergy=h.allergy||(en?'None reported':'登録なし');
+  const meds=h.meds.length?h.meds.join(en?', ':'・'):(en?'None reported':'登録なし');
+  const conds=h.conditions.length?h.conditions.map(k=>(CONDITIONS.find(c=>c.k===k)||{}).label).filter(Boolean).join('・'):(en?'None reported':'登録なし');
+  const rows=[
+    [en?'Name':'氏名',p.name||'—'],[en?'Date of birth':'生年月日',p.birth||'—'],[en?'Sex':'性別',p.sex||'—'],
+    [en?'Blood type':'血液型',p.blood||'—'],[en?'Nationality':'国籍',p.nationality||'—'],
+    [en?'Allergies':'アレルギー',allergy],[en?'Conditions':'持病',conds],[en?'Medications':'常用薬',meds],
+    [en?'Emergency contact':'緊急連絡先',p.emgc||'—'],[en?'Insurance':'保険',p.insurance||'—']
+  ];
+  // QR encodes a compact URL with name + key info marker
+  const qrData='https://tamjump.github.io/animed/app.html#mp='+encodeURIComponent((p.name||'user'))+'|'+(p.blood||'')+'|'+(h.conditions.join(',')||'')+'|'+(h.allergy||'');
+  let qrSvg='';
+  try{const qr=qrcode(0,'M');qr.addData(qrData);qr.make();qrSvg=qr.createSvgTag({cellSize:3,margin:0});}catch(e){qrSvg='';}
+  document.getElementById('ppCard').innerHTML=`<div class="ttl">ANIMED · MEDICAL PASSPORT</div>
+    <div class="nm jp">${p.name||(en?'Your name':'お名前')}</div>
+    <div class="meta">${p.birth||'—'} ・ ${p.blood||'—'} ・ ${p.nationality||'—'}</div>
+    <div class="qr">${qrSvg}</div>
+    <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px;font-size:12.5px;color:#e7d5cc">
+      <div><b style="color:#fff">${en?'Allergies':'アレルギー'}：</b>${allergy}</div>
+      <div style="margin-top:4px"><b style="color:#fff">${en?'Medications':'常用薬'}：</b>${meds}</div></div>`;
+  document.getElementById('ppForm').innerHTML=`
+    <div class="two"><div class="field"><label>${en?'Name':'氏名'}</label><input type="text" id="pp-name" value="${esc(p.name)}"></div>
+    <div class="field"><label>${en?'Date of birth':'生年月日'}</label><input type="text" id="pp-birth" placeholder="1990-01-01" value="${esc(p.birth)}"></div></div>
+    <div class="two"><div class="field"><label>${en?'Sex':'性別'}</label><input type="text" id="pp-sex" value="${esc(p.sex)}"></div>
+    <div class="field"><label>${en?'Blood type':'血液型'}</label><input type="text" id="pp-blood" placeholder="A / O / B / AB" value="${esc(p.blood)}"></div></div>
+    <div class="two"><div class="field"><label>${en?'Nationality':'国籍'}</label><input type="text" id="pp-nat" value="${esc(p.nationality)}"></div>
+    <div class="field"><label>${en?'Insurance':'保険'}</label><input type="text" id="pp-ins" value="${esc(p.insurance)}"></div></div>
+    <div class="field"><label>${en?'Emergency contact':'緊急連絡先'}</label><input type="text" id="pp-emgc" value="${esc(p.emgc)}"></div>`;
+}
+function esc(s){return (s||'').replace(/"/g,'&quot;');}
+function setPPLang(l){state.ppLang=l;save();renderPassport();}
+function savePassport(){const g=id=>document.getElementById(id)?document.getElementById(id).value.trim():'';
+  state.profile.name=g('pp-name');state.profile.birth=g('pp-birth');state.profile.sex=g('pp-sex');state.profile.blood=g('pp-blood');state.profile.nationality=g('pp-nat');state.profile.insurance=g('pp-ins');state.profile.emgc=g('pp-emgc');
+  save();renderPassport();toast('医療パスポートを更新しました');}
+
+/* =================== EMERGENCY =================== */
+function initEmergency(){
+  document.getElementById('symStep').innerHTML=`<div class="symgrid">${SYMPTOMS.map((s,i)=>`<button class="sym" onclick="triage(${i})"><span style="width:9px;height:9px;border-radius:50%;background:var(--${s.tri==='red'?'D':s.tri==='orange'?'C':s.tri==='yellow'?'C':'A'})"></span>${s.t}</button>`).join('')}</div>
+    <div class="note jp" style="margin-top:16px"><b>救急を最優先に：</b> 強い胸の痛み・意識障害・呼吸困難・まひ・大量出血・重いアレルギー症状は、アプリの操作より先に現地の救急番号へ連絡してください。</div>`;
+}
+function triage(i){
+  const s=SYMPTOMS[i];const tr=TRIAGE[s.tri];const c=(state.trip||{}).country;const info=COUNTRIES[c];
+  let actions='';
+  if(s.tri==='red'){actions=`<div class="card" style="margin-bottom:12px;text-align:center"><div class="muted" style="font-size:12px">${c?c+'の救急番号':'渡航先の救急番号'}</div><div class="emgnum">${info?info.emg:'—'}</div></div>
+    <button class="btn danger" onclick="getGPS()" style="margin-bottom:10px">現在地を取得して共有</button>
+    <button class="btn ghost" onclick="toast('近くの医療機関を表示します（連携先データ）')" style="margin-bottom:10px">近くの病院を探す</button>
+    <button class="btn ghost" onclick="toast('同行者・緊急連絡先に通知します')">同行者・緊急連絡先へ通知</button>`;}
+  else if(s.tri==='orange'){actions=`<button class="btn coral" onclick="toast('Animedオペレーター・通訳につないでいます…')" style="margin-bottom:10px">オペレーター・通訳につなぐ</button>
+    <button class="btn ghost" onclick="toast('近くの医療機関を表示します（連携先データ）')" style="margin-bottom:10px">近くの病院を探す</button>
+    <button class="btn ghost" onclick="getGPS()">現在地を共有</button>`;}
+  else if(s.tri==='green'){actions=`<button class="btn coral" onclick="goConsult('pharmacist')" style="margin-bottom:10px">薬剤師に相談する</button>
+    <button class="btn ghost" onclick="toast('近くの薬局を表示します（連携先データ）')">近くの薬局を探す</button>`;}
+  else{actions=`<button class="btn coral" onclick="goConsult('doctor')">オンライン相談へ</button>`;}
+  const extra=(s.t==='気持ちがつらい')?`<div class="callout jp" style="margin-top:12px">つらい気持ちが続くときは、ひとりで抱えず信頼できる人や専門の窓口にもつながれます。日本語サポートにおつなぎできます。</div>`:'';
+  document.getElementById('symStep').innerHTML=`<button class="backlink" onclick="initEmergency()">‹ 症状をえらび直す</button>
+    <div class="triage ${s.tri}"><div class="lvl2">${tr.lvl}</div><h3 class="jp">${tr.t}</h3><p class="jp">「${s.t}」を選びました。${tr.d}</p></div>
+    ${actions}<div id="gpsOut" class="callout" style="margin-top:12px">現在地：未取得</div>${extra}`;
+}
+function getGPS(){const el=document.getElementById('gpsOut');if(!el)return;if(!navigator.geolocation){el.textContent='現在地：この端末では取得できません';return;}el.textContent='現在地：取得中…';
+  navigator.geolocation.getCurrentPosition(p=>{el.textContent=`現在地：緯度 ${p.coords.latitude.toFixed(4)}, 経度 ${p.coords.longitude.toFixed(4)}（共有準備完了）`;toast('現在地を取得しました');},()=>{el.textContent='現在地：取得できませんでした（位置情報の許可をご確認ください）';});}
+
+/* =================== ORG (business / group) =================== */
+const ORG_STATUS=["準備完了","医師面談待ち","薬剤師確認待ち","書類発行待ち","緊急対応中","帰国後フォロー中"];
+const ORG_SAMPLE=[
+  {n:"佐藤 みなと",g:"3年A組",dest:"オーストラリア",st:"準備完了"},
+  {n:"田中 そう",g:"3年A組",dest:"オーストラリア",st:"薬剤師確認待ち"},
+  {n:"鈴木 ひかり",g:"3年B組",dest:"オーストラリア",st:"医師面談待ち"},
+  {n:"高橋 れん",g:"引率教員",dest:"オーストラリア",st:"書類発行待ち"}
+];
+function renderOrg(){
+  const acc=state.account||{};const isOrg=acc.side==='org';
+  document.getElementById('orgTitle').textContent=isOrg?`${acc.type} 管理`:'企業・学校・団体';
+  document.getElementById('orgSub').textContent=isOrg?'メンバーの渡航準備を、病名を出さずにステータスで管理します。詳細医療情報の閲覧は権限で制限されます。':'団体コードでつながると、メンバーの準備状況をまとめて管理できます。';
+  const stChip=s=>{const m={"準備完了":"A","帰国後フォロー中":"A","薬剤師確認待ち":"B","書類発行待ち":"C","医師面談待ち":"C","緊急対応中":"D"};return `<span class="lvl ${m[s]||'B'}">${s}</span>`;};
+  const counts={};ORG_SAMPLE.forEach(m=>counts[m.st]=(counts[m.st]||0)+1);
+  const summary=`<div class="chips" style="margin-bottom:14px">${ORG_STATUS.filter(s=>counts[s]).map(s=>`<span class="chip">${s} ${counts[s]}</span>`).join('')}</div>`;
+  const list=`<div class="card" style="padding:6px 16px">${ORG_SAMPLE.map(m=>`<div class="orgrow"><div><div class="nm">${m.n}</div><div class="sub2">${m.g}・${m.dest}</div></div>${stChip(m.st)}</div>`).join('')}</div>`;
+  const note=`<div class="callout jp" style="margin-top:14px">会社・学校には詳細な病名は表示されません。表示されるのは準備ステータスのみです（権限設計）。エピペン・吸入薬・アレルギー等の緊急時情報は、許可された担当者だけが閲覧できます。</div>`;
+  const cta=isOrg?'':`<div class="btn-row" style="margin-top:14px"><button class="btn ghost" onclick="toast('団体コードの入力（実装予定）')">団体コードを入力</button></div>`;
+  document.getElementById('orgBody').innerHTML=summary+list+note+cta;
 }
 
-/* ---------------- EMERGENCY ---------------- */
-function renderEmergency(){
-  const c=(state.trip||{}).country; const info=COUNTRIES[c];
-  document.getElementById('emg-country').textContent=c?`${c}の救急番号`:'渡航先の救急番号（渡航を登録すると表示）';
-  document.getElementById('emg-number').textContent=info?info.emg:'—';
-}
-function getGPS(){
-  const el=document.getElementById('emg-gps');
-  if(!navigator.geolocation){el.textContent='現在地：この端末では取得できません';return;}
-  el.textContent='現在地：取得中…';
-  navigator.geolocation.getCurrentPosition(
-    p=>{el.textContent=`現在地：緯度 ${p.coords.latitude.toFixed(4)}, 経度 ${p.coords.longitude.toFixed(4)}（共有準備完了）`;toast('現在地を取得しました');},
-    ()=>{el.textContent='現在地：取得できませんでした（位置情報の許可をご確認ください）';}
-  );
-}
+/* =================== MISC =================== */
+let toastT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('登録内容をすべて消去して最初からやり直しますか？')){try{localStorage.removeItem(KEY);}catch(e){}state=fresh();save();boot();toast('リセットしました');}});
 
-/* ---------------- misc ---------------- */
-let toastT;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
-document.getElementById('resetBtn').addEventListener('click',()=>{
-  if(confirm('登録した内容をすべて消去して最初からやり直しますか？')){try{localStorage.removeItem(KEY);}catch(e){}state=load();go('home');toast('リセットしました');}
-});
-
-/* ---------------- boot ---------------- */
-initForm(); renderHome();
+/* =================== BOOT =================== */
+function boot(){
+  buildTopnav();
+  if(!state.account){showOnboard();return;}
+  document.getElementById('onboard').style.display='none';
+  document.getElementById('app').style.display='flex';
+  initPrecheck();
+  if(state.account.side==='org'){go('org');}else{go('home');}
+}
+boot();
 </script>
 </body>
 </html>
