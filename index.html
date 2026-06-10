@@ -183,6 +183,29 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.3s;z-index:60;box-shadow:var(--shadow)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .fade-foot{text-align:center;font-size:10.5px;color:var(--rose);letter-spacing:1.5px;margin-top:22px}
+/* ---------- editorial photography ---------- */
+.editorial{position:relative;border-radius:var(--r-lg);overflow:hidden;margin:0 0 18px;border:1px solid var(--line);aspect-ratio:16/9;background:var(--bone2)}
+.editorial img{width:100%;height:100%;object-fit:cover;display:block}
+.editorial .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(46,31,24,.46),rgba(46,31,24,.05) 52%,transparent 78%)}
+.editorial .cap{position:absolute;left:16px;right:16px;bottom:14px;color:#fff}
+.editorial .cap .ey{font-size:10px;letter-spacing:2.5px;font-weight:600;text-transform:uppercase;color:#f3d9d1}
+.editorial .cap .ln{font-family:var(--jpserif);font-weight:600;font-size:18px;line-height:1.42;margin-top:4px;text-shadow:0 1px 16px rgba(46,31,24,.55)}
+/* use-case rail */
+.usecases{margin:0 -18px}
+.usecases .rail{display:flex;gap:12px;overflow-x:auto;padding:2px 18px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.usecases .rail::-webkit-scrollbar{display:none}
+.usecases .rail{scrollbar-width:none}
+.ucard{flex:0 0 150px;scroll-snap-align:start;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper);cursor:pointer;text-align:left;padding:0;color:var(--ink);font-family:inherit}
+.ucard .ph{aspect-ratio:1/1;overflow:hidden;background:var(--bone2)}
+.ucard .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.ucard:active{transform:scale(.985)}
+.ucard:active .ph img{transform:scale(1.04)}
+.ucard .tx{padding:10px 12px 13px}
+.ucard .tx b{display:block;font-size:13px;font-weight:600;line-height:1.3}
+.ucard .tx small{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+/* service banner */
+.svchero{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);margin:0 0 18px;aspect-ratio:5/2;background:var(--bone2)}
+.svchero img{width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </head>
 <body>
@@ -230,6 +253,15 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
         <p class="line">海外でも、<br><span class="accent">日本語で医療につながる。</span></p>
       </div>
 
+      <div class="editorial">
+        <img src="img/hero-world.webp" alt="海外へ向かう人々" loading="eager" decoding="async">
+        <div class="veil"></div>
+        <div class="cap">
+          <div class="ey">GLOBAL HEALTH BRIDGE</div>
+          <div class="ln">渡航前に薬と書類を整え、<br>現地で迷わない。</div>
+        </div>
+      </div>
+
       <div id="homeTrip"></div>
 
       <h2 class="sec">できること</h2>
@@ -254,6 +286,45 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></span>
           <span><b>緊急サポート</b><small>現在地・現地救急・日本語サポートへ</small></span>
         </button>
+      </div>
+
+      <h2 class="sec">こんな方へ</h2>
+      <p class="sub" style="margin:-6px 0 14px">渡航のかたちは人それぞれ。あてはまる場面から始められます。</p>
+      <div class="usecases">
+        <div class="rail">
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-school.webp" alt="修学旅行・研修" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>修学旅行・研修</b><small>学校単位の渡航前チェックを一括で</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-study.webp" alt="留学・ワーホリ" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>留学・ワーホリ</b><small>長期滞在の常用薬と書類を整える</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-assign.webp" alt="海外赴任・帯同家族" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>海外赴任・帯同家族</b><small>家族ぶんの薬と持病をまとめて管理</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-business.webp" alt="出張・ビジネス" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>出張・ビジネス</b><small>短期でも薬と緊急連絡先を確認</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-worker.webp" alt="就労VISA・技能実習" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>就労VISA・技能実習</b><small>母国語サポートで医療につなぐ</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-location.webp" alt="芸能・海外ロケ" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>芸能・海外ロケ</b><small>スケジュールに合わせた事前準備</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-sports.webp" alt="スポーツ遠征" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>スポーツ遠征</b><small>遠征先の医療体制とコンディション</small></div>
+          </button>
+          <button class="ucard" onclick="go('trip')">
+            <div class="ph"><img src="img/use-travel.webp" alt="一般旅行" loading="lazy" decoding="async"></div>
+            <div class="tx"><b>一般旅行</b><small>旅先で困っても日本語で相談</small></div>
+          </button>
+        </div>
       </div>
 
       <div id="homeAppt"></div>
@@ -361,6 +432,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       <p class="eyebrow">薬の確認</p>
       <h1 class="title">薬の管理</h1>
       <p class="sub">登録した薬の持込リスクと、現地で必要になりやすい対応をまとめます。</p>
+      <div class="svchero"><img src="img/svc-meds.webp" alt="薬の準備" loading="lazy" decoding="async"></div>
       <div class="addbar">
         <input type="text" id="m-name" placeholder="薬の名前を追加" onkeydown="if(event.key==='Enter'){addMedFrom('m-name')}">
         <button onclick="addMedFrom('m-name')" aria-label="薬を追加">＋</button>
@@ -375,6 +447,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       <p class="eyebrow">書類</p>
       <h1 class="title">渡航書類</h1>
       <p class="sub">医師・薬剤師の確認後に発行できます。状態をタップして進捗を管理できます。</p>
+      <div class="svchero"><img src="img/svc-docs.webp" alt="英文書類・処方の準備" loading="lazy" decoding="async"></div>
       <div class="tripcard" style="padding:6px 16px"><div id="docList"></div></div>
       <div class="callout">英文診断書・薬剤証明書・処方内容証明・紹介状は、相談で確認が済むと「準備完了」になります。学校・企業・保険会社向けのサマリも同じ場所から受け取れます。</div>
     </section>
@@ -385,6 +458,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       <p class="eyebrow">相談予約</p>
       <h1 class="title">日程を合わせる</h1>
       <p class="sub">医師・薬剤師・通訳の空き状況とあなたの希望を照合します。全員が空いている枠で確定すると、オンライン通話のリンクが発行されます。</p>
+      <div class="svchero"><img src="img/svc-consult.webp" alt="医師・薬剤師に相談" loading="lazy" decoding="async"></div>
       <div class="seg" style="margin-bottom:12px">
         <label class="opt"><input type="radio" name="prov" value="doctor" checked onchange="renderSlots()"><span>医師</span></label>
         <label class="opt"><input type="radio" name="prov" value="pharmacist" onchange="renderSlots()"><span>薬剤師</span></label>
@@ -402,6 +476,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
         <p class="eyebrow">オンライン通話</p>
         <h1 class="title">まもなく開始</h1>
         <p class="sub" id="callWhen">—</p>
+        <div class="svchero"><img src="img/svc-interp.webp" alt="オンライン通訳・通話" loading="lazy" decoding="async"></div>
         <div class="tripcard" style="padding:6px 16px"><div id="callParties"></div></div>
         <button class="btn coral" onclick="enterCall()">通話に参加する</button>
         <div class="callout">通話の記録・要約は同意した場合のみ保存されます。終了後に相談サマリと書類の状態が更新されます。</div>
