@@ -206,6 +206,46 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
 /* service banner */
 .svchero{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);margin:0 0 18px;aspect-ratio:5/2;background:var(--bone2)}
 .svchero img{width:100%;height:100%;object-fit:cover;display:block}
+/* topnav (PC only) */
+.topnav{display:none}
+/* ========== DESKTOP ========== */
+@media (min-width:880px){
+  body{background-attachment:fixed}
+  .app{max-width:1140px;min-height:100vh;box-shadow:none;background:transparent}
+  .topbar{padding:16px 32px;background:rgba(251,242,236,.92)}
+  .topbar .mk{width:34px;height:27px}
+  .topbar .wm{font-size:24px}
+  .topbar .tag{font-size:10px;letter-spacing:3px}
+  .topnav{display:flex;gap:2px;align-items:center}
+  .topnav .tab{flex-direction:row;gap:7px;font-size:13.5px;padding:9px 14px;border-radius:11px;color:var(--muted)}
+  .topnav .tab svg{width:18px;height:18px}
+  .topnav .tab:hover{background:var(--bone2);color:var(--ink)}
+  .topnav .tab.active{color:var(--deep);background:var(--coral-soft)}
+  .tabbar{display:none}
+  main{padding:32px 32px 64px}
+  /* non-home screens: readable centered column */
+  .screen{max-width:780px;margin:0 auto}
+  .screen[data-screen="home"]{max-width:100%}
+  h1.title{font-size:34px}
+  /* home top: brand + editorial side by side */
+  .home-top{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:stretch;margin-bottom:6px}
+  .home-top .hero{margin:0;display:flex;flex-direction:column;justify-content:center;min-height:300px}
+  .home-top .hero .line{font-size:30px;max-width:none}
+  .home-top .hero .sphere{width:280px;height:280px;opacity:.8}
+  .home-top .editorial{margin:0;aspect-ratio:auto;min-height:300px}
+  .home-top .editorial .cap .ln{font-size:22px}
+  #homeTrip{margin-top:18px}
+  .home-top + #homeTrip .tripcard,.home-top + #homeTrip .empty{max-width:760px}
+  .quick{grid-template-columns:repeat(2,1fr);gap:14px}
+  /* use-cases: rail -> grid */
+  .usecases{margin:0}
+  .usecases .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;overflow:visible;padding:2px 0 6px;scroll-snap-type:none}
+  .ucard{flex:initial}
+  .svchero{aspect-ratio:auto;height:280px}
+}
+@media (min-width:1180px){
+  .app{margin:0 auto}
+}
 </style>
 </head>
 <body>
@@ -226,6 +266,13 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
       <span class="tag">GLOBAL HEALTH BRIDGE</span>
     </div>
     <span class="spacer"></span>
+    <nav class="topnav">
+      <button class="tab active" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/></svg>ホーム</button>
+      <button class="tab" data-tab="trip" onclick="go('trip')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle class="nimbus" cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/></svg>渡航</button>
+      <button class="tab" data-tab="health" onclick="go('health')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M3 13h3l2-4 3 7 2-5 1.5 2H21"/></svg>けんこう</button>
+      <button class="tab" data-tab="docs" onclick="go('docs')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>書類</button>
+      <button class="tab" data-tab="emergency" onclick="go('emergency')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="nimbus" d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg>緊急</button>
+    </nav>
     <button class="iconbtn" id="resetBtn" aria-label="データをリセット" title="データをリセット">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
     </button>
@@ -234,6 +281,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
   <main>
     <!-- ===================== HOME ===================== -->
     <section class="screen active" data-screen="home">
+      <div class="home-top">
       <div class="hero">
         <svg class="sphere" viewBox="0 0 230 230" aria-hidden="true">
           <g fill="none" stroke="#e94436">
@@ -260,6 +308,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6}
           <div class="ey">GLOBAL HEALTH BRIDGE</div>
           <div class="ln">渡航前に薬と書類を整え、<br>現地で迷わない。</div>
         </div>
+      </div>
       </div>
 
       <div id="homeTrip"></div>
