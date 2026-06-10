@@ -153,6 +153,14 @@ h2.title{font-family:var(--jp);font-weight:600;font-size:clamp(28px,3.6vw,42px);
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.scrollcue svg{animation:none}}
 
+/* ---------------- 日本語の自然な改行（文節単位） ---------------- */
+.np{white-space:nowrap}
+.hero h1,.hero p.lead,.manifesto .big,.manifesto p,h2.title,.section .desc,
+.step .tx h3,.step .tx p,.feat h3,.feat p,.case .lb b,.case .lb small,
+.card h3,.card p,.card ul,.card li,.ctaband h2,.ctaband p,.chip,.ft .corp{
+  word-break:auto-phrase; line-break:strict; overflow-wrap:break-word;
+}
+
 /* ---------------- responsive ---------------- */
 @media (max-width:980px){
   .feat-grid{grid-template-columns:repeat(2,1fr)}
@@ -227,7 +235,7 @@ h2.title{font-family:var(--jp);font-weight:600;font-size:clamp(28px,3.6vw,42px);
 <section class="section tight">
   <div class="wrap manifesto reveal">
     <p class="eyebrow" style="justify-content:center">ANIMA · 命をつなぐ</p>
-    <p class="big">かつて「すべての生命をつなぐ」を掲げた橋がある。<br>その志を医療として再起動し、<span class="ac">命を、世界へつなぐ。</span></p>
+    <p class="big"><span class="np">かつて</span><span class="np">「すべての生命をつなぐ」を</span><span class="np">掲げた橋がある。</span><br><span class="np">その志を</span><span class="np">医療として再起動し、</span><span class="ac np">命を、世界へつなぐ。</span></p>
     <p>Anima（ラテン語で「命」）と Medical を重ねた名が Animed。橋と朝日のしるしのもと、海外で暮らし・働き・学ぶ人を、日本語のまま医療につなぎます。<span class="anima">Animed — Global Health Bridge.</span></p>
   </div>
 </section>
