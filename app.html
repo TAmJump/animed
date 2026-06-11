@@ -173,6 +173,41 @@ textarea{resize:vertical;min-height:64px}
 .foot{text-align:center;font-size:10px;color:var(--rose);letter-spacing:1.5px;margin-top:24px}
 /* onboarding */
 .ob{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;max-width:520px;margin:0 auto}
+/* ---- auth ---- */
+.authwrap{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;max-width:430px;margin:0 auto}
+.authtabs{display:flex;gap:6px;background:var(--soft);border-radius:13px;padding:5px;margin:18px 0 18px}
+.authtabs button{flex:1;border:0;background:none;padding:10px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer}
+.authtabs button.on{background:#fff;color:var(--ink);box-shadow:0 4px 14px -8px rgba(74,59,52,.5)}
+.authnote{font-size:11.5px;color:var(--muted);margin-top:14px;text-align:center}
+/* ---- countdown + checklist ---- */
+.countdown{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#2e1f18,#48352c);color:#fff;border-radius:var(--r-lg);padding:18px 20px;margin-bottom:14px}
+.countdown .ring{position:relative;width:64px;height:64px;flex:none}
+.countdown .ring svg{transform:rotate(-90deg)}
+.countdown .ring .n{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:20px}
+.countdown .tx b{font-family:var(--jp);font-size:17px;font-weight:600;display:block}
+.countdown .tx small{font-size:12px;color:#e3d2c8}
+.cl{display:flex;flex-direction:column;gap:0}
+.clitem{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;background:none;border-left:0;border-right:0;border-top:0;width:100%}
+.clitem:last-child{border-bottom:0}
+.clitem .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line2);flex:none;display:grid;place-items:center;color:#fff}
+.clitem.done .ck{background:var(--A);border-color:var(--A)}
+.clitem .nm{flex:1;font-size:14px;font-weight:500}
+.clitem.done .nm{color:var(--muted);text-decoration:line-through}
+.clitem .go2{color:var(--muted);font-size:18px}
+/* ---- passport scan ---- */
+.scanrow{display:flex;gap:10px;margin:0 0 14px}
+.scanrow .btn{flex:1}
+.scanprev{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:12px;background:var(--soft)}
+.scanprev img{width:100%;display:block;max-height:230px;object-fit:cover}
+.scanprev .rm{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border:0;border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer}
+.scanstat{font-size:12.5px;color:var(--muted);margin:-4px 0 12px}
+.mrzbox textarea{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.5px}
+/* ---- medical card / phrases ---- */
+.phrase{border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin-bottom:9px;background:#fff}
+.phrase .en{font-size:14px;font-weight:600;color:var(--ink)}
+.phrase .loc{font-size:15px;color:var(--deep);margin-top:3px;direction:auto}
+.phrase .ja{font-size:11.5px;color:var(--muted);margin-top:2px}
+@media print{body *{visibility:hidden}#printArea,#printArea *{visibility:visible}#printArea{position:absolute;left:0;top:0;width:100%}}
 .ob .lead{font-family:var(--jp);font-size:24px;font-weight:600;line-height:1.4;margin:18px 0 8px}
 .choice{display:flex;flex-direction:column;gap:10px;margin-top:8px}
 .choicebtn{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:16px;cursor:pointer;text-align:left;color:var(--ink)}
@@ -194,6 +229,22 @@ textarea{resize:vertical;min-height:64px}
 </style>
 </head>
 <body>
+
+<!-- ============ AUTH ============ -->
+<section id="auth" style="display:none">
+  <div class="authwrap">
+    <svg width="44" height="32" viewBox="0 0 280 190" aria-hidden="true">
+      <path d="M116 138 A24 24 0 0 1 164 138 Z" fill="#c0392b"/>
+      <path d="M44 162 Q140 15 236 162" fill="none" stroke="#4a3b34" stroke-width="15" stroke-linecap="round"/>
+    </svg>
+    <p class="eyebrow" style="margin-top:18px">ANIMED ACCOUNT</p>
+    <h1 class="title jp" style="font-size:24px" id="authTitle">アカウントを作成</h1>
+    <p class="sub jp">登録すると、入力した情報が渡航前チェックや医療パスポートに自動で反映されます。あとから編集できます。</p>
+    <div class="authtabs"><button id="tabReg" class="on" onclick="authMode('reg')">新規登録</button><button id="tabLogin" onclick="authMode('login')">ログイン</button></div>
+    <div id="authForm"></div>
+    <p class="authnote jp">※ これは試作のローカル保存です。本番は AWS（Cognito 認証＋暗号化保存）に接続します。パスワードは端末内でハッシュ化して扱います。</p>
+  </div>
+</section>
 
 <!-- ============ ONBOARDING ============ -->
 <section id="onboard" style="display:none">
@@ -232,7 +283,10 @@ textarea{resize:vertical;min-height:64px}
       <p class="eyebrow">HOME</p>
       <h1 class="title jp" id="homeGreet">こんにちは</h1>
       <p class="sub jp" id="homeRole">渡航の準備を、ここから始めましょう。</p>
+      <div id="homeCountdown"></div>
       <div id="homeTrip"></div>
+      <h2 class="sec">準備チェックリスト</h2>
+      <div class="card" id="homeChecklist"></div>
       <h2 class="sec">できること</h2>
       <div class="hubgrid">
         <button class="hub" onclick="go('precheck')"><span class="ic"><img src="img/icons/ic-globe.webp" alt=""></span><b>渡航前チェック</b><small class="jp">薬・持病・書類・医療リスクを確認</small></button>
@@ -245,6 +299,7 @@ textarea{resize:vertical;min-height:64px}
       <div id="homeAppt"></div>
       <h2 class="sec">渡航までの流れ</h2>
       <div class="card" id="homeTimeline"></div>
+      <button class="btn ghost" style="margin-top:18px;max-width:200px" onclick="logout()">ログアウト</button>
       <p class="foot">ANIMA · 命を、世界へつなぐ</p>
     </section>
 
@@ -371,9 +426,20 @@ textarea{resize:vertical;min-height:64px}
         <div class="langtog"><button id="langJa" class="on" onclick="setPPLang('ja')">日本語</button><button id="langEn" onclick="setPPLang('en')">EN</button></div>
       </div>
       <div class="pp" id="ppCard"></div>
+      <h2 class="sec">パスポートを読み取る</h2>
+      <p class="sub jp">パスポートのカメラ撮影で、氏名・国籍・生年月日などを自動入力できます。画像は安全に保存されます（本番はAWS暗号化保存）。</p>
+      <input type="file" accept="image/*" capture="environment" id="ppFile" style="display:none" onchange="onPassportFile(this)">
+      <div class="scanrow">
+        <button class="btn primary" onclick="document.getElementById('ppFile').click()">📷 パスポートを撮影 / 選択</button>
+      </div>
+      <div id="scanPreview"></div>
+      <details class="card" style="margin-bottom:16px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">うまく読み取れないとき：MRZ（顔写真ページ下の2行）を貼る</summary>
+        <div class="mrzbox" style="margin-top:10px"><textarea id="mrzInput" rows="2" placeholder="P<JPNYAMADA<<TARO<<<<<<<<<<<<<<<<<<<<<<<<<<&#10;XS12345678JPN9001011M3001017<<<<<<<<<<<<<<04"></textarea>
+        <button class="btn ghost sm" style="margin-top:8px" onclick="parseMRZfromInput()">この内容で自動入力</button></div>
+      </details>
       <h2 class="sec" id="ppEditTtl">情報を編集</h2>
       <div id="ppForm"></div>
-      <button class="btn primary" onclick="savePassport()">保存してQRを更新</button>
+      <div class="btn-row"><button class="btn primary" onclick="savePassport()">保存してQRを更新</button><button class="btn ghost" onclick="go('medcard')">緊急医療カード</button></div>
       <div class="callout jp" id="ppNote">海外の医療機関では右上のQR、または「EN」表示で見せられます。記載は本人入力です。診断書など公式書類は書類タブから準備してください。</div>
     </section>
 
@@ -384,6 +450,17 @@ textarea{resize:vertical;min-height:64px}
       <h1 class="title">いま困っている</h1>
       <p class="sub jp">どの症状に近いですか？　重い症状のときは、まず現地の救急へ。</p>
       <div id="symStep"></div>
+    </section>
+
+    <!-- MEDICAL CARD -->
+    <section class="screen" data-screen="medcard">
+      <button class="backlink" onclick="go('passport')">‹ パスポート</button>
+      <p class="eyebrow" style="color:var(--deep)">EMERGENCY MEDICAL CARD</p>
+      <h1 class="title">緊急医療カード</h1>
+      <p class="sub jp">救急の現場で見せるためのカードです。オフラインでも表示でき、現地のことばと英語で要点を伝えられます。</p>
+      <div id="printArea"></div>
+      <div class="btn-row" style="margin-top:14px"><button class="btn primary" onclick="window.print()">印刷・PDF保存</button><button class="btn ghost" onclick="go('emergency')">緊急サポート</button></div>
+      <div class="callout jp">アレルギー・持病・常用薬・血液型・緊急連絡先は、パスポート画面の編集と渡航前チェックの内容から自動でまとめています。</div>
     </section>
 
     <!-- ORG -->
@@ -2791,8 +2868,10 @@ const TRIAGE={
 const KEY="animed_app_v2";
 let state=load();
 function fresh(){return {
+  auth:null, loggedIn:false,
   account:null, // {side:'user'|'org', type:''}
-  profile:{name:"",birth:"",sex:"",blood:"",nationality:"日本",lang:"日本語",insurance:"",emgc:""},
+  profile:{name:"",passport_name:"",birth:"",sex:"",blood:"",nationality:"日本",lang:"日本語",insurance:"",emgc:"",passport_no:"",passport_exp:"",passport_country:""},
+  passportImg:null,
   trip:null, health:{conditions:[],allergy:"",preg:false,hosp:false,vacc:false,ins:false,meds:[],age:"",sex:""},
   docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)), appts:[], assessed:false, verdict:null, summary:null, status:"未登録", ppLang:"ja"
 };}
@@ -2800,14 +2879,14 @@ function load(){try{const j=localStorage.getItem(KEY);if(j)return Object.assign(
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
 /* =================== NAV =================== */
-const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",docs:"home",emergency:"emergency",org:"home"};
+const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",medcard:"passport",docs:"home",emergency:"emergency",org:"home"};
 const NAV=[["home","ホーム"],["precheck","チェック"],["schedule","相談"],["passport","パスポート"],["emergency","緊急"]];
 function go(scr){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===scr));
   const tab=TAB_OF[scr]||scr;
   document.querySelectorAll('.tab,.topnav button').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   window.scrollTo({top:0,behavior:'instant'});
-  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,emergency:initEmergency,org:renderOrg}[scr]||(()=>{}))();
+  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,medcard:renderMedCard,emergency:initEmergency,org:renderOrg}[scr]||(()=>{}))();
 }
 function goConsult(scope){
   document.querySelectorAll('input[name=prov]').forEach(r=>r.checked=(r.value===scope));
@@ -2819,6 +2898,7 @@ function buildTopnav(){
 
 /* =================== ONBOARDING =================== */
 function showOnboard(){
+  document.getElementById('auth').style.display='none';
   document.getElementById('onboard').style.display='block';
   document.getElementById('app').style.display='none';
   obSide();
@@ -2867,6 +2947,7 @@ function renderHome(){
   // timeline
   const tl=[["出発30日前","渡航前チェック・医師相談の検討"],["出発14日前","薬剤確認・英文書類の準備"],["出発7日前","保険・現地病院情報の確認"],["出発前日","緊急連絡先・医療パスポートの最終確認"],["渡航中","困ったら緊急サポート"],["帰国後","必要に応じてフォロー受診"]];
   document.getElementById('homeTimeline').innerHTML=`<div class="tl">${tl.map(([w,x])=>`<div class="ev"><div class="w">${w}</div><div class="x jp">${x}</div></div>`).join('')}</div>`;
+  renderCountdown();renderChecklist();
 }
 
 /* =================== PRECHECK =================== */
@@ -2877,6 +2958,13 @@ function initPrecheck(){
   if(!pp.innerHTML)pp.innerHTML=PURPOSES.map((p,i)=>`<label class="opt"><input type="radio" name="purpose" value="${p}" ${i===0?'checked':''}><span>${p}</span></label>`).join('');
   const cc=document.getElementById('f-cond');
   if(!cc.innerHTML)cc.innerHTML=CONDITIONS.map(c=>`<label class="opt tone"><input type="checkbox" name="cond" value="${c.k}"><span>${c.label}</span></label>`).join('');
+  // --- 自動入力（登録・既存データから） ---
+  if(state.trip){cs.value=state.trip.country||cs.value;document.getElementById('f-city').value=state.trip.city||'';document.getElementById('f-start').value=state.trip.start||'';document.getElementById('f-end').value=state.trip.end||'';const pr=[...document.querySelectorAll('input[name=purpose]')].find(x=>x.value===state.trip.purpose);if(pr)pr.checked=true;}
+  document.getElementById('f-age').value=state.health.age||'';if(state.health.sex)document.getElementById('f-sex').value=state.health.sex;
+  document.getElementById('f-allergy').value=state.health.allergy||'';
+  document.getElementById('f-preg').checked=!!state.health.preg;document.getElementById('f-hosp').checked=!!state.health.hosp;document.getElementById('f-vacc').checked=!!state.health.vacc;document.getElementById('f-ins').checked=!!state.health.ins;
+  state.health.conditions.forEach(k=>{const el=document.querySelector('input[name=cond][value="'+k+'"]');if(el)el.checked=true;});
+  if(state.profile.emgc)document.getElementById('f-emgc').value=state.profile.emgc;
   renderMedList();
 }
 function addMed(){addMedFrom('f-medname');}
@@ -3017,6 +3105,7 @@ function renderPassport(){
     <div class="two"><div class="field"><label>${en?'Nationality':'国籍'}</label><input type="text" id="pp-nat" value="${esc(p.nationality)}"></div>
     <div class="field"><label>${en?'Insurance':'保険'}</label><input type="text" id="pp-ins" value="${esc(p.insurance)}"></div></div>
     <div class="field"><label>${en?'Emergency contact':'緊急連絡先'}</label><input type="text" id="pp-emgc" value="${esc(p.emgc)}"></div>`;
+  renderScanPreview();
 }
 function esc(s){return (s||'').replace(/"/g,'&quot;');}
 function setPPLang(l){state.ppLang=l;save();renderPassport();}
@@ -3071,6 +3160,114 @@ function renderOrg(){
   document.getElementById('orgBody').innerHTML=summary+list+note+cta;
 }
 
+/* =================== AUTH =================== */
+function val(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+function showAuth(mode){document.getElementById('auth').style.display='block';document.getElementById('onboard').style.display='none';document.getElementById('app').style.display='none';authMode(mode||(state.auth?'login':'reg'));}
+function authMode(m){document.getElementById('tabReg').classList.toggle('on',m==='reg');document.getElementById('tabLogin').classList.toggle('on',m==='login');
+  document.getElementById('authTitle').textContent=m==='reg'?'アカウントを作成':'ログイン';
+  document.getElementById('authForm').innerHTML=(m==='reg'?`<div class="field"><label>お名前</label><input type="text" id="au-name" placeholder="山田 太郎" value="${esc((state.auth||{}).name||'')}"></div>`:'')+
+  `<div class="field"><label>メールアドレス</label><input type="email" id="au-email" placeholder="you@example.com" value="${esc((state.auth||{}).email||'')}"></div>
+   <div class="field"><label>パスワード</label><input type="password" id="au-pw" placeholder="8文字以上"></div>
+   <button class="btn coral" onclick="${m==='reg'?'doRegister()':'doLogin()'}">${m==='reg'?'登録する':'ログイン'}</button>`;}
+async function doRegister(){const name=val('au-name'),email=val('au-email'),pw=val('au-pw');
+  if(!email||!pw){toast('メールとパスワードを入力してください');return;}
+  if(pw.length<8){toast('パスワードは8文字以上にしてください');return;}
+  state.auth={email,name,hash:await sha256(pw+'|'+email)};state.loggedIn=true;if(name)state.profile.name=name;
+  if(state.status==='未登録')state.status='基本情報入力済';save();
+  document.getElementById('auth').style.display='none';toast('登録しました');
+  if(!state.account){showOnboard();}else{boot();}}
+async function doLogin(){const email=val('au-email'),pw=val('au-pw');
+  if(!state.auth){toast('まだ登録がありません。新規登録してください');authMode('reg');return;}
+  if(email===state.auth.email && (await sha256(pw+'|'+email))===state.auth.hash){state.loggedIn=true;save();document.getElementById('auth').style.display='none';boot();toast('ログインしました');}
+  else toast('メールまたはパスワードが違います');}
+function logout(){state.loggedIn=false;save();showAuth('login');}
+
+/* =================== PASSPORT SCAN / MRZ =================== */
+const NAT3={JPN:'日本',USA:'アメリカ（米国）',GBR:'イギリス',CHN:'中国',KOR:'韓国',THA:'タイ',SGP:'シンガポール',PHL:'フィリピン',VNM:'ベトナム',AUS:'オーストラリア',ARE:'アラブ首長国連邦（UAE）'};
+function renderScanPreview(){const box=document.getElementById('scanPreview');if(!box)return;box.innerHTML=state.passportImg?`<div class="scanprev"><img src="${state.passportImg}" alt="パスポート画像"><button class="rm" onclick="rmPassportImg()">削除</button></div><div class="scanstat" id="scanStat">画像を保存しました。内容をご確認ください。</div>`:'';}
+function rmPassportImg(){state.passportImg=null;save();renderScanPreview();}
+function setScanStat(t){const e=document.getElementById('scanStat');if(e)e.textContent=t;}
+function onPassportFile(input){const file=input.files&&input.files[0];if(!file)return;const reader=new FileReader();
+  reader.onload=e=>{const img=new Image();img.onload=()=>{const max=1100;let w=img.width,h=img.height;if(w>max){h=Math.round(h*max/w);w=max;}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);state.passportImg=cv.toDataURL('image/jpeg',0.82);save();renderScanPreview();setScanStat('読み取り中…');tryOCR(state.passportImg);};img.src=e.target.result;};
+  reader.readAsDataURL(file);input.value='';}
+let tesseractLoading=null;
+function loadTesseract(){if(window.Tesseract)return Promise.resolve(window.Tesseract);if(tesseractLoading)return tesseractLoading;
+  tesseractLoading=new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js';s.onload=()=>res(window.Tesseract);s.onerror=rej;document.head.appendChild(s);});return tesseractLoading;}
+async function tryOCR(dataUrl){try{const T=await loadTesseract();setScanStat('文字を解析中…（数秒かかります）');
+  const {data}=await T.recognize(dataUrl,'eng');
+  const lines=(data.text||'').split('\n').map(s=>s.replace(/\s/g,'').toUpperCase()).filter(s=>/^[A-Z0-9<]{28,44}$/.test(s)&&s.includes('<'));
+  if(lines.length>=2 && applyMRZ(lines[lines.length-2],lines[lines.length-1])){setScanStat('自動入力しました。内容をご確認ください。');}
+  else{setScanStat('MRZを自動認識できませんでした。下の「MRZを貼る」から2行を貼ると自動入力できます。');}
+}catch(e){setScanStat('この環境では自動解析が使えませんでした。下の「MRZを貼る」から2行を貼ると自動入力できます。');}}
+function parseMRZfromInput(){const t=(val('mrzInput')||'').toUpperCase().split('\n').map(s=>s.replace(/\s/g,'')).filter(Boolean);if(t.length<2){toast('MRZの2行を貼ってください');return;}toast(applyMRZ(t[t.length-2],t[t.length-1])?'自動入力しました':'読み取れませんでした。形式をご確認ください');}
+function applyMRZ(l1,l2){try{l1=(l1||'').padEnd(44,'<');l2=(l2||'').padEnd(44,'<');
+  const names=l1.substring(5).split('<<');const surname=(names[0]||'').replace(/</g,' ').trim();const given=(names[1]||'').replace(/</g,' ').trim();
+  const pno=l2.substring(0,9).replace(/</g,'');const nat=l2.substring(10,13).replace(/</g,'');const bd=l2.substring(13,19);const sex=l2.substring(20,21);const exp=l2.substring(21,27);
+  const yymm=(y,fut)=>{const yy=parseInt(y.substring(0,2),10);const full=fut?(2000+yy):(yy>40?1900+yy:2000+yy);return full+'-'+y.substring(2,4)+'-'+y.substring(4,6);};
+  const nm=(surname+' '+given).trim();if(nm){state.profile.name=nm;state.profile.passport_name=nm;}
+  if(/^\d{6}$/.test(bd))state.profile.birth=yymm(bd,false);
+  if(sex==='M')state.profile.sex='男性';else if(sex==='F')state.profile.sex='女性';
+  if(nat){state.profile.nationality=NAT3[nat]||nat;state.profile.passport_country=nat;}
+  if(pno)state.profile.passport_no=pno;
+  if(/^\d{6}$/.test(exp))state.profile.passport_exp=yymm(exp,true);
+  save();renderPassport();return !!nm;}catch(e){return false;}}
+
+/* =================== COUNTDOWN + CHECKLIST =================== */
+function daysUntil(d){if(!d)return null;const t=new Date(d+'T00:00:00');const now=new Date();now.setHours(0,0,0,0);return Math.round((t-now)/86400000);}
+function renderCountdown(){const box=document.getElementById('homeCountdown');if(!box)return;const t=state.trip;if(!t||!t.start){box.innerHTML='';return;}
+  const dS=daysUntil(t.start),dE=daysUntil(t.end);let n,label,sub,frac;
+  if(dS>0){n=dS;label='出発まであと';sub=`${t.country} へ ${t.start}`;frac=Math.max(.04,Math.min(1,1-dS/60));}
+  else if(dE!=null&&dE>=0){n='✈';label='渡航中';sub=`${t.country}・帰国まであと${dE}日`;frac=1;}
+  else{n='✓';label='おかえりなさい';sub='必要に応じてフォロー受診を';frac=1;}
+  const R=28,C=2*Math.PI*R,off=C*(1-frac);
+  box.innerHTML=`<div class="countdown"><div class="ring"><svg width="64" height="64"><circle cx="32" cy="32" r="${R}" stroke="rgba(255,255,255,.18)" stroke-width="5" fill="none"/><circle cx="32" cy="32" r="${R}" stroke="#e94436" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/></svg><div class="n">${n}</div></div><div class="tx"><b>${typeof n==='number'?label+n+'日':label}</b><small>${sub}</small></div></div>`;}
+function renderChecklist(){const box=document.getElementById('homeChecklist');if(!box)return;
+  const items=[
+    {k:'アカウント登録',done:!!state.auth,scr:null},
+    {k:'渡航を登録',done:!!state.trip,scr:'precheck'},
+    {k:'渡航前チェック',done:!!state.verdict,scr:'precheck'},
+    {k:'薬を確認',done:state.health.meds.length>0,scr:'meds'},
+    {k:'相談を予約',done:state.appts.length>0||!!state.summary,scr:'schedule'},
+    {k:'書類を準備',done:state.docs.some(d=>d.s==='done'),scr:'docs'},
+    {k:'医療パスポート',done:!!state.profile.name,scr:'passport'},
+    {k:'緊急医療カード',done:!!(state.profile.blood&&state.profile.emgc),scr:'medcard'}
+  ];
+  const done=items.filter(i=>i.done).length;
+  const ck='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>';
+  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><b style="font-family:var(--jp);font-size:15px">準備 ${done}/${items.length}</b><span class="muted" style="font-size:12px">タップで各画面へ</span></div><div class="cl">${items.map(i=>`<button class="clitem ${i.done?'done':''}" ${i.scr?`onclick="go('${i.scr}')"`:''}><span class="ck">${i.done?ck:''}</span><span class="nm">${i.k}</span><span class="go2">${i.scr?'›':''}</span></button>`).join('')}</div>`;}
+
+/* =================== MEDICAL CARD + PHRASES =================== */
+const LANG_OF={"アラブ首長国連邦（UAE）":"ar","タイ":"th","シンガポール":"en","アメリカ（米国）":"en","韓国":"ko","フィリピン":"en","ベトナム":"vi","中国":"zh","オーストラリア":"en","イギリス":"en","その他の国":"en"};
+const PH={
+ en:{doctor:"I need a doctor.",amb:"Please call an ambulance.",allergy:"I am allergic to: ",cond:"I have a medical condition: ",meds:"I am currently taking: "},
+ ar:{doctor:"أحتاج إلى طبيب.",amb:"الرجاء الاتصال بسيارة إسعاف.",allergy:"لدي حساسية من: ",cond:"لدي حالة طبية: ",meds:"أتناول حاليًا: "},
+ th:{doctor:"ฉันต้องการพบแพทย์",amb:"กรุณาเรียกรถพยาบาล",allergy:"ฉันแพ้: ",cond:"ฉันมีโรคประจำตัว: ",meds:"ฉันกำลังใช้ยา: "},
+ ko:{doctor:"의사가 필요합니다.",amb:"구급차를 불러 주세요.",allergy:"저는 다음에 알레르기가 있습니다: ",cond:"저는 지병이 있습니다: ",meds:"현재 복용 중인 약: "},
+ vi:{doctor:"Tôi cần gặp bác sĩ.",amb:"Vui lòng gọi xe cứu thương.",allergy:"Tôi bị dị ứng với: ",cond:"Tôi có bệnh lý: ",meds:"Tôi đang dùng thuốc: "},
+ zh:{doctor:"我需要看医生。",amb:"请叫救护车。",allergy:"我对以下物质过敏：",cond:"我有疾病：",meds:"我正在服用："}
+};
+function renderMedCard(){
+  const p=state.profile,h=state.health;const c=(state.trip||{}).country;const info=COUNTRIES[c]||COUNTRIES["その他の国"];
+  const lang=LANG_OF[c]||"en";const en=PH.en,lo=PH[lang]||PH.en;
+  const allergy=h.allergy||'—';const conds=h.conditions.map(k=>(CONDITIONS.find(x=>x.k===k)||{}).label).filter(Boolean).join(', ')||'—';const meds=h.meds.join(', ')||'—';
+  const qrData='ANIMED MEDICAL CARD\nName:'+(p.passport_name||p.name||'-')+'\nBlood:'+(p.blood||'-')+'\nAllergy:'+allergy+'\nConditions:'+conds+'\nMeds:'+meds+'\nEmergency:'+(p.emgc||'-');
+  let qr='';try{const q=qrcode(0,'M');q.addData(qrData);q.make();qr=q.createSvgTag({cellSize:3,margin:0});}catch(e){}
+  const has=v=>v&&v!=='—';
+  const row=(key,v)=>{const withVal=(key==='allergy'||key==='cond'||key==='meds');if(withVal&&!has(v))return '';const e=en[key]+(withVal?v:'');const l=(lo[key]||'')+(withVal?v:'');return `<div class="phrase"><div class="en">${e}</div>${lang!=='en'?`<div class="loc">${l}</div>`:''}</div>`;};
+  document.getElementById('printArea').innerHTML=`
+   <div class="pp"><div class="ttl">ANIMED · EMERGENCY MEDICAL CARD</div><div class="nm jp">${p.passport_name||p.name||'—'}</div>
+     <div class="meta">${p.birth||'—'} ・ Blood ${p.blood||'—'} ・ ${p.nationality||'—'}</div>
+     <div class="qr">${qr}</div>
+     <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px;font-size:12.5px;color:#e7d5cc">
+       <div><b style="color:#fff">Allergies：</b>${allergy}</div>
+       <div style="margin-top:3px"><b style="color:#fff">Conditions：</b>${conds}</div>
+       <div style="margin-top:3px"><b style="color:#fff">Medications：</b>${meds}</div>
+       <div style="margin-top:3px"><b style="color:#fff">Emergency contact：</b>${p.emgc||'—'}</div></div></div>
+   <div class="card" style="margin-top:14px;text-align:center"><div class="muted" style="font-size:12px">${c?c+' の救急番号':'渡航先の救急番号'}</div><div class="emgnum">${info.emg}</div></div>
+   <h2 class="sec">伝えるフレーズ（${lang.toUpperCase()} / EN）</h2>
+   ${row('doctor')}${row('amb')}${row('allergy',allergy)}${row('cond',conds)}${row('meds',meds)}`;}
+
 /* =================== MISC =================== */
 let toastT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
 document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('登録内容をすべて消去して最初からやり直しますか？')){try{localStorage.removeItem(KEY);}catch(e){}state=fresh();save();boot();toast('リセットしました');}});
@@ -3078,7 +3275,9 @@ document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('�
 /* =================== BOOT =================== */
 function boot(){
   buildTopnav();
+  if(!state.auth||!state.loggedIn){showAuth();return;}
   if(!state.account){showOnboard();return;}
+  document.getElementById('auth').style.display='none';
   document.getElementById('onboard').style.display='none';
   document.getElementById('app').style.display='flex';
   initPrecheck();
