@@ -326,6 +326,7 @@ textarea{resize:vertical;min-height:64px}
         <button class="tool" onclick="go('share')"><span class="ic">👨‍👩‍👧</span><span><b>家族と共有</b><small>本人の同意で</small></span></button>
         <button class="tool" onclick="go('checkup')"><span class="ic">🩺</span><span><b>健診結果</b><small>渡航前に反映</small></span></button>
         <button class="tool" onclick="go('insurance')"><span class="ic">🛡️</span><span><b>海外旅行保険</b><small>証券・緊急電話</small></span></button>
+        <button class="tool" onclick="go('healthins')"><span class="ic">🪪</span><span><b>医療保険証</b><small>マイナ保険証の控え</small></span></button>
         <button class="tool" onclick="go('wearable')"><span class="ic">⌚</span><span><b>ウェアラブル</b><small>体調を相談に</small></span></button>
         <button class="tool" onclick="go('medcard')"><span class="ic">🆘</span><span><b>緊急医療カード</b><small>現地語＋英語</small></span></button>
       </div>
@@ -483,6 +484,15 @@ textarea{resize:vertical;min-height:64px}
       <h1 class="title">いま困っている</h1>
       <p class="sub jp">どの症状に近いですか？　重い症状のときは、まず現地の救急へ。</p>
       <div id="symStep"></div>
+    </section>
+
+    <!-- HEALTH INSURANCE (医療保険証) -->
+    <section class="screen" data-screen="healthins">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">医療保険証</h1>
+      <p class="sub jp">マイナ保険証で見えづらくなった健康保険の資格情報を、アプリに控えておけます。受診時に提示でき、家族とも共有できます。</p>
+      <div id="hinsBody"></div>
     </section>
 
     <!-- MED SCHEDULE -->
@@ -2969,7 +2979,7 @@ function fresh(){return {
   account:null, // {side:'user'|'org', type:''}
   profile:{name:"",passport_name:"",birth:"",sex:"",blood:"",nationality:"日本",lang:"日本語",insurance:"",emgc:"",passport_no:"",passport_exp:"",passport_country:""},
   passportImg:null,
-  medSlots:{}, share:{enabled:false,items:{},family:[]}, checkup:null, ins:null, wearable:{connected:false,share:false,vitals:null},
+  medSlots:{}, share:{enabled:false,items:{},family:[]}, checkup:null, ins:null, healthIns:null, wearable:{connected:false,share:false,vitals:null},
   trip:null, health:{conditions:[],allergy:"",preg:false,hosp:false,vacc:false,ins:false,meds:[],age:"",sex:""},
   docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)), appts:[], assessed:false, verdict:null, summary:null, status:"未登録", ppLang:"ja"
 };}
@@ -2977,14 +2987,14 @@ function load(){try{const j=localStorage.getItem(KEY);if(j)return Object.assign(
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
 /* =================== NAV =================== */
-const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",medcard:"passport",docs:"home",emergency:"emergency",org:"home",medsched:"home",share:"home",checkup:"home",insurance:"home",wearable:"home"};
+const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",medcard:"passport",docs:"home",emergency:"emergency",org:"home",medsched:"home",share:"home",checkup:"home",insurance:"home",healthins:"home",wearable:"home"};
 const NAV=[["home","ホーム"],["precheck","チェック"],["schedule","相談"],["passport","パスポート"],["emergency","緊急"]];
 function go(scr){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===scr));
   const tab=TAB_OF[scr]||scr;
   document.querySelectorAll('.tab,.topnav button').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   window.scrollTo({top:0,behavior:'instant'});
-  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,medcard:renderMedCard,emergency:initEmergency,org:renderOrg,medsched:renderMedsched,share:renderShare,checkup:renderCheckupResult,insurance:renderInsurance,wearable:renderWearable}[scr]||(()=>{}))();
+  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,medcard:renderMedCard,emergency:initEmergency,org:renderOrg,medsched:renderMedsched,share:renderShare,checkup:renderCheckupResult,insurance:renderInsurance,healthins:renderHealthIns,wearable:renderWearable}[scr]||(()=>{}))();
 }
 function goConsult(scope){
   document.querySelectorAll('input[name=prov]').forEach(r=>r.checked=(r.value===scope));
@@ -3366,6 +3376,32 @@ function renderMedCard(){
    <h2 class="sec">伝えるフレーズ（${lang.toUpperCase()} / EN）</h2>
    ${row('doctor')}${row('amb')}${row('allergy',allergy)}${row('cond',conds)}${row('meds',meds)}`;}
 
+/* =================== TOOLS: health insurance (医療保険証) =================== */
+function renderHealthIns(){const box=document.getElementById('hinsBody');if(!box)return;const h=state.healthIns||{};const p=state.profile;
+  let card='';
+  if(h.insurer_no||h.number||h.insurer_name){
+    const qrData='ANIMED HEALTH INSURANCE\nName:'+(p.name||'-')+'\nInsurer:'+(h.insurer_no||'-')+'\nSymbol:'+(h.symbol||'-')+'\nNo:'+(h.number||'-')+'\nBranch:'+(h.branch||'-')+'\nInsurerName:'+(h.insurer_name||'-')+'\nBurden:'+(h.burden||'-');
+    let qr='';try{const q=qrcode(0,'M');q.addData(qrData);q.make();qr=q.createSvgTag({cellSize:3,margin:0});}catch(e){}
+    card=`<div class="pp" style="background:linear-gradient(160deg,#2f6a6e,#23494d);margin-bottom:14px"><div class="ttl">健康保険 資格情報</div><div class="nm jp">${p.name||'—'}</div><div class="meta">${h.category||'本人（被保険者）'} ・ 負担 ${h.burden||'—'}</div><div class="qr">${qr}</div>
+      <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px;font-size:12.5px;color:#e6f1f0">
+        <div><b style="color:#fff">保険者番号：</b>${h.insurer_no||'—'}</div>
+        <div style="margin-top:3px"><b style="color:#fff">記号・番号・枝番：</b>${h.symbol||'—'} ・ ${h.number||'—'} ・ ${h.branch||'—'}</div>
+        <div style="margin-top:3px"><b style="color:#fff">保険者名称：</b>${h.insurer_name||'—'}</div>
+        <div style="margin-top:3px"><b style="color:#fff">資格取得：</b>${h.acquired||'—'}</div></div></div>`;
+  }
+  box.innerHTML=card+
+    `<div class="callout jp" style="margin-bottom:14px"><b>マイナ保険証で確認しづらい資格情報を控えられます。</b> 受診時の提示や、家族共有（「医療保険情報」を選択）に使えます。番号などの機微情報は本番でAWS暗号化保存します。</div>
+     <div class="field"><label>保険者番号 <span class="hint">6〜8桁</span></label><input type="text" id="hi-no" placeholder="例：01130012" value="${esc(h.insurer_no)}"></div>
+     <div class="two"><div class="field"><label>記号</label><input type="text" id="hi-sym" value="${esc(h.symbol)}"></div><div class="field"><label>番号</label><input type="text" id="hi-num" value="${esc(h.number)}"></div></div>
+     <div class="two"><div class="field"><label>枝番 <span class="hint">2桁</span></label><input type="text" id="hi-br" placeholder="00" value="${esc(h.branch)}"></div>
+       <div class="field"><label>負担割合</label><select id="hi-burden"><option value="">選択</option>${['1割','2割','3割'].map(x=>`<option ${h.burden===x?'selected':''}>${x}</option>`).join('')}</select></div></div>
+     <div class="field"><label>保険者名称</label><input type="text" id="hi-name" placeholder="例：◯◯健康保険組合 / ◯◯市国民健康保険" value="${esc(h.insurer_name)}"></div>
+     <div class="two"><div class="field"><label>資格取得年月日 <span class="hint">任意</span></label><input type="text" id="hi-acq" placeholder="2020-04-01" value="${esc(h.acquired)}"></div>
+       <div class="field"><label>区分</label><select id="hi-cat"><option ${h.category==='本人（被保険者）'?'selected':''}>本人（被保険者）</option><option ${h.category==='家族（被扶養者）'?'selected':''}>家族（被扶養者）</option></select></div></div>
+     <button class="btn coral" onclick="saveHealthIns()">保存して控えを更新</button>`;
+}
+function saveHealthIns(){state.healthIns={insurer_no:val('hi-no'),symbol:val('hi-sym'),number:val('hi-num'),branch:val('hi-br'),burden:val('hi-burden'),insurer_name:val('hi-name'),acquired:val('hi-acq'),category:val('hi-cat')};save();renderHealthIns();toast('医療保険情報を保存しました');}
+
 /* =================== TOOLS: med schedule (timezone) =================== */
 const TZ={"アラブ首長国連邦（UAE）":4,"タイ":7,"シンガポール":8,"アメリカ（米国）":-5,"韓国":9,"フィリピン":8,"ベトナム":7,"中国":8,"オーストラリア":10,"イギリス":0,"その他の国":null};
 const SLOTS=[["asa","朝","08:00"],["hiru","昼","12:30"],["yoru","夜","19:00"],["neru","就寝","22:00"]];
@@ -3387,7 +3423,7 @@ function renderShare(){const box=document.getElementById('shareBody');if(!box)re
   if(age==null)gate=`<div class="note jp"><b>年齢の確認が必要です。</b> 生年月日を登録すると、共有を本人の判断で設定できます（18歳以上）。<div class="btn-row" style="margin-top:10px"><button class="btn ghost sm" onclick="go('passport')">生年月日を登録</button></div></div>`;
   else if(!adult)gate=`<div class="note jp"><b>18歳未満のため、医療情報の共有は保護者が管理します。</b>（日本では2022年4月から成年は18歳。共有の自己決定は18歳以上）。なお<b>緊急時</b>は、設定に関わらず登録した緊急連絡先へ重要情報を共有できます。</div>`;
   const consent=`<div class="card" style="margin-bottom:14px"><div class="shareitem"><div class="lab"><b>家族との共有を有効にする</b><small>${adult?'あなた（'+age+'歳）の判断で切り替えられます':'18歳以上で設定できます'}</small></div><label class="sw"><input type="checkbox" ${sh.enabled?'checked':''} ${adult?'':'disabled'} onchange="toggleShareEnabled(this.checked)"><i></i></label></div></div>`;
-  const items=[["passport","医療パスポート","血液型・アレルギー・持病・常用薬"],["trip","渡航予定","行き先・期間・判定結果"],["card","緊急医療カード","救急時の要点（現地語/英語）"],["location","現在地","緊急時のみ・地図リンク"]];
+  const items=[["passport","医療パスポート","血液型・アレルギー・持病・常用薬"],["health","医療保険情報","健康保険の資格情報（保険者番号・記号番号など）"],["trip","渡航予定","行き先・期間・判定結果"],["card","緊急医療カード","救急時の要点（現地語/英語）"],["location","現在地","緊急時のみ・地図リンク"]];
   const what=(sh.enabled&&adult)?`<h2 class="sec">共有する内容</h2><div class="card" style="padding:6px 16px">${items.map(([k,t,d])=>`<div class="shareitem"><div class="lab"><b>${t}</b><small>${d}</small></div><label class="sw"><input type="checkbox" ${(sh.items&&sh.items[k])?'checked':''} onchange="toggleShareItem('${k}',this.checked)"><i></i></label></div>`).join('')}</div>`:'';
   const fam=`<h2 class="sec">共有先の家族</h2><div class="card" style="padding:6px 16px">${(sh.family||[]).length?sh.family.map((f,i)=>`<div class="shareitem"><div class="lab"><b>${f.name}</b><small>${f.relation||''}${f.contact?'・'+f.contact:''}</small></div><button class="statebtn" onclick="rmFamily(${i})">削除</button></div>`).join(''):'<div class="muted" style="font-size:13px;padding:8px 0">まだ登録がありません</div>'}</div>
     <div class="two" style="margin-top:10px"><div class="field"><label>お名前</label><input type="text" id="fm-name" placeholder="山田 花子"></div><div class="field"><label>続柄</label><input type="text" id="fm-rel" placeholder="配偶者 / 親 など"></div></div>
