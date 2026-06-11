@@ -262,7 +262,7 @@ GET  /api/secure-docs/:id/url    -> presigned GET（短時間）
 ```sql
 CREATE TABLE share_consents(
   id TEXT PRIMARY KEY, user_id TEXT, enabled INTEGER DEFAULT 0,
-  share_passport INTEGER, share_trip INTEGER, share_card INTEGER, share_location INTEGER,
+  share_passport INTEGER, share_health INTEGER, share_trip INTEGER, share_card INTEGER, share_location INTEGER,
   set_by TEXT,            -- self(18+) / guardian
   updated_at TEXT
 );
@@ -280,3 +280,21 @@ CREATE TABLE vitals(id TEXT PRIMARY KEY, user_id TEXT, taken_at TEXT, hr INTEGER
 - 服薬スケジュールの時差変換はフロント計算（国→UTCオフセット）。用量変更は提案せず、医師・薬剤師相談へ誘導。
 - ウェアラブルは本番で HealthKit / Google Fit / Fitbit API。`vitals` に正規化保存、相談時のみ医師へ提示（`wearable_links.share_with_doctor`）。
 - 保険のアシスタンス番号は緊急医療カードに自動表示（フロント実装済み）。
+
+---
+
+## 10. 医療保険証（健康保険 資格情報）v4
+
+マイナ保険証移行で確認しづらい**公的医療保険の資格情報**をアプリに控え、受診時提示・家族共有に使う。海外旅行保険(§7/insurances)とは別。
+
+```sql
+CREATE TABLE insurance_eligibility(
+  id TEXT PRIMARY KEY, user_id TEXT,
+  insurer_no TEXT,        -- 保険者番号（暗号化推奨）
+  symbol TEXT, number TEXT, branch TEXT,   -- 記号・番号・枝番（暗号化推奨）
+  insurer_name TEXT, acquired_date TEXT, burden_rate TEXT, category TEXT,  -- 本人/家族
+  updated_at TEXT
+);
+```
+- 記号・番号・枝番・保険者番号は識別子のため**AWS暗号化保存（S3/KMS or アプリ層暗号化）**、表示は本人と同意した家族・医療者のみ、`audit_logs` 必須。
+- 家族共有の対象に `share_consents.share_health`（医療保険情報）を追加。18歳以上の自己同意・未成年は保護者・緊急時オーバーライドは §9 と同様。
