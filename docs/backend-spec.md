@@ -221,3 +221,34 @@ POST /api/checkups  GET /api/checkups
 4. MVP4：保険/旅行会社連携・芸能/スポーツ案件・多言語・国別規制DB。
 
 フロントは app.html v2 が MVP1 の利用者側UIを先取り済み。次は Worker をこの契約で実装（Cloudflare 操作は JIN）。
+
+---
+
+## 7. 認証と機微文書の保管（AWS 採用・JIN確認事項）
+
+利用者の問いに対する設計判断：**認証と機微PIIはAWS、アプリ取引データはCloudflare**のハイブリッド。
+
+- **認証**：AWS Cognito（User Pool）。app.html は試作でローカルSHA-256ハッシュだが、本番は Cognito のJWTに置換。`users.id` に Cognito sub を保存。
+- **パスポート画像・本人確認書類**：**S3 + KMS暗号化（SSE-KMS）**。アップロードは Cognito Identity Pool 経由の **presigned URL**（Workerやクライアントから直接S3、画像は端末でリサイズ後送信）。DBには `s3_key` のみ保存し、画像本体は持たない。
+- **MRZ/OCR**：本番は端末内 or サーバ側で OCR（Textract も可）。app.html は MRZ(TD3) パーサを実装済み（手入力・将来のOCR両対応）。
+
+追加テーブル / フィールド：
+```sql
+ALTER TABLE profiles ADD COLUMN passport_no TEXT;       -- 暗号化して保存推奨
+ALTER TABLE profiles ADD COLUMN passport_expiry TEXT;
+ALTER TABLE profiles ADD COLUMN passport_country TEXT;
+CREATE TABLE secure_documents(
+  id TEXT PRIMARY KEY, user_id TEXT, kind TEXT,  -- passport/id/insurance
+  s3_key TEXT, mime TEXT, uploaded_at TEXT, kms_key_id TEXT
+);
+```
+追加API：
+```
+POST /api/secure-docs/presign   {kind, mime} -> {url, s3_key}   (S3 presigned PUT)
+POST /api/secure-docs/commit    {kind, s3_key, mime}            (メタをDB登録)
+GET  /api/secure-docs/:id/url    -> presigned GET（短時間）
+```
+注意：パスポート番号など識別子はアプリ内表示用に最小限に留め、保存時はアプリ層暗号化を推奨。閲覧は本人と、明示同意のある医療者のみ（`audit_logs` 必須）。
+
+## 8. v2 で先取り実装済みのUX（フロント試作）
+ログイン/登録 → 利用者種別 → 自動入力（渡航前チェック・医療パスポート）／パスポート・カメラ読み取り＋MRZ自動入力／**出発カウントダウン＋準備チェックリスト**／**オフライン緊急医療カード（QR＋現地語/英語フレーズ＋現地救急番号）**。これらはローカル試作。Cognito/S3/D1 接続で実データ化（Cloudflare/AWS操作は JIN）。
