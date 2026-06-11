@@ -97,6 +97,18 @@ h2.title{font-family:var(--jp);font-weight:600;font-size:clamp(28px,3.6vw,42px);
 .feat h3{font-family:var(--jp);font-weight:600;font-size:18px;margin:0 0 7px;color:var(--ink);line-height:1.4}
 .feat p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.7}
 
+/* ---------------- app feature showcase ---------------- */
+.afgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.afeat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 24px;transition:border-color .2s,box-shadow .25s}
+.afeat:hover{border-color:var(--line2);box-shadow:0 26px 54px -36px rgba(74,59,52,.45)}
+.afeat .ic{width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--deep);margin-bottom:16px}
+.afeat .ic svg{width:24px;height:24px}
+.afeat .tag{display:inline-block;font-family:var(--serif);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--deep);border:1px solid var(--line2);padding:3px 9px;border-radius:999px;margin-bottom:12px;font-weight:600}
+.afeat h3{font-family:var(--jp);font-weight:600;font-size:17px;margin:0 0 7px;color:var(--ink);line-height:1.4}
+.afeat p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.7}
+@media (max-width:980px){.afgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.afgrid{grid-template-columns:1fr}}
+
 /* ---------------- process (steps) — editorial ---------------- */
 .steps{display:flex;flex-direction:column;gap:84px}
 .step{display:grid;grid-template-columns:1fr 1.08fr;gap:56px;align-items:center;position:relative}
@@ -226,6 +238,7 @@ h2.title{font-family:var(--jp);font-weight:600;font-size:clamp(28px,3.6vw,42px);
       <a class="lnk" href="#features">特徴</a>
       <a class="lnk" href="#how">使い方</a>
       <a class="lnk" href="#cases">利用シーン</a>
+      <a class="lnk" href="#appfeatures">アプリ機能</a>
       <a class="lnk" href="#partners">連携先</a>
       <a class="btn coral sm" href="app.html">アプリを使う</a>
     </nav>
@@ -341,6 +354,31 @@ h2.title{font-family:var(--jp);font-weight:600;font-size:clamp(28px,3.6vw,42px);
 <div class="bridgerule reveal" aria-hidden="true">
   <svg viewBox="0 0 280 80" fill="none"><path d="M116 60 A24 24 0 0 1 164 60 Z" fill="#c0392b" opacity=".5"/><path d="M30 70 Q140 4 250 70" stroke="#e7d9cf" stroke-width="6" stroke-linecap="round" fill="none"/></svg>
 </div>
+
+<!-- ===================== APP FEATURES ===================== -->
+<section class="section" id="appfeatures" style="padding-top:24px">
+  <div class="wrap">
+    <div class="head-row reveal">
+      <div>
+        <p class="eyebrow">INSIDE THE APP</p>
+        <h2 class="title">アプリの、<br>細やかな便利機能。</h2>
+      </div>
+      <p class="desc">渡航の不安を一つずつ解消する、Animedならではの機能。登録すれば、入力した情報は渡航前チェックや医療パスポートに自動で反映されます。</p>
+    </div>
+    <div class="afgrid reveal">
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 0-3.4 7"/><path d="M8.5 12l2.5 2.5 5-5.5"/></svg></span><h3>渡航前チェック（A〜D）</h3><p>国と体調・常用薬から準備のレベルをA〜Dで判定し、必要な書類や相談を自動で整理します。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="10" r="2"/><path d="M5 16c.8-2 6.2-2 7 0M14 9h4M14 12.5h4M14 16h2.5"/></svg></span><h3>医療パスポート（QR・英語）</h3><p>血液型・アレルギー・持病・常用薬を、QRと英語表示で海外の医療機関にそのまま見せられます。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2.5"/><circle cx="12" cy="13" r="3.2"/><path d="M8.5 7l1.2-2h4.6L15.5 7"/></svg></span><h3>パスポートをカメラで読み取り</h3><p>撮影するだけでMRZを解析し、氏名・国籍・生年月日などを自動入力。手入力の手間を省きます。</p></div>
+      <div class="afeat"><span class="tag">注目</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><h3>時差対応の服薬スケジュール</h3><p>日本での服用時間を渡航先の現地時間に自動変換。飲み忘れや時差のズレを防ぎます。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.2-3 7.2-7 9-4-1.8-7-4.8-7-9V6z"/><path d="M12 9.5v5M9.5 12h5"/></svg></span><h3>オフライン緊急医療カード</h3><p>救急の現場で見せる要点を、現地のことばと英語で。圏外でも表示でき、現地の救急番号も出ます。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9.5l1.5 1.5L13 8M8 15.5l1.5 1.5L13 14"/></svg></span><h3>出発カウントダウン＆チェックリスト</h3><p>「出発まであと◯日」とやることを自動で見える化。準備の抜け漏れを防ぎます。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c.8-3.5 9.2-3.5 11 0"/><circle cx="17.5" cy="9.5" r="2.2"/><path d="M16.5 14.5c2.6.1 4.4 1.4 5 3.5"/></svg></span><h3>家族と共有（本人の同意で）</h3><p>医療情報を家族と共有。共有可否は本人が選べ（18歳以上）、緊急時は別枠で大切な情報を守ります。</p></div>
+      <div class="afeat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 9.5h18M6.5 14h6"/></svg></span><h3>医療保険証の控え</h3><p>マイナ保険証で見えづらい健康保険の資格情報を控え、受診時の提示や家族共有に使えます。</p></div>
+    </div>
+    <p class="desc" style="text-align:center;max-width:none;margin:24px auto 0">ほかにも、海外旅行保険の登録・健診結果の取り込み・ウェアラブル連携。</p>
+    <div style="text-align:center;margin-top:30px"><a class="btn coral" href="app.html" style="width:auto">アプリを使う</a></div>
+  </div>
+</section>
 
 <!-- ===================== TRUST ===================== -->
 <section class="section tight" id="trust">
