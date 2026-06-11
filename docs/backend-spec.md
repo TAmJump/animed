@@ -252,3 +252,31 @@ GET  /api/secure-docs/:id/url    -> presigned GET（短時間）
 
 ## 8. v2 で先取り実装済みのUX（フロント試作）
 ログイン/登録 → 利用者種別 → 自動入力（渡航前チェック・医療パスポート）／パスポート・カメラ読み取り＋MRZ自動入力／**出発カウントダウン＋準備チェックリスト**／**オフライン緊急医療カード（QR＋現地語/英語フレーズ＋現地救急番号）**。これらはローカル試作。Cognito/S3/D1 接続で実データ化（Cloudflare/AWS操作は JIN）。
+
+---
+
+## 9. 追加ツールのデータ設計（v3）
+
+**同意年齢の方針：自己決定は18歳以上**（民法改正で2022/04から成年=18歳。飲酒・喫煙等は20歳のまま）。18歳未満は保護者が共有を管理。**緊急時は同意設定に関わらず、緊急連絡先へ緊急医療カード＋現在地を共有可（命を守る例外）。**
+
+```sql
+CREATE TABLE share_consents(
+  id TEXT PRIMARY KEY, user_id TEXT, enabled INTEGER DEFAULT 0,
+  share_passport INTEGER, share_trip INTEGER, share_card INTEGER, share_location INTEGER,
+  set_by TEXT,            -- self(18+) / guardian
+  updated_at TEXT
+);
+CREATE TABLE family_links(
+  id TEXT PRIMARY KEY, user_id TEXT, member_name TEXT, relation TEXT, contact TEXT,
+  is_guardian INTEGER DEFAULT 0, is_emergency INTEGER DEFAULT 1
+);
+CREATE TABLE med_schedules(id TEXT PRIMARY KEY, user_id TEXT, medication_id TEXT, slot TEXT, home_time TEXT);
+CREATE TABLE insurances(id TEXT PRIMARY KEY, user_id TEXT, company TEXT, policy_no TEXT, coverage TEXT, assist_phone TEXT);
+CREATE TABLE wearable_links(id TEXT PRIMARY KEY, user_id TEXT, provider TEXT, share_with_doctor INTEGER, last_sync TEXT);
+CREATE TABLE vitals(id TEXT PRIMARY KEY, user_id TEXT, taken_at TEXT, hr INTEGER, spo2 INTEGER, steps INTEGER, sleep_h REAL);
+-- checkups は §1 に定義済み
+```
+- 共有は **本人(18+)のみ自己設定可**。サーバ側でも `getAge(birthdate)>=18` を検証し、未成年は guardian の `family_links.is_guardian=1` 経由のみ。緊急時オーバーライドは `emergency_cases` 起票時に `is_emergency=1` の連絡先へ通知（監査ログ必須）。
+- 服薬スケジュールの時差変換はフロント計算（国→UTCオフセット）。用量変更は提案せず、医師・薬剤師相談へ誘導。
+- ウェアラブルは本番で HealthKit / Google Fit / Fitbit API。`vitals` に正規化保存、相談時のみ医師へ提示（`wearable_links.share_with_doctor`）。
+- 保険のアシスタンス番号は緊急医療カードに自動表示（フロント実装済み）。
