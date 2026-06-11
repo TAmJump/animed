@@ -207,6 +207,30 @@ textarea{resize:vertical;min-height:64px}
 .phrase .en{font-size:14px;font-weight:600;color:var(--ink)}
 .phrase .loc{font-size:15px;color:var(--deep);margin-top:3px;direction:auto}
 .phrase .ja{font-size:11.5px;color:var(--muted);margin-top:2px}
+/* ---- tools (sched/share/checkup/insurance/wearable) ---- */
+.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tool{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;cursor:pointer;text-align:left;color:var(--ink)}
+.tool:hover{border-color:var(--line2)}
+.tool .ic{width:40px;height:40px;border-radius:11px;background:var(--soft);display:grid;place-items:center;flex:none;font-size:19px}
+.tool b{font-size:13.5px;font-weight:600;display:block}.tool small{font-size:11px;color:var(--muted)}
+.sw{position:relative;width:44px;height:26px;flex:none}
+.sw input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.sw i{position:absolute;inset:0;background:var(--line2);border-radius:999px;transition:.2s;pointer-events:none}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw input:checked + i{background:var(--A)}
+.sw input:checked + i::after{transform:translateX(18px)}
+.sw input:disabled{cursor:not-allowed}.sw input:disabled + i{opacity:.45}
+.schedrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.schedrow:last-child{border-bottom:0}
+.tz{font-family:var(--serif);font-weight:600;font-size:15px}.tz .ar{color:var(--muted);margin:0 6px}
+.slotchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.slotchip{font-size:11px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer}
+.slotchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.vitalgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.vital{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.vital b{font-family:var(--serif);font-size:24px;display:block}.vital small{font-size:11px;color:var(--muted)}
+.shareitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.shareitem:last-child{border-bottom:0}.shareitem .lab b{font-size:14px;font-weight:600}.shareitem .lab small{font-size:11.5px;color:var(--muted);display:block}
 @media print{body *{visibility:hidden}#printArea,#printArea *{visibility:visible}#printArea{position:absolute;left:0;top:0;width:100%}}
 .ob .lead{font-family:var(--jp);font-size:24px;font-weight:600;line-height:1.4;margin:18px 0 8px}
 .choice{display:flex;flex-direction:column;gap:10px;margin-top:8px}
@@ -295,6 +319,15 @@ textarea{resize:vertical;min-height:64px}
         <button class="hub" onclick="go('passport')"><span class="ic"><img src="img/icons/ic-idcard.webp" alt=""></span><b>お薬・医療パスポート</b><small class="jp">常用薬・既往歴・英文情報</small></button>
         <button class="hub" onclick="go('org')"><span class="ic"><img src="img/icons/ic-document.webp" alt=""></span><b>企業・学校・団体</b><small class="jp">メンバーの渡航準備を管理</small></button>
         <button class="hub emg" onclick="go('emergency')"><span class="ic"><img src="img/icons/ic-lifering.webp" alt=""></span><b>緊急サポート</b><small class="jp">海外で困ったとき</small></button>
+      </div>
+      <h2 class="sec">便利ツール</h2>
+      <div class="toolgrid">
+        <button class="tool" onclick="go('medsched')"><span class="ic">⏰</span><span><b>服薬スケジュール</b><small>時差に対応</small></span></button>
+        <button class="tool" onclick="go('share')"><span class="ic">👨‍👩‍👧</span><span><b>家族と共有</b><small>本人の同意で</small></span></button>
+        <button class="tool" onclick="go('checkup')"><span class="ic">🩺</span><span><b>健診結果</b><small>渡航前に反映</small></span></button>
+        <button class="tool" onclick="go('insurance')"><span class="ic">🛡️</span><span><b>海外旅行保険</b><small>証券・緊急電話</small></span></button>
+        <button class="tool" onclick="go('wearable')"><span class="ic">⌚</span><span><b>ウェアラブル</b><small>体調を相談に</small></span></button>
+        <button class="tool" onclick="go('medcard')"><span class="ic">🆘</span><span><b>緊急医療カード</b><small>現地語＋英語</small></span></button>
       </div>
       <div id="homeAppt"></div>
       <h2 class="sec">渡航までの流れ</h2>
@@ -450,6 +483,70 @@ textarea{resize:vertical;min-height:64px}
       <h1 class="title">いま困っている</h1>
       <p class="sub jp">どの症状に近いですか？　重い症状のときは、まず現地の救急へ。</p>
       <div id="symStep"></div>
+    </section>
+
+    <!-- MED SCHEDULE -->
+    <section class="screen" data-screen="medsched">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">服薬スケジュール</h1>
+      <p class="sub jp">日本での服用タイミングを選ぶと、渡航先の現地時間に自動で変換します。</p>
+      <div id="medschedBody"></div>
+      <div class="note jp"><b>注意：</b> 用量やタイミングの調整（特にインスリン・抗凝固薬・精神科の薬など）は、自己判断せず必ず医師・薬剤師に相談してください。表示は時差の目安です。</div>
+    </section>
+
+    <!-- SHARE -->
+    <section class="screen" data-screen="share">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">家族と共有</h1>
+      <p class="sub jp">医療情報を家族と共有できます。共有するかは本人が選びます（18歳以上）。</p>
+      <div id="shareBody"></div>
+    </section>
+
+    <!-- CHECKUP -->
+    <section class="screen" data-screen="checkup">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">健診結果</h1>
+      <p class="sub jp">健康診断の数値を入れると、渡航前の注意点を整理します。当社健診とも連携予定です。</p>
+      <div id="checkupResult"></div>
+      <div class="two">
+        <div class="field"><label>血圧（上/下）</label><input type="text" id="ck-bp" placeholder="128/82"></div>
+        <div class="field"><label>空腹時血糖</label><input type="text" id="ck-glu" placeholder="98"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>HbA1c (%)</label><input type="text" id="ck-a1c" placeholder="5.6"></div>
+        <div class="field"><label>BMI</label><input type="text" id="ck-bmi" placeholder="22.4"></div>
+      </div>
+      <div class="field"><label>産業医・医師コメント <span class="hint">任意</span></label><textarea id="ck-com" placeholder="例：経過観察。渡航前に内服確認を。"></textarea></div>
+      <button class="btn coral" onclick="saveCheckup()">判定して反映</button>
+    </section>
+
+    <!-- INSURANCE -->
+    <section class="screen" data-screen="insurance">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">海外旅行保険</h1>
+      <p class="sub jp">保険情報を登録すると、緊急時アシスタンスの番号を緊急医療カードにも表示します。</p>
+      <div id="insStatus"></div>
+      <div class="field"><label>保険会社</label><input type="text" id="in-co" placeholder="例：◯◯海上"></div>
+      <div class="two">
+        <div class="field"><label>証券番号</label><input type="text" id="in-no" placeholder="例：ABC-1234567"></div>
+        <div class="field"><label>補償（治療費上限など）</label><input type="text" id="in-cov" placeholder="例：治療 無制限"></div>
+      </div>
+      <div class="field"><label>緊急アシスタンス電話</label><input type="tel" id="in-tel" placeholder="例：+81-3-xxxx-xxxx"></div>
+      <button class="btn coral" onclick="saveInsurance()">保存</button>
+      <div class="callout jp" id="insGuide"></div>
+    </section>
+
+    <!-- WEARABLE -->
+    <section class="screen" data-screen="wearable">
+      <button class="backlink" onclick="go('home')">‹ ホーム</button>
+      <p class="eyebrow">便利ツール</p>
+      <h1 class="title">ウェアラブル連携</h1>
+      <p class="sub jp">スマートウォッチの体調データを連携し、渡航中の変化を相談時に医師へ共有できます。</p>
+      <div id="wearBody"></div>
     </section>
 
     <!-- MEDICAL CARD -->
@@ -2872,6 +2969,7 @@ function fresh(){return {
   account:null, // {side:'user'|'org', type:''}
   profile:{name:"",passport_name:"",birth:"",sex:"",blood:"",nationality:"日本",lang:"日本語",insurance:"",emgc:"",passport_no:"",passport_exp:"",passport_country:""},
   passportImg:null,
+  medSlots:{}, share:{enabled:false,items:{},family:[]}, checkup:null, ins:null, wearable:{connected:false,share:false,vitals:null},
   trip:null, health:{conditions:[],allergy:"",preg:false,hosp:false,vacc:false,ins:false,meds:[],age:"",sex:""},
   docs:JSON.parse(JSON.stringify(DEFAULT_DOCS)), appts:[], assessed:false, verdict:null, summary:null, status:"未登録", ppLang:"ja"
 };}
@@ -2879,14 +2977,14 @@ function load(){try{const j=localStorage.getItem(KEY);if(j)return Object.assign(
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
 /* =================== NAV =================== */
-const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",medcard:"passport",docs:"home",emergency:"emergency",org:"home"};
+const TAB_OF={home:"home",precheck:"precheck",result:"precheck",meds:"precheck",schedule:"schedule",call:"schedule",passport:"passport",medcard:"passport",docs:"home",emergency:"emergency",org:"home",medsched:"home",share:"home",checkup:"home",insurance:"home",wearable:"home"};
 const NAV=[["home","ホーム"],["precheck","チェック"],["schedule","相談"],["passport","パスポート"],["emergency","緊急"]];
 function go(scr){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===scr));
   const tab=TAB_OF[scr]||scr;
   document.querySelectorAll('.tab,.topnav button').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   window.scrollTo({top:0,behavior:'instant'});
-  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,medcard:renderMedCard,emergency:initEmergency,org:renderOrg}[scr]||(()=>{}))();
+  ({home:renderHome,precheck:initPrecheck,result:renderResult,meds:renderMeds,docs:renderDocs,schedule:renderSlots,call:renderCall,passport:renderPassport,medcard:renderMedCard,emergency:initEmergency,org:renderOrg,medsched:renderMedsched,share:renderShare,checkup:renderCheckupResult,insurance:renderInsurance,wearable:renderWearable}[scr]||(()=>{}))();
 }
 function goConsult(scope){
   document.querySelectorAll('input[name=prov]').forEach(r=>r.checked=(r.value===scope));
@@ -3263,10 +3361,76 @@ function renderMedCard(){
        <div><b style="color:#fff">Allergies：</b>${allergy}</div>
        <div style="margin-top:3px"><b style="color:#fff">Conditions：</b>${conds}</div>
        <div style="margin-top:3px"><b style="color:#fff">Medications：</b>${meds}</div>
-       <div style="margin-top:3px"><b style="color:#fff">Emergency contact：</b>${p.emgc||'—'}</div></div></div>
+       <div style="margin-top:3px"><b style="color:#fff">Emergency contact：</b>${p.emgc||'—'}</div>${state.ins&&state.ins.tel?`<div style="margin-top:3px"><b style="color:#fff">Insurance assist：</b>${state.ins.tel}</div>`:''}</div></div>
    <div class="card" style="margin-top:14px;text-align:center"><div class="muted" style="font-size:12px">${c?c+' の救急番号':'渡航先の救急番号'}</div><div class="emgnum">${info.emg}</div></div>
    <h2 class="sec">伝えるフレーズ（${lang.toUpperCase()} / EN）</h2>
    ${row('doctor')}${row('amb')}${row('allergy',allergy)}${row('cond',conds)}${row('meds',meds)}`;}
+
+/* =================== TOOLS: med schedule (timezone) =================== */
+const TZ={"アラブ首長国連邦（UAE）":4,"タイ":7,"シンガポール":8,"アメリカ（米国）":-5,"韓国":9,"フィリピン":8,"ベトナム":7,"中国":8,"オーストラリア":10,"イギリス":0,"その他の国":null};
+const SLOTS=[["asa","朝","08:00"],["hiru","昼","12:30"],["yoru","夜","19:00"],["neru","就寝","22:00"]];
+function addHM(hm,off){let [h,m]=hm.split(':').map(Number);h=((h+off)%24+24)%24;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');}
+function toggleSlot(name,slot){const cur=state.medSlots[name]||[];const i=cur.indexOf(slot);if(i>=0)cur.splice(i,1);else cur.push(slot);state.medSlots[name]=cur;save();renderMedsched();}
+function renderMedsched(){const box=document.getElementById('medschedBody');if(!box)return;const meds=state.health.meds;
+  if(!meds.length){box.innerHTML='<div class="callout">先に「渡航前チェック」または薬の管理で常用薬を登録してください。</div>';return;}
+  const country=(state.trip||{}).country;const tz=TZ[country];const off=(tz==null)?null:tz-9;
+  const head=(country&&off!=null)?`<div class="callout" style="margin-bottom:14px">日本（JST, UTC+9）→ ${country}（UTC${tz>=0?'+':''}${tz}）：時差 <b>${off>0?'+':''}${off}時間</b></div>`:`<div class="callout" style="margin-bottom:14px">渡航先を渡航前チェックで登録すると、現地時間に自動変換します。</div>`;
+  box.innerHTML=head+meds.map(m=>{const key=m;const sel=state.medSlots[key]||[];
+    const chips=SLOTS.map(([k,lab])=>`<button class="slotchip ${sel.includes(k)?'on':''}" onclick="toggleSlot(${JSON.stringify(key)},'${k}')">${lab}</button>`).join('');
+    const rows=sel.map(k=>{const t=SLOTS.find(s=>s[0]===k)[2];const loc=off!=null?addHM(t,off):'—';return `<div class="schedrow"><span class="tz">${t}<span class="ar">→</span>${loc}</span><span class="muted" style="font-size:12px">日本 → 現地</span></div>`;}).join('');
+    return `<div class="card" style="margin-bottom:12px"><b style="font-family:var(--jp);font-size:15px">${m}</b><div class="slotchips">${chips}</div>${rows?'<div style="margin-top:8px">'+rows+'</div>':''}</div>`;}).join('');
+}
+/* =================== TOOLS: family share (age-gated) =================== */
+function getAge(){const b=state.profile.birth;if(b&&/^\d{4}-\d{2}-\d{2}$/.test(b)){const d=new Date(b),n=new Date();let a=n.getFullYear()-d.getFullYear();const mm=n.getMonth()-d.getMonth();if(mm<0||(mm===0&&n.getDate()<d.getDate()))a--;return a;}const h=parseInt(state.health.age||'',10);return isNaN(h)?null:h;}
+function renderShare(){const box=document.getElementById('shareBody');if(!box)return;const age=getAge();const adult=age!=null&&age>=18;const sh=state.share;
+  let gate='';
+  if(age==null)gate=`<div class="note jp"><b>年齢の確認が必要です。</b> 生年月日を登録すると、共有を本人の判断で設定できます（18歳以上）。<div class="btn-row" style="margin-top:10px"><button class="btn ghost sm" onclick="go('passport')">生年月日を登録</button></div></div>`;
+  else if(!adult)gate=`<div class="note jp"><b>18歳未満のため、医療情報の共有は保護者が管理します。</b>（日本では2022年4月から成年は18歳。共有の自己決定は18歳以上）。なお<b>緊急時</b>は、設定に関わらず登録した緊急連絡先へ重要情報を共有できます。</div>`;
+  const consent=`<div class="card" style="margin-bottom:14px"><div class="shareitem"><div class="lab"><b>家族との共有を有効にする</b><small>${adult?'あなた（'+age+'歳）の判断で切り替えられます':'18歳以上で設定できます'}</small></div><label class="sw"><input type="checkbox" ${sh.enabled?'checked':''} ${adult?'':'disabled'} onchange="toggleShareEnabled(this.checked)"><i></i></label></div></div>`;
+  const items=[["passport","医療パスポート","血液型・アレルギー・持病・常用薬"],["trip","渡航予定","行き先・期間・判定結果"],["card","緊急医療カード","救急時の要点（現地語/英語）"],["location","現在地","緊急時のみ・地図リンク"]];
+  const what=(sh.enabled&&adult)?`<h2 class="sec">共有する内容</h2><div class="card" style="padding:6px 16px">${items.map(([k,t,d])=>`<div class="shareitem"><div class="lab"><b>${t}</b><small>${d}</small></div><label class="sw"><input type="checkbox" ${(sh.items&&sh.items[k])?'checked':''} onchange="toggleShareItem('${k}',this.checked)"><i></i></label></div>`).join('')}</div>`:'';
+  const fam=`<h2 class="sec">共有先の家族</h2><div class="card" style="padding:6px 16px">${(sh.family||[]).length?sh.family.map((f,i)=>`<div class="shareitem"><div class="lab"><b>${f.name}</b><small>${f.relation||''}${f.contact?'・'+f.contact:''}</small></div><button class="statebtn" onclick="rmFamily(${i})">削除</button></div>`).join(''):'<div class="muted" style="font-size:13px;padding:8px 0">まだ登録がありません</div>'}</div>
+    <div class="two" style="margin-top:10px"><div class="field"><label>お名前</label><input type="text" id="fm-name" placeholder="山田 花子"></div><div class="field"><label>続柄</label><input type="text" id="fm-rel" placeholder="配偶者 / 親 など"></div></div>
+    <div class="field"><label>連絡先 <span class="hint">任意</span></label><input type="text" id="fm-con" placeholder="メール / 電話"></div>
+    <button class="btn ghost" onclick="addFamily()">家族を追加</button>`;
+  const emg=`<div class="callout jp" style="margin-top:14px"><b>緊急時の例外：</b> 共有設定に関わらず、救急の場面では登録した緊急連絡先へ、緊急医療カードと現在地を共有できます。命を守るための例外です。</div>`;
+  box.innerHTML=gate+consent+what+fam+emg;
+}
+function toggleShareEnabled(v){state.share.enabled=v;if(!state.share.items)state.share.items={};save();renderShare();}
+function toggleShareItem(k,v){if(!state.share.items)state.share.items={};state.share.items[k]=v;save();}
+function addFamily(){const n=val('fm-name');if(!n){toast('お名前を入力してください');return;}state.share.family=state.share.family||[];state.share.family.push({name:n,relation:val('fm-rel'),contact:val('fm-con')});save();renderShare();toast('家族を追加しました');}
+function rmFamily(i){state.share.family.splice(i,1);save();renderShare();}
+/* =================== TOOLS: checkup =================== */
+function renderCheckupResult(){const box=document.getElementById('checkupResult');if(!box)return;const ck=state.checkup;
+  box.innerHTML=ck?`<div class="verdict ${ck.lvl}" style="padding:18px;margin-bottom:14px"><div class="t jp" style="font-size:18px">${ck.flag}</div><div class="d jp">${ck.note}</div></div>`:'';
+  if(ck){({bp:'ck-bp',glu:'ck-glu',a1c:'ck-a1c',bmi:'ck-bmi',com:'ck-com'}); [['bp','ck-bp'],['glu','ck-glu'],['a1c','ck-a1c'],['bmi','ck-bmi'],['com','ck-com']].forEach(([k,id])=>{const e=document.getElementById(id);if(e&&ck[k]!=null)e.value=ck[k];});}
+}
+function saveCheckup(){const bp=val('ck-bp'),glu=val('ck-glu'),a1c=val('ck-a1c'),bmi=val('ck-bmi'),com=val('ck-com');
+  let lvl='A',flag='渡航前の特別な注意は少なめ',note='現状の数値からは大きな懸念は見られません。常用薬と緊急連絡先を整えましょう。';
+  const sys=parseInt((bp.split('/')[0]||''),10),a1=parseFloat(a1c||''),gl=parseInt(glu||'',10),bm=parseFloat(bmi||'');
+  if((a1&&a1>=6.5)||(gl&&gl>=126)||(sys&&sys>=160)){lvl='C';flag='医師相談を推奨';note='血糖・血圧などに注意したい数値があります。渡航前に医師へ相談しましょう。';}
+  else if((sys&&sys>=140)||(a1&&a1>=6.0)||(bm&&bm>=30)){lvl='B';flag='薬剤師・保険の確認を推奨';note='境界の数値があります。常用薬の確認と保険加入を確認しましょう。';}
+  state.checkup={bp,glu,a1c,bmi,com,lvl,flag,note};save();renderCheckupResult();toast('健診結果を反映しました');
+}
+/* =================== TOOLS: insurance =================== */
+function renderInsurance(){const ins=state.ins;const st=document.getElementById('insStatus');if(!st)return;
+  if(ins){st.innerHTML=`<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:var(--jp);font-size:16px">${ins.co||'登録済み'}</b><span class="lvl A">加入</span></div><div class="muted" style="font-size:13px;margin-top:4px">証券 ${ins.no||'—'}${ins.cov?'・'+ins.cov:''}</div>${ins.tel?`<div style="margin-top:8px">緊急アシスタンス：<a href="tel:${ins.tel}" style="color:var(--deep);font-weight:600">${ins.tel}</a></div>`:''}</div>`;
+    [['co','in-co'],['no','in-no'],['cov','in-cov'],['tel','in-tel']].forEach(([k,id])=>{const e=document.getElementById(id);if(e)e.value=ins[k]||'';});
+    document.getElementById('insGuide').innerHTML='緊急アシスタンスの番号は、緊急医療カードにも自動で表示されます。';
+  } else {st.innerHTML='';document.getElementById('insGuide').innerHTML='まだ保険が登録されていません。海外は治療費が高額になりやすいため、未加入の場合は加入の検討をおすすめします。';}
+}
+function saveInsurance(){const co=val('in-co'),no=val('in-no'),cov=val('in-cov'),tel=val('in-tel');if(!co&&!no){toast('保険会社か証券番号を入力してください');return;}state.ins={co,no,cov,tel};state.profile.insurance=co?co+'（加入）':'加入';save();renderInsurance();toast('保険情報を保存しました');}
+/* =================== TOOLS: wearable =================== */
+function renderWearable(){const box=document.getElementById('wearBody');if(!box)return;const w=state.wearable;
+  if(!w.connected){box.innerHTML=`<div class="card" style="text-align:center;padding:26px"><div style="font-size:40px">⌚</div><p class="jp" style="margin:10px 0 16px;color:var(--muted)">Apple ヘルスケア / Google Fit / Fitbit などと連携して、心拍・歩数・睡眠・血中酸素を取り込みます。</p><button class="btn coral" onclick="connectWear()">連携する（デモ）</button></div>`;return;}
+  const v=w.vitals;
+  box.innerHTML=`<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center"><b>${w.provider} と連携中</b><button class="statebtn" onclick="disconnectWear()">解除</button></div></div>
+    <div class="vitalgrid"><div class="vital"><b>${v.hr}</b><small>心拍 bpm</small></div><div class="vital"><b>${v.spo2}%</b><small>血中酸素</small></div><div class="vital"><b>${v.steps.toLocaleString()}</b><small>歩数 / 日</small></div><div class="vital"><b>${v.sleep}h</b><small>睡眠</small></div></div>
+    <div class="card" style="margin-top:14px"><div class="shareitem" style="border:0;padding:4px 0"><div class="lab"><b>相談時に医師へ共有</b><small>オンライン相談のときに体調データを見せます</small></div><label class="sw"><input type="checkbox" ${w.share?'checked':''} onchange="state.wearable.share=this.checked;save()"><i></i></label></div></div>
+    <div class="callout jp">渡航中の心拍・睡眠の変化は、時差や体調の手がかりになります。気になる変化があれば早めに相談しましょう。</div>`;
+}
+function connectWear(){state.wearable={connected:true,provider:'Apple ヘルスケア',share:false,vitals:{hr:68,spo2:98,steps:7820,sleep:6.8}};save();renderWearable();toast('連携しました（デモデータ）');}
+function disconnectWear(){state.wearable={connected:false,share:false,vitals:null};save();renderWearable();}
 
 /* =================== MISC =================== */
 let toastT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
